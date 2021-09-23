@@ -78,3 +78,29 @@ func TestSortedSquares2(t *testing.T) {
 	res := sortedSquares2(testSlice)
 	assert.Equal(t, []int{0, 1, 9, 16, 100}, res)
 }
+
+func TestMinSubArrayLen(t *testing.T) {
+
+	testSlice := []int{2, 3, 1, 2, 4, 3}
+	res := minSubArrayLen(7, testSlice)
+	assert.Equal(t, 2, res)
+
+	res = minSubArrayLen(100, testSlice)
+	assert.Equal(t, 0, res)
+
+	res = minSubArrayLen(1, testSlice)
+	assert.Equal(t, 1, res)
+}
+
+func TestMinSubArrayLen2(t *testing.T) {
+
+	testSlice := []int{2, 3, 1, 2, 4, 3}
+	res := minSubArrayLen2(7, testSlice)
+	assert.Equal(t, 2, res)
+
+	res = minSubArrayLen2(100, testSlice)
+	assert.Equal(t, 0, res)
+
+	res = minSubArrayLen2(1, testSlice)
+	assert.Equal(t, 1, res)
+}

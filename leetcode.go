@@ -185,3 +185,70 @@ func sortedSquares2(nums []int) []int {
 
 	return res
 }
+
+/**
+qn:209
+给定一个含有 n 个正整数的数组和一个正整数 target 。
+找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。
+如果不存在符合条件的子数组，返回 0 。
+
+输入：target = 7, nums = [2,3,1,2,4,3]
+输出：2
+解释：子数组 [4,3] 是该条件下的长度最小的子数组。
+**/
+func minSubArrayLen(target int, nums []int) int {
+
+	var sum, left, minSub, right = 0, 0, 0, 0
+
+	for left = 0; left < len(nums); left++ {
+
+		sum = 0
+		for right = left; right < len(nums); right++ {
+
+			sum += nums[right]
+			if sum >= target {
+
+				sub := right - left + 1
+				sum = 0
+				//第一次查找到符合条件的子串
+				if minSub == 0 {
+					minSub = sub
+				} else {
+					//当前子串比目前已经找到的子串少
+					if sub < minSub {
+						minSub = sub
+					}
+				}
+
+			}
+
+		}
+	}
+
+	return minSub
+}
+
+func minSubArrayLen2(target int, nums []int) int {
+
+	var sum, left, minSub, right = 0, 0, 0, 0
+
+	for right = 0; right < len(nums); right++ {
+		sum += nums[right]
+
+		//查找到符合条件的子串, 1.当r=length的时候不会跳出
+		for sum >= target {
+
+			sub := right - left + 1
+
+			if minSub == 0 || sub < minSub {
+				minSub = sub
+			}
+
+			//左指针加1且和去掉当前左指针的值
+			sum -= nums[left]
+			left++
+		}
+
+	}
+	return minSub
+}
