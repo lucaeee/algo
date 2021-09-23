@@ -64,3 +64,17 @@ func TestRemoveElement2(t *testing.T) {
 	res = removeElement2(testSlice, 2)
 	assert.Equal(t, 5, res)
 }
+
+func TestSortedSquares(t *testing.T) {
+
+	testSlice := []int{-4, -1, 0, 3, 10}
+	res := sortedSquares(testSlice)
+	assert.Equal(t, []int{0, 1, 9, 16, 100}, res)
+}
+
+func TestSortedSquares2(t *testing.T) {
+
+	testSlice := []int{-4, -1, 0, 3, 10}
+	res := sortedSquares2(testSlice)
+	assert.Equal(t, []int{0, 1, 9, 16, 100}, res)
+}

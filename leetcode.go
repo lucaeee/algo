@@ -1,6 +1,9 @@
 package algo
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 /**
 qn:704
@@ -124,4 +127,61 @@ func removeElement2(nums []int, val int) int {
 	}
 
 	return slow
+}
+
+/**
+qn:977
+给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
+输入：nums = [-4,-1,0,3,10]
+输出：[0,1,9,16,100]
+解释：平方后，数组变为 [16,1,0,9,100]
+排序后，数组变为 [0,1,9,16,100]
+**/
+func sortedSquares(nums []int) []int {
+
+	for k, v := range nums {
+
+		if v < 0 {
+			nums[k] *= -1
+		}
+	}
+	sort.Ints(nums)
+
+	var res []int
+
+	for _, v := range nums {
+
+		res = append(res, v*v)
+	}
+
+	return res
+}
+
+//从最大值开始
+func sortedSquares2(nums []int) []int {
+
+	left, right := 0, len(nums)-1
+
+	var res []int
+
+	for {
+		leftVal := nums[left] * nums[left]
+		rightVal := nums[right] * nums[right]
+
+		if left == right {
+
+			res = append([]int{rightVal}, res...)
+			break
+		}
+		if rightVal >= leftVal {
+
+			res = append([]int{rightVal}, res...)
+			right--
+		} else {
+			res = append([]int{leftVal}, res...)
+			left++
+		}
+	}
+
+	return res
 }
