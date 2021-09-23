@@ -49,3 +49,18 @@ func TestRemoveElement(t *testing.T) {
 	res = removeElement(testSlice, 2)
 	assert.Equal(t, 1, res)
 }
+
+func TestRemoveElement2(t *testing.T) {
+
+	testSlice := []int{1, 1, 2, 3, 1, 3}
+	res := removeElement2(testSlice, 1)
+	assert.Equal(t, 3, res)
+
+	testSlice = []int{1, 1, 2, 3, 1, 3}
+	res = removeElement2(testSlice, 3)
+	assert.Equal(t, 4, res)
+
+	testSlice = []int{1, 1, 2, 3, 1, 3}
+	res = removeElement2(testSlice, 2)
+	assert.Equal(t, 5, res)
+}

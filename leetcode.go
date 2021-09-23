@@ -104,3 +104,24 @@ func removeElement(nums []int, val int) int {
 		}
 	}
 }
+
+/**
+不改变顺序
+**/
+func removeElement2(nums []int, val int) int {
+
+	length := len(nums)
+
+	//指针重合时指向的是待删除的元素
+	slow := 0
+
+	for fast := 0; fast < length; fast++ {
+
+		if nums[fast] != val {
+			nums[slow] = nums[fast]
+			slow++
+		}
+	}
+
+	return slow
+}
