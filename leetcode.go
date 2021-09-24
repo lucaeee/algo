@@ -393,3 +393,62 @@ func reverseList(head *ListNode) *ListNode {
 
 	return newHead
 }
+
+/**
+24. 两两交换链表中的节点
+给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+
+你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换
+1234
+2143
+**/
+func swapPairs(head *ListNode) *ListNode {
+	//占位头节点
+	virtualHead := &ListNode{
+		Next: head,
+	}
+	// pre := virtualHead
+
+	return virtualHead.Next
+
+}
+
+/**
+qn:19. 删除链表的倒数第 N 个结点
+给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+
+进阶：你能尝试使用一趟扫描实现吗？
+输入：head = [1,2,3,4,5], n = 2
+输出：[1,2,3,5]
+**/
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+
+	fast := 1
+	slowNode, fastNode := head, head
+
+	var pre *ListNode
+	for ; fast < n; fast++ {
+		fastNode = fastNode.Next
+	}
+
+	for fastNode.Next != nil {
+
+		pre = slowNode
+		slowNode = slowNode.Next
+		fastNode = fastNode.Next
+	}
+
+	//删除头节点
+	if pre == nil {
+
+		return head.Next
+	} else {
+
+		if fastNode != slowNode {
+			pre.Next = fastNode
+		} else {
+			pre.Next = nil
+		}
+		return head
+	}
+}

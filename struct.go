@@ -25,3 +25,16 @@ func GeneralLinkList(data []int) *ListNode {
 
 	return head
 }
+func (head *ListNode) getListValues() []int {
+	var res []int
+
+	current := head
+
+	for current != nil {
+		res = append(res, current.Val)
+		current = current.Next
+	}
+
+	return res
+
+}

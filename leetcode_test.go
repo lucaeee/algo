@@ -139,3 +139,33 @@ func TestReverseList(t *testing.T) {
 	assert.Equal(t, 2, newHead.Next.Next.Val)
 	assert.Equal(t, 1, newHead.Next.Next.Next.Val)
 }
+
+func TestSwapPairs(t *testing.T) {
+
+	testSlice := []int{1, 2, 3, 4}
+	res := GeneralLinkList(testSlice)
+	swap := swapPairs(res)
+	t.Logf("swap %v", swap)
+	swapSlice := swap.getListValues()
+	assert.Equal(t, []int{2, 1, 4, 3}, swapSlice)
+
+}
+
+func TestRemoveNthFromEnd(t *testing.T) {
+
+	testSlice := []int{1, 2, 3, 4, 5}
+	head := GeneralLinkList(testSlice)
+	after := removeNthFromEnd(head, 2)
+	assert.Equal(t, []int{1, 2, 3, 5}, after.getListValues())
+
+	testSlice = []int{1, 2, 3, 4, 5}
+	head = GeneralLinkList(testSlice)
+	after = removeNthFromEnd(head, 1)
+	assert.Equal(t, []int{1, 2, 3, 4}, after.getListValues())
+
+	testSlice = []int{1, 2, 3, 4, 5}
+	head = GeneralLinkList(testSlice)
+	after = removeNthFromEnd(head, 5)
+	assert.Equal(t, []int{2, 3, 4, 5}, after.getListValues())
+
+}
