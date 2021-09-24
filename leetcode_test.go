@@ -127,3 +127,15 @@ func TestRemoveElements(t *testing.T) {
 	assert.Equal(t, 6, res.Next.Val)
 
 }
+
+func TestReverseList(t *testing.T) {
+
+	testSlice := []int{1, 2, 3, 4}
+
+	res := GeneralLinkList(testSlice)
+	newHead := reverseList(res)
+	assert.Equal(t, 4, newHead.Val)
+	assert.Equal(t, 3, newHead.Next.Val)
+	assert.Equal(t, 2, newHead.Next.Next.Val)
+	assert.Equal(t, 1, newHead.Next.Next.Next.Val)
+}

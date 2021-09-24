@@ -369,3 +369,27 @@ func removeElements(head *ListNode, val int) *ListNode {
 
 	return newHead
 }
+
+/*
+206. 反转链表
+给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+修改后继接地那
+*/
+func reverseList(head *ListNode) *ListNode {
+
+	var prev, newHead *ListNode
+
+	prev, current, newHead := nil, head, nil
+
+	for current != nil {
+		beforeNext := current.Next
+		current.Next = prev
+
+		newHead = current
+
+		prev = current
+		current = beforeNext
+	}
+
+	return newHead
+}
