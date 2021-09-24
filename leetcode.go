@@ -252,3 +252,86 @@ func minSubArrayLen2(target int, nums []int) int {
 	}
 	return minSub
 }
+
+/**
+59. 螺旋矩阵 II
+给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
+**/
+
+func generateMatrix(n int) [][]int {
+
+	var res [][]int
+	//init
+	for i := 1; i <= n; i++ {
+
+		tmp := make([]int, n)
+		res = append(res, tmp)
+	}
+
+	var xMax, yMax = n - 1, n - 1
+	var xMin, yMin = 0, 0
+
+	var x, y = 0, 0
+
+	i := 1
+
+	for i <= n*n {
+
+		//左上角顶点 左右
+		if x == xMin && y == yMin {
+
+			for y <= yMax {
+				fmt.Println(i)
+				res[x][y] = i
+				y++
+				i++
+			}
+			// xMin++
+			y--
+		}
+		//有上角顶点 上下
+		if y == yMax && x == xMin {
+			xMin++
+			x = xMin
+			for x <= xMax {
+				fmt.Println(i)
+				res[x][y] = i
+				i++
+				x++
+			}
+			x--
+		}
+		//右下角顶点  右左
+		if y == yMax && x == xMax {
+
+			yMax--
+			y = yMax
+			for y <= yMax && y >= yMin {
+				fmt.Println(i)
+				res[x][y] = i
+				i++
+				y--
+			}
+
+			y++
+		}
+		//左下角顶点 下上
+		if x == xMax && y == yMin {
+
+			xMax--
+			x = xMax
+			for x <= xMax && x >= xMin {
+				fmt.Println(i)
+				res[x][y] = i
+				i++
+				x--
+			}
+			yMin++
+			y = yMin
+			x++
+		}
+
+	}
+	fmt.Println(res)
+	return res
+}
