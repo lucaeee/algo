@@ -111,3 +111,19 @@ func TestGenerateMatrix(t *testing.T) {
 
 	assert.EqualValues(t, [][]int{{1, 2, 3, 4, 5}, {16, 17, 18, 19, 6}, {15, 24, 25, 20, 7}, {14, 23, 22, 21, 8}, {13, 12, 11, 10, 9}}, res)
 }
+
+func TestRemoveElements(t *testing.T) {
+
+	testSlice := []int{1, 2, 6, 3, 4, 5, 6}
+	head := GeneralLinkList(testSlice)
+	res := removeElements(head, 1)
+	assert.Equal(t, 2, res.Val)
+	assert.Equal(t, 6, res.Next.Val)
+
+	testSlice = []int{1, 2, 6, 3, 4, 5, 6}
+	head = GeneralLinkList(testSlice)
+	res = removeElements(head, 2)
+	assert.Equal(t, 1, res.Val)
+	assert.Equal(t, 6, res.Next.Val)
+
+}

@@ -335,3 +335,37 @@ func generateMatrix(n int) [][]int {
 	fmt.Println(res)
 	return res
 }
+
+/**
+qn:203
+给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。
+输入：head = [1,2,6,3,4,5,6], val = 6
+输出：[1,2,3,4,5]
+**/
+func removeElements(head *ListNode, val int) *ListNode {
+
+	var newHead, lastNotEqualNode *ListNode
+
+	current := head
+
+	for current != nil {
+
+		if current.Val == val {
+
+			if lastNotEqualNode != nil {
+
+				lastNotEqualNode.Next = current.Next
+			}
+		} else {
+
+			if lastNotEqualNode == nil {
+				newHead = current
+			}
+			lastNotEqualNode = current
+		}
+
+		current = current.Next
+	}
+
+	return newHead
+}
