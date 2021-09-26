@@ -169,3 +169,27 @@ func TestRemoveNthFromEnd(t *testing.T) {
 	assert.Equal(t, []int{2, 3, 4, 5}, after.getListValues())
 
 }
+
+func TestRemoveNthFromEnd2(t *testing.T) {
+
+	testSlice := []int{1, 2, 3, 4, 5}
+	head := GeneralLinkList(testSlice)
+	after := removeNthFromEnd2(head, 2)
+	assert.Equal(t, []int{1, 2, 3, 5}, after.getListValues())
+
+	testSlice = []int{1, 2, 3, 4, 5}
+	head = GeneralLinkList(testSlice)
+	after = removeNthFromEnd2(head, 1)
+	assert.Equal(t, []int{1, 2, 3, 4}, after.getListValues())
+
+	testSlice = []int{1, 2, 3, 4, 5}
+	head = GeneralLinkList(testSlice)
+	after = removeNthFromEnd2(head, 5)
+	assert.Equal(t, []int{2, 3, 4, 5}, after.getListValues())
+
+	testSlice = []int{1, 2, 3, 4, 5}
+	head = GeneralLinkList(testSlice)
+	after = removeNthFromEnd2(head, 6)
+	assert.Equal(t, []int{1, 2, 3, 4, 5}, after.getListValues())
+
+}

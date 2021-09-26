@@ -452,3 +452,25 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 		return head
 	}
 }
+
+func removeNthFromEnd2(head *ListNode, n int) *ListNode {
+
+	virtualHead := &ListNode{Next: head}
+
+	slowNode, fastNode := virtualHead, virtualHead
+
+	i := 0
+	for i = 0; fastNode.Next != nil; i++ {
+
+		if i >= n {
+			slowNode = slowNode.Next
+		}
+		fastNode = fastNode.Next
+	}
+
+	if n <= i {
+
+		slowNode.Next = slowNode.Next.Next
+	}
+	return virtualHead.Next
+}
