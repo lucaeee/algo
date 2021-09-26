@@ -205,3 +205,13 @@ func TestGetIntersectionNode(t *testing.T) {
 	head2.Next.Next = head1.Next.Next //3
 	assert.Equal(t, head2.Next.Next, GetIntersectionNode(head1, head2))
 }
+
+func TestDetectCycle(t *testing.T) {
+
+	testSlice := []int{1, 2, 3, 4, 5}
+	head := GeneralLinkList(testSlice)
+	head.Next.Next.Next.Next.Next = head
+	cycle := DetectCycle(head)
+	assert.Equal(t, head, cycle)
+
+}
