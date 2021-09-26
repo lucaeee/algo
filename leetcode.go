@@ -540,3 +540,56 @@ func DetectCycle(head *ListNode) *ListNode {
 }
 
 //todo 双指针
+
+/**----hash-----***/
+
+/**
+qn:242. 有效的字母异位词
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
+输入: s = "anagram", t = "nagaram"
+输出: true
+
+输入: s = "rat", t = "car"
+输出: false
+**/
+func IsAnagram(s string, t string) bool {
+
+	res := true
+
+	sBytes := []byte(s)
+	tBytes := []byte(t)
+	sMap, tMap := make(map[byte]int), make(map[byte]int)
+	for _, v := range sBytes {
+
+		count, ok := sMap[v]
+		if ok {
+			sMap[v] = count + 1
+		} else {
+			sMap[v] = 1
+		}
+	}
+	for _, v := range tBytes {
+
+		count, ok := tMap[v]
+		if ok {
+			tMap[v] = count + 1
+		} else {
+			tMap[v] = 1
+		}
+	}
+
+	for k, v := range sMap {
+
+		count, ok := tMap[k]
+
+		if !ok || count != v {
+			res = false
+			break
+		}
+	}
+
+	return res
+	//法2 加1减1
+}

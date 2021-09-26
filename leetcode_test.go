@@ -215,3 +215,12 @@ func TestDetectCycle(t *testing.T) {
 	assert.Equal(t, head, cycle)
 
 }
+
+func TestIsAnagram(t *testing.T) {
+
+	res := IsAnagram("anagram", "nagaram")
+	assert.Equal(t, true, res)
+
+	res = IsAnagram("rat", "car")
+	assert.Equal(t, false, res)
+}
