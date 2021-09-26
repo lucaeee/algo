@@ -400,7 +400,7 @@ func reverseList(head *ListNode) *ListNode {
 
 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换
 1234
-2143
+2143 todo
 **/
 func swapPairs(head *ListNode) *ListNode {
 	//占位头节点
@@ -474,3 +474,35 @@ func removeNthFromEnd2(head *ListNode, n int) *ListNode {
 	}
 	return virtualHead.Next
 }
+
+/**
+面试题 02.07. 链表相交
+给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。
+**/
+
+func GetIntersectionNode(headA, headB *ListNode) *ListNode {
+	headAmap := map[*ListNode]bool{}
+	var res *ListNode
+
+	a := headA
+
+	for a != nil {
+		headAmap[a] = true
+		a = a.Next
+	}
+
+	b := headB
+	for b != nil {
+		_, ok := headAmap[b]
+
+		if ok {
+			res = b
+			break
+		}
+		b = b.Next
+	}
+
+	return res
+}
+
+//todo

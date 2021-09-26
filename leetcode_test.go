@@ -193,3 +193,15 @@ func TestRemoveNthFromEnd2(t *testing.T) {
 	assert.Equal(t, []int{1, 2, 3, 4, 5}, after.getListValues())
 
 }
+
+func TestGetIntersectionNode(t *testing.T) {
+
+	slice1 := []int{1, 2, 3, 4, 5}
+	head1 := GeneralLinkList(slice1)
+
+	slice2 := []int{7, 8}
+	head2 := GeneralLinkList(slice2)
+
+	head2.Next.Next = head1.Next.Next //3
+	assert.Equal(t, head2.Next.Next, GetIntersectionNode(head1, head2))
+}
