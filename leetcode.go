@@ -593,3 +593,39 @@ func IsAnagram(s string, t string) bool {
 	return res
 	//法2 加1减1
 }
+
+//todo 1002. 查找常用字符 看不懂题目
+
+/**
+qn:349. 两个数组的交集
+给定两个数组，编写一个函数来计算它们的交集。
+输入：nums1 = [1,2,2,1], nums2 = [2,2]
+输出：[2]
+
+输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出：[9,4]
+**/
+func Intersection(nums1 []int, nums2 []int) []int {
+
+	var res []int
+	var resMap = make(map[int]bool)
+	var nums1Map = make(map[int]bool)
+
+	for _, v := range nums1 {
+		nums1Map[v] = true
+	}
+
+	for _, v := range nums2 {
+
+		_, ok := nums1Map[v]
+		if ok {
+			resMap[v] = true
+		}
+	}
+
+	for k, _ := range resMap {
+		res = append(res, k)
+	}
+
+	return res
+}

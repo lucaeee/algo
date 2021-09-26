@@ -224,3 +224,13 @@ func TestIsAnagram(t *testing.T) {
 	res = IsAnagram("rat", "car")
 	assert.Equal(t, false, res)
 }
+
+func TestIntersection(t *testing.T) {
+
+	res := Intersection([]int{1, 2, 2, 1}, []int{2, 2})
+	assert.Equal(t, []int{2}, res)
+
+	res = Intersection([]int{4, 9, 5}, []int{9, 4, 9, 8, 4})
+	assert.Equal(t, []int{9, 4}, res)
+
+}
