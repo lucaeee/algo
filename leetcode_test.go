@@ -234,3 +234,12 @@ func TestIntersection(t *testing.T) {
 	assert.Equal(t, []int{9, 4}, res)
 
 }
+
+func TestIsHappy(t *testing.T) {
+
+	// res := IsHappy(19)
+	// assert.Equal(t, true, res)
+
+	res := IsHappy(2)
+	assert.Equal(t, false, res)
+}
