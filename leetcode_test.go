@@ -243,3 +243,10 @@ func TestIsHappy(t *testing.T) {
 	res := IsHappy(2)
 	assert.Equal(t, false, res)
 }
+
+func TestTwoSum(t *testing.T) {
+
+	testSlice := []int{2, 7, 11, 15}
+
+	assert.Equal(t, []int{0, 1}, TwoSum(testSlice, 9))
+}
