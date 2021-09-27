@@ -250,3 +250,8 @@ func TestTwoSum(t *testing.T) {
 
 	assert.Equal(t, []int{0, 1}, TwoSum(testSlice, 9))
 }
+
+func TestFourSumCount(t *testing.T) {
+
+	assert.Equal(t, 2, FourSumCount([]int{1, 2}, []int{-2, -1}, []int{-1, 2}, []int{0, 2}))
+}

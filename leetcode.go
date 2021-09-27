@@ -709,3 +709,41 @@ func TwoSum(nums []int, target int) []int {
 
 	return res
 }
+
+/**
+454. 四数相加 II
+给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。
+
+为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -228 到 228 - 1 之间，最终结果不会超过 231 - 1 。
+
+输入:
+A = [ 1, 2]
+B = [-2,-1]
+C = [-1, 2]
+D = [ 0, 2]
+
+输出:
+2
+次数次数--不用考虑重复的情况
+
+解释:
+两个元组如下:
+1. (0, 0, 0, 1) -> A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0
+2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
+**/
+func FourSumCount(nums1 []int, nums2 []int, nums3 []int, nums4 []int) int {
+
+	m := make(map[int]int)
+	count := 0
+	for _, v1 := range nums1 {
+		for _, v2 := range nums2 {
+			m[v1+v2]++
+		}
+	}
+	for _, v3 := range nums3 {
+		for _, v4 := range nums4 {
+			count += m[-v3-v4]
+		}
+	}
+	return count
+}
