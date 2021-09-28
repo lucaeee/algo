@@ -632,7 +632,7 @@ func Intersection(nums1 []int, nums2 []int) []int {
 }
 
 /**
-202. 快乐数
+qn:202. 快乐数
 编写一个算法来判断一个数 n 是不是快乐数。
 
 「快乐数」定义为：
@@ -712,7 +712,7 @@ func TwoSum(nums []int, target int) []int {
 }
 
 /**
-454. 四数相加 II
+qn:454. 四数相加 II
 给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。
 
 为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -228 到 228 - 1 之间，最终结果不会超过 231 - 1 。
@@ -796,7 +796,7 @@ func CanConstruct(ransomNote string, magazine string) bool {
 }
 
 /**
-15. 三数之和
+qn:15. 三数之和
 
 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
 注意：答案中不可以包含重复的三元组。
@@ -860,7 +860,7 @@ func ThreeSum(nums []int) [][]int {
 //todo 排序双指针
 
 /**
-18. 四数之和
+qn:18. 四数之和
 给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] ：
 
 0 <= a, b, c, d < n
@@ -920,4 +920,38 @@ func FourSum(nums []int, target int) [][]int {
 	}
 
 	return res
+}
+
+/***-----string----**/
+
+/*
+qn:344. 反转字符串
+编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。
+
+不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+示例 1：
+输入：s = ["h","e","l","l","o"]
+输出：["o","l","l","e","h"]
+示例 2：
+输入：s = ["H","a","n","n","a","h"]
+输出：["h","a","n","n","a","H"]
+*/
+func ReverseString(s []byte) {
+
+	if len(s) <= 1 {
+
+		return
+	}
+
+	left, right := 0, len(s)-1
+
+	for left != right {
+
+		s[left], s[right] = s[right], s[left]
+
+		left++
+		right--
+	}
+
+	fmt.Println(string(s))
 }

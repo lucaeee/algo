@@ -271,3 +271,9 @@ func TestFourSum(t *testing.T) {
 
 	_ = FourSum([]int{-2, -2, -2, -2, 1, 0, -1, 0, -2, 2}, 100)
 }
+
+func TestReverseString(t *testing.T) {
+
+	test := "hello"
+	ReverseString([]byte(test))
+}
