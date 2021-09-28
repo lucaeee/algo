@@ -266,3 +266,8 @@ func TestCanConstruct(t *testing.T) {
 func TestThreeSum(t *testing.T) {
 	_ = ThreeSum([]int{-1, 0, 1, 2, -1, -4})
 }
+
+func TestFourSum(t *testing.T) {
+
+	_ = FourSum([]int{1, 0, -1, 0, -2, 2}, 0)
+}

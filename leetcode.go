@@ -858,3 +858,58 @@ func ThreeSum(nums []int) [][]int {
 }
 
 //todo 排序双指针
+
+/**
+18. 四数之和
+给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] ：
+
+0 <= a, b, c, d < n
+a、b、c 和 d 互不相同
+nums[a] + nums[b] + nums[c] + nums[d] == target
+你可以按 任意顺序 返回答案 。
+
+示例 1：
+输入：nums = [1,0,-1,0,-2,2], target = 0
+输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+
+示例 2：
+输入：nums = [2,2,2,2,2], target = 8
+输出：[[2,2,2,2]]
+**/
+func FourSum(nums []int, target int) [][]int {
+	var res [][]int
+
+	if len(nums) <= 3 {
+		return res
+	}
+
+	//升序排序
+	sort.Ints(nums)
+	// fmt.Println(nums)
+	for n1 := 0; n1 <= len(nums)-4; n1++ {
+
+		for n2 := n1 + 1; n2 <= len(nums)-3; n2++ {
+
+			for left, right := n2+1, len(nums)-1; left != right; {
+				//相交跳出
+				// if left == right {
+				// break
+				// }
+				sum := nums[n1] + nums[n2] + nums[left] + nums[right]
+				if sum < target {
+					left++
+				} else if sum > target {
+					right--
+				} else if sum == target {
+					//找到相等的元素
+					tmp := []int{nums[n1], nums[n2], nums[left], nums[right]}
+					fmt.Println(tmp)
+					res = append(res, tmp)
+					break
+				}
+			}
+		}
+	}
+
+	return res
+}
