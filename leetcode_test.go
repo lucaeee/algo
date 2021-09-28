@@ -255,3 +255,10 @@ func TestFourSumCount(t *testing.T) {
 
 	assert.Equal(t, 2, FourSumCount([]int{1, 2}, []int{-2, -1}, []int{-1, 2}, []int{0, 2}))
 }
+
+func TestCanConstruct(t *testing.T) {
+
+	assert.Equal(t, false, CanConstruct("a", "b"))
+	assert.Equal(t, false, CanConstruct("aa", "ab"))
+	assert.Equal(t, true, CanConstruct("aa", "aab"))
+}
