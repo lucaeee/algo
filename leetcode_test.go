@@ -262,3 +262,7 @@ func TestCanConstruct(t *testing.T) {
 	assert.Equal(t, false, CanConstruct("aa", "ab"))
 	assert.Equal(t, true, CanConstruct("aa", "aab"))
 }
+
+func TestThreeSum(t *testing.T) {
+	_ = ThreeSum([]int{-1, 0, 1, 2, -1, -4})
+}

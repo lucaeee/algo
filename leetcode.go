@@ -1,6 +1,7 @@
 package algo
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
 )
@@ -793,3 +794,67 @@ func CanConstruct(ransomNote string, magazine string) bool {
 
 	return res
 }
+
+/**
+15. 三数之和
+
+给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
+注意：答案中不可以包含重复的三元组。
+
+示例 1：
+输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+示例 2：
+输入：nums = []
+输出：[]
+示例 3：
+输入：nums = [0]
+输出：[]
+**/
+func ThreeSum(nums []int) [][]int {
+
+	var res [][]int
+
+	resMap := make(map[string]int)
+
+	numsMap := make(map[int]int)
+
+	if len(nums) < 3 {
+		return res
+	}
+
+	//记录同一个值出现的次数
+	for _, v := range nums {
+
+		numsMap[v]++
+	}
+
+	//组合出a+b所有可能的值
+	for i := 0; i < len(nums); i++ {
+		nums[i], nums[0] = nums[0], nums[i]
+		for j := 1; j < len(nums); j++ {
+
+			poor := nums[0] + nums[j]
+			numsMap[nums[0]]--
+			numsMap[nums[j]]--
+			if numsMap[-poor] >= 1 {
+				tmp := []int{-poor, nums[0], nums[j]}
+				sort.Ints(tmp)
+				js, _ := json.Marshal(tmp)
+				//结果集中不存在
+				if resMap[string(js)] <= 0 {
+					resMap[string(js)] = 1
+					res = append(res, tmp)
+				}
+			}
+			numsMap[nums[0]]++
+			numsMap[nums[j]]++
+
+		}
+		nums[i], nums[0] = nums[0], nums[i]
+	}
+	fmt.Println(res)
+	return res
+}
+
+//todo 排序双指针
