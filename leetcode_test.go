@@ -277,3 +277,15 @@ func TestReverseString(t *testing.T) {
 	test := "hello"
 	ReverseString([]byte(test))
 }
+
+func TestReverseStr(t *testing.T) {
+
+	test := "abcdefg"
+	res := ReverseStr(test, 2)
+	assert.Equal(t, "bacdfeg", res)
+
+	test = "abcd"
+	res = ReverseStr(test, 2)
+	assert.Equal(t, "bacd", res)
+
+}

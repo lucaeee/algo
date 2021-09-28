@@ -955,3 +955,59 @@ func ReverseString(s []byte) {
 
 	fmt.Println(string(s))
 }
+
+/**
+qn:541. 反转字符串 II
+给定一个字符串 s 和一个整数 k，从字符串开头算起，每计数至 2k 个字符，就反转这 2k 字符中的前 k 个字符。
+
+如果剩余字符少于 k 个，则将剩余字符全部反转。
+如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。
+
+
+示例 1：
+
+输入：s = "abcdefg", k = 2
+输出："bacdfeg"
+示例 2：
+
+输入：s = "abcd", k = 2
+输出："bacd"
+**/
+func ReverseStr(s string, k int) string {
+
+	var res string
+	sBytes := []byte(s)
+	//k =1 没意义不判断
+
+	rev := func(s []byte, left int, right int) {
+
+		for left < right {
+			s[left], s[right] = s[right], s[left]
+			left++
+			right--
+		}
+	}
+
+	start := 0
+	for i := 0; i < len(sBytes); i++ {
+
+		if (i+1)%(2*k) == 0 {
+			//反转前k个
+			rev(sBytes, start, start+k-1)
+			start = i + 1
+		}
+	}
+
+	//剩余字符个数
+	remain := len(sBytes) - start
+	//剩余字符小于k个
+	if remain < k {
+
+		rev(sBytes, start, len(sBytes)-1)
+	} else if remain >= k {
+		rev(sBytes, start, start+k-1)
+	}
+	res = string(sBytes)
+	fmt.Println(res)
+	return res
+}
