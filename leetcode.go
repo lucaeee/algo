@@ -888,18 +888,26 @@ func FourSum(nums []int, target int) [][]int {
 	// fmt.Println(nums)
 	for n1 := 0; n1 <= len(nums)-4; n1++ {
 
+		//两个元素相等直接走下一个
+		if n1 > 0 && nums[n1] == nums[n1-1] {
+
+			continue
+		}
 		for n2 := n1 + 1; n2 <= len(nums)-3; n2++ {
 
 			for left, right := n2+1, len(nums)-1; left != right; {
-				//相交跳出
-				// if left == right {
-				// break
-				// }
+
 				sum := nums[n1] + nums[n2] + nums[left] + nums[right]
 				if sum < target {
 					left++
+					if nums[left] == nums[left-1] {
+						continue
+					}
 				} else if sum > target {
 					right--
+					if nums[right] == nums[right-1] {
+						continue
+					}
 				} else if sum == target {
 					//找到相等的元素
 					tmp := []int{nums[n1], nums[n2], nums[left], nums[right]}

@@ -269,5 +269,5 @@ func TestThreeSum(t *testing.T) {
 
 func TestFourSum(t *testing.T) {
 
-	_ = FourSum([]int{1, 0, -1, 0, -2, 2}, 0)
+	_ = FourSum([]int{-2, -2, -2, -2, 1, 0, -1, 0, -2, 2}, 100)
 }
