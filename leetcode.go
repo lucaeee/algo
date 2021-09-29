@@ -1039,3 +1039,86 @@ func ReplaceSpace(s string) string {
 	return string(result)
 	//2. 扩容后从后到前替换
 }
+
+/**
+151. 翻转字符串里的单词
+给你一个字符串 s ，逐个翻转字符串中的所有 单词 。
+单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。
+请你返回一个翻转 s 中单词顺序并用单个空格相连的字符串。
+说明：
+
+输入字符串 s 可以在前面、后面或者单词间包含多余的空格。
+翻转后单词间应当仅用一个空格分隔。
+翻转后的字符串中不应包含额外的空格。
+
+输入：s = "  Bob    Loves  Alice   "
+输出："Alice Loves Bob"
+
+提示：
+1 <= s.length <= 104
+s 包含英文大小写字母、数字和空格 ' '
+s 中 至少存在一个 单词
+**/
+func ReverseWords(s string) string {
+
+	//[66 111 98 32 32 32 32 76 111 118 101 115 32 32 65 108 105 99 101 32 32 32]
+	// sBytes := []byte(s)
+
+	sBytes := []byte(s)
+	// fmt.Println(sBytes)
+	slow, fast := 0, 0
+
+	//fast指向第一个不为空的字符
+	for sBytes[fast] == 32 && fast < len(sBytes) {
+		fast++
+	}
+	//去除多余空格，整体前移
+	for fast < len(sBytes) {
+
+		//如果当前元素为空格且当前元素的前一个元素也为空则不用赋值：上一次循环已经赋值过一个空格了
+		if fast > 1 && sBytes[fast] == 32 && sBytes[fast] == sBytes[fast-1] {
+			//慢指针不动，快指针加1
+			fast++
+			// fmt.Println(fast)
+			continue
+		}
+		sBytes[slow] = sBytes[fast]
+		slow++
+		fast++
+	}
+	//去除尾部空格
+	if sBytes[slow-1] == 32 {
+		slow--
+	}
+	sBytes = sBytes[:slow]
+
+	reverse := func(sBytes []byte, left int, right int) {
+
+		for left < right {
+
+			sBytes[left], sBytes[right] = sBytes[right], sBytes[left]
+			left++
+			right--
+		}
+	}
+
+	//整个数组反转
+	reverse(sBytes, 0, len(sBytes)-1)
+	//反转每个空格的元素
+	start, end := 0, 0
+	for ; end < len(sBytes); end++ {
+
+		//反转
+		if sBytes[end] == 32 {
+			reverse(sBytes, start, end-1)
+			start = end + 1
+
+		}
+		//最后一次没有空格做标记需要再反转一次
+		if end == len(sBytes)-1 {
+			reverse(sBytes, start, end)
+		}
+	}
+
+	return string(sBytes)
+}

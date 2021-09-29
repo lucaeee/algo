@@ -296,3 +296,8 @@ func TestReplaceSpace(t *testing.T) {
 
 	assert.Equal(t, "We%20are%20happy", res)
 }
+
+func TestReverseWords(t *testing.T) {
+	res := ReverseWords("  Bob    Loves  Alice   ")
+	assert.Equal(t, "Alice Loves Bob", res)
+}
