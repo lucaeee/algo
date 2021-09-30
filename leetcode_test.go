@@ -301,3 +301,8 @@ func TestReverseWords(t *testing.T) {
 	res := ReverseWords("  Bob    Loves  Alice   ")
 	assert.Equal(t, "Alice Loves Bob", res)
 }
+
+func TestReverseLeftWords(t *testing.T) {
+
+	assert.Equal(t, "cdefgab", ReverseLeftWords("abcdefg", 2))
+}
