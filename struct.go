@@ -65,3 +65,43 @@ func (s *Stack) IsEmpty() bool {
 
     return len(s.Val) > 0 
 } 
+
+
+type Queue struct {
+    val []int
+}
+
+func (q *Queue) push (v int) {
+    q.val = append(q.val, v)
+}
+/*
+移除首部元素
+*/
+func (q *Queue) pop () {
+    
+    if len(q.val) <= 1 {
+        q.val = nil
+        return
+    }
+
+    q.val = q.val[1:]
+    return
+}
+/**
+返回首部元素
+**/
+func(q *Queue) peek () int {
+    
+    if len(q.val) == 0 {
+        return 0
+    }
+
+    return q.val[0]
+}
+/**
+判空
+**/
+func(q *Queue) empty() bool {
+    
+    return len(q.val) <= 0
+}
