@@ -38,3 +38,30 @@ func (head *ListNode) getListValues() []int {
 	return res
 
 }
+
+type Stack struct {
+    Val []int
+} 
+func (stack *Stack) Push (v int) {
+    stack.Val = append([]int{v}, stack.Val...)
+}
+func (stack *Stack) Pop() int {
+
+    if len(stack.Val) == 0 {
+       return 0 
+    }
+
+    res := stack.Val[0] 
+    
+    if len(stack.Val) > 1 {
+        stack.Val = stack.Val[1:]
+    }else {
+        stack.Val = nil
+    }
+
+    return res
+}
+func (s *Stack) IsEmpty() bool {
+
+    return len(s.Val) > 0 
+} 
