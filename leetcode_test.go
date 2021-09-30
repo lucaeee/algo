@@ -306,3 +306,10 @@ func TestReverseLeftWords(t *testing.T) {
 
 	assert.Equal(t, "cdefgab", ReverseLeftWords("abcdefg", 2))
 }
+
+func TestRepeatedSubstringPattern(t *testing.T) {
+
+	assert.Equal(t, true, RepeatedSubstringPattern("abab"))
+	assert.Equal(t, false, RepeatedSubstringPattern("aba"))
+	assert.Equal(t, true, RepeatedSubstringPattern("abcabcabcabc"))
+}

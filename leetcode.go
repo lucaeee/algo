@@ -1159,3 +1159,79 @@ func ReverseLeftWords(s string, n int) string {
 	reverse(sBytes, len(sBytes)-n, len(sBytes)-1)
 	return string(sBytes)
 }
+
+/**
+28. 实现 strStr()
+实现 strStr() 函数。
+
+给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。
+
+
+说明：
+
+当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
+对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与 C 语言的 strstr() 以及 Java 的 indexOf() 定义相符。
+
+
+示例 1：
+
+输入：haystack = "hello", needle = "ll"
+输出：2
+示例 2：
+
+输入：haystack = "aaaaa", needle = "bba"
+输出：-1
+示例 3：
+
+输入：haystack = "", needle = ""
+输出：0
+**/
+func strStr(haystack string, needle string) int {
+	//todo
+	return 1
+}
+
+/**
+qn:459. 重复的子字符串
+给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000。
+
+示例 1:
+输入: "abab"
+输出: True
+解释: 可由子字符串 "ab" 重复两次构成。
+
+示例 2:
+输入: "aba"
+输出: False
+示例 3:
+
+输入: "abcabcabcabc"
+输出: True
+解释: 可由子字符串 "abc" 重复四次构成。 (或者子字符串 "abcabc" 重复两次构成。)
+**/
+func RepeatedSubstringPattern(s string) bool {
+
+	sBytes := []byte(s)
+
+	for i := 1; i < len(sBytes)-1; i++ {
+		j := 0
+		fmt.Printf("sub %v", string(sBytes[:i]))
+		for k := i; k <= len(sBytes)-1; k++ {
+			//元素不相等
+			if sBytes[j] != sBytes[k] {
+				break
+			} else {
+				if k == len(sBytes)-1 {
+					fmt.Printf("|success %v", string(sBytes[:i]))
+					return true
+				}
+			}
+			j++
+			if j == i {
+				j = 0
+			}
+		}
+	}
+
+	return false
+}
