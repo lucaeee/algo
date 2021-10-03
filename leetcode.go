@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"sort"
-
-	"github.com/go-playground/locales/th"
 )
 
 /**
@@ -1287,37 +1285,39 @@ myQueue.empty(); // return false
 
 **/
 type MyQueue struct {
-   In *Stack
-   Out *Stack
+	In  *Stack
+	Out *Stack
 }
 
-func Constructor() MyQueue {
+//func Constructor() MyQueue {
 
+//}
+
+func (myQueue *MyQueue) Push(x int) {
+	myQueue.In.Push(x)
 }
 
-func (this *MyQueue) Push(x int) {
-    this.In.Push(x)
+func (myQueue *MyQueue) Pop() int {
+
+	if myQueue.In.IsEmpty() && myQueue.Out.IsEmpty() {
+
+		return 0
+	} else if myQueue.Out.IsEmpty() {
+
+		val := myQueue.In.Pop()
+		myQueue.Out.Push(val)
+	}
+
+	return myQueue.Out.Pop()
 }
 
-func (this *MyQueue) Pop() int {
+/*返回开头元素*/
+func (myQueue *MyQueue) Peek() int {
 
-    if this.In.IsEmpty() && this.Out.IsEmpty() {
-        
-        return 0
-    }else if this.Out.IsEmpty() {
-
-        val := this.In.Pop()
-        this.Out.Push(val)
-    }
-
-    return this.Out.Pop()
+	return 1
 }
 
-func (this *MyQueue) Peek() int {
-    return 1
-}
+func (myQueue *MyQueue) Empty() bool {
 
-func (this *MyQueue) Empty() bool {
-
-    return false
+	return false
 }

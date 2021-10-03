@@ -71,13 +71,13 @@ type Queue struct {
     val []int
 }
 
-func (q *Queue) push (v int) {
+func (q *Queue) Push (v int) {
     q.val = append(q.val, v)
 }
 /*
 移除首部元素
 */
-func (q *Queue) pop () {
+func (q *Queue) Pop () {
     
     if len(q.val) <= 1 {
         q.val = nil
@@ -90,7 +90,7 @@ func (q *Queue) pop () {
 /**
 返回首部元素
 **/
-func(q *Queue) peek () int {
+func(q *Queue) Peek () int {
     
     if len(q.val) == 0 {
         return 0
@@ -101,7 +101,12 @@ func(q *Queue) peek () int {
 /**
 判空
 **/
-func(q *Queue) empty() bool {
+func(q *Queue) Empty() bool {
     
     return len(q.val) <= 0
+}
+
+func (q *Queue) Size() int {
+
+    return len(q.val)
 }
