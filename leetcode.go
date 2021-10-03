@@ -1396,3 +1396,47 @@ func IsValid(s string) bool {
 
 	return true
 }
+
+/**
+qn:1047. 删除字符串中的所有相邻重复项
+给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+
+在 S 上反复执行重复项删除操作，直到无法继续删除。
+
+在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+
+示例：
+
+输入："abbaca"
+输出："ca"
+**/
+func RemoveDuplicates(s string) string {
+
+	sBytes := []byte(s)
+
+	stack := Stack{}
+	stack.Push(int(sBytes[0]))
+
+	peek := stack.Peek()
+
+	for i := 1; i < len(sBytes); i++ {
+
+		if peek != int(sBytes[i]) {
+			stack.Push(int(sBytes[i]))
+			peek = stack.Peek()
+		} else {
+			stack.Pop()
+			peek = stack.Peek()
+		}
+	}
+
+	var res []byte
+
+	//遍历要倒着来
+	for i := len(stack.Val) - 1; i >= 0; i-- {
+
+		res = append(res, byte(stack.Val[i]))
+	}
+
+	return string(res)
+}

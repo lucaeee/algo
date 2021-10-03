@@ -323,3 +323,8 @@ func TestIsValid(t *testing.T) {
 	assert.Equal(t, false, IsValid("([)]"))
 	assert.Equal(t, true, IsValid("{[]}"))
 }
+
+func TestRemoveDuplicates(t *testing.T) {
+
+	assert.Equal(t, "ca", RemoveDuplicates("abbaca"))
+}
