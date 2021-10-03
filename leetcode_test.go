@@ -328,3 +328,8 @@ func TestRemoveDuplicates(t *testing.T) {
 
 	assert.Equal(t, "ca", RemoveDuplicates("abbaca"))
 }
+
+func TestEvalRPN(t *testing.T) {
+
+	assert.Equal(t, 22, EvalRPN([]string{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}))
+}

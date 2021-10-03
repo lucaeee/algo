@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"sort"
+	"strconv"
 )
 
 /**
@@ -1439,4 +1440,62 @@ func RemoveDuplicates(s string) string {
 	}
 
 	return string(res)
+}
+
+/**
+qn:150. 逆波兰表达式求值
+根据 逆波兰表示法，求表达式的值。
+
+有效的算符包括 +、-、*、/ 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
+
+说明：
+
+整数除法只保留整数部分。
+给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。
+输入：tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+输出：22
+解释：
+该算式转化为常见的中缀算术表达式为：
+  ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
+= ((10 * (6 / (12 * -11))) + 17) + 5
+= ((10 * (6 / -132)) + 17) + 5
+= ((10 * 0) + 17) + 5
+= (0 + 17) + 5
+= 17 + 5
+= 22
+**/
+func EvalRPN(tokens []string) int {
+
+	stack := Stack{}
+	first, _ := strconv.Atoi(tokens[0])
+	stack.Push(first)
+	for i := 1; i < len(tokens); i++ {
+		fmt.Println("stack", stack)
+		if tokens[i] == "+" || tokens[i] == "-" || tokens[i] == "*" || tokens[i] == "/" {
+
+			opRes := 0
+			left := stack.Peek()
+			stack.Pop()
+			right := stack.Peek()
+			stack.Pop()
+			switch tokens[i] {
+			case "+":
+				opRes = left + right
+			case "-":
+				opRes = left - right
+			case "*":
+				opRes = left * right
+			case "/":
+				opRes = right / left
+
+			}
+			stack.Push(opRes)
+		} else {
+			first, _ := strconv.Atoi(tokens[i])
+			stack.Push(first)
+		}
+
+	}
+	fmt.Println("stack2", stack)
+	return stack.Peek()
 }
