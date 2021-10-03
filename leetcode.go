@@ -1,6 +1,7 @@
 package algo
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"sort"
@@ -1320,4 +1321,78 @@ func (myQueue *MyQueue) Peek() int {
 func (myQueue *MyQueue) Empty() bool {
 
 	return false
+}
+
+/**
+20. 有效的括号
+给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
+
+有效字符串需满足：
+
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+
+输入：s = "()"
+输出：true
+
+输入：s = "()[]{}"
+输出：true
+
+输入：s = "(]"
+输出：false
+
+输入：s = "([)]"
+输出：false
+
+输入：s = "{[]}"
+输出：true
+**/
+func IsValid(s string) bool {
+
+	stack := Stack{}
+	sBytes := []byte(s)
+
+	stack.Push(int(sBytes[0]))
+	peek := stack.Peek()
+
+	leftMap := make(map[byte]bool)
+	rightMap := make(map[byte]bool)
+
+	for _, v := range []byte("{([") {
+		leftMap[v] = true
+	}
+	for _, v := range []byte("})]") {
+		rightMap[v] = true
+	}
+
+	if rightMap[byte(peek)] {
+		return false
+	}
+	match1 := []byte("{}")
+	match2 := []byte("[]")
+	match3 := []byte("()")
+
+	for i := 1; i < len(sBytes); i++ {
+
+		if leftMap[sBytes[i]] {
+			stack.Push(int(sBytes[i]))
+		} else {
+
+			cur := []byte{byte(peek), sBytes[i]}
+			if bytes.Equal(match1, cur) || bytes.Equal(match2, cur) || bytes.Equal(match3, cur) {
+				stack.Pop()
+				continue
+			} else {
+				return false
+			}
+		}
+		if stack.IsEmpty() {
+			return false
+		} else {
+
+			peek = stack.Peek()
+		}
+	}
+
+	return true
 }

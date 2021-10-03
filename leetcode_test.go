@@ -313,3 +313,13 @@ func TestRepeatedSubstringPattern(t *testing.T) {
 	assert.Equal(t, false, RepeatedSubstringPattern("aba"))
 	assert.Equal(t, true, RepeatedSubstringPattern("abcabcabcabc"))
 }
+
+func TestIsValid(t *testing.T) {
+
+	assert.Equal(t, false, IsValid("}"))
+	assert.Equal(t, true, IsValid("()"))
+	assert.Equal(t, true, IsValid("()[]{}"))
+	assert.Equal(t, false, IsValid("(]"))
+	assert.Equal(t, false, IsValid("([)]"))
+	assert.Equal(t, true, IsValid("{[]}"))
+}

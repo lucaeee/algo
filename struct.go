@@ -40,73 +40,84 @@ func (head *ListNode) getListValues() []int {
 }
 
 type Stack struct {
-    Val []int
-} 
-func (stack *Stack) Push (v int) {
-    stack.Val = append([]int{v}, stack.Val...)
+	Val []int
+}
+
+func (stack *Stack) Push(v int) {
+	stack.Val = append([]int{v}, stack.Val...)
 }
 func (stack *Stack) Pop() int {
 
-    if len(stack.Val) == 0 {
-       return 0 
-    }
+	if len(stack.Val) == 0 {
+		return 0
+	}
 
-    res := stack.Val[0] 
-    
-    if len(stack.Val) > 1 {
-        stack.Val = stack.Val[1:]
-    }else {
-        stack.Val = nil
-    }
+	res := stack.Val[0]
 
-    return res
+	if len(stack.Val) > 1 {
+		stack.Val = stack.Val[1:]
+	} else {
+		stack.Val = nil
+	}
+
+	return res
 }
 func (s *Stack) IsEmpty() bool {
 
-    return len(s.Val) > 0 
-} 
+	return len(s.Val) <= 0
+}
 
+func (s *Stack) Peek() int {
+
+	if s.IsEmpty() {
+		return 0
+	}
+
+	return s.Val[0]
+}
 
 type Queue struct {
-    val []int
+	val []int
 }
 
-func (q *Queue) Push (v int) {
-    q.val = append(q.val, v)
+func (q *Queue) Push(v int) {
+	q.val = append(q.val, v)
 }
+
 /*
 移除首部元素
 */
-func (q *Queue) Pop () {
-    
-    if len(q.val) <= 1 {
-        q.val = nil
-        return
-    }
+func (q *Queue) Pop() {
 
-    q.val = q.val[1:]
-    return
+	if len(q.val) <= 1 {
+		q.val = nil
+		return
+	}
+
+	q.val = q.val[1:]
 }
+
 /**
 返回首部元素
 **/
-func(q *Queue) Peek () int {
-    
-    if len(q.val) == 0 {
-        return 0
-    }
+func (q *Queue) Peek() int {
 
-    return q.val[0]
+	if len(q.val) == 0 {
+		return 0
+	}
+
+	return q.val[0]
 }
+
 /**
 判空
 **/
-func(q *Queue) Empty() bool {
-    
-    return len(q.val) <= 0
+func (q *Queue) Empty() bool {
+
+	return len(q.val) <= 0
 }
 
 func (q *Queue) Size() int {
 
-    return len(q.val)
+	return len(q.val)
 }
