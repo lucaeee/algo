@@ -333,3 +333,14 @@ func TestEvalRPN(t *testing.T) {
 
 	assert.Equal(t, 22, EvalRPN([]string{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}))
 }
+
+func TestMaxSlidingWindow(t *testing.T) {
+
+	res := MaxSlidingWindow([]int{1, 3, -1, -3, 5, 3, 6, 7}, 3)
+
+	assert.Equal(t, []int{3, 3, 5, 5, 6, 7}, res)
+
+	res = MaxSlidingWindow([]int{1, 3, -1, -3, 5, 3, 6, 7}, 4)
+	assert.Equal(t, []int{3, 5, 5, 6, 7}, res)
+
+}

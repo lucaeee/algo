@@ -1499,3 +1499,101 @@ func EvalRPN(tokens []string) int {
 	fmt.Println("stack2", stack)
 	return stack.Peek()
 }
+
+/*
+239. 滑动窗口最大值
+给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
+
+返回滑动窗口中的最大值。
+
+输入：nums = [1,3,-1,-3,5,3,6,7], k = 3
+输出：[3,3,5,5,6,7]
+解释：
+滑动窗口的位置                最大值
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
+*/
+func MaxSlidingWindow(nums []int, k int) []int {
+	var res []int
+
+	// windownLeft, windownRight := 0, k-1
+	// var stack []int
+	// lastMax := 0
+
+	// for windownLeft < len(nums) && windownRight < len(nums) {
+
+	// 	var windownMax int
+
+	// 	if len(stack) == 0 {
+
+	// 		for cur := windownRight; cur >= windownLeft; cur-- {
+	// 			if nums[cur] >= windownMax {
+	// 				windownMax = nums[cur]
+	// 			}
+	// 			stack = append([]int{nums[cur]}, stack...)
+	// 		}
+
+	// 	} else {
+
+	// 		pop := stack[0]
+	// 		stack = stack[1:]
+	// 		stack = append([]int{nums[windownRight]}, stack...)
+
+	// 		if nums[windownRight] >= lastMax {
+	// 			windownMax = nums[windownRight]
+	// 		} else {
+	// 			//上一轮的最大值出栈
+	// 			if pop == lastMax {
+	// 				wait := make([]int, k)
+	// 				copy(wait, nums[windownLeft:windownRight])
+	// 				sort.Ints(wait)
+	// 				windownMax = wait[len(wait)-1]
+	// 			} else {
+	// 				windownMax = lastMax
+	// 			}
+	// 		}
+	// 	}
+	// 	lastMax = windownMax
+	// 	res = append(res, windownMax)
+	// 	windownLeft++
+	// 	windownRight++
+	// }
+
+	//左出又进
+	var stack []int
+
+	//丢弃小的元素
+	push := func(s *[]int, v int) {
+		for len(*s) > 0 && v > (*s)[len(*s)-1] {
+			*s = (*s)[:len(*s)-1]
+		}
+		*s = append(*s, v)
+	}
+
+	//出队:窗口左边相邻的值且是最大值
+	pop := func(s *[]int, v int) {
+
+		if len(*s) > 0 && v == (*s)[0] {
+			*s = (*s)[1:]
+		}
+	}
+
+	for i := 0; i < k; i++ {
+		push(&stack, nums[i])
+	}
+	res = append(res, stack[0])
+	for j := k; j < len(nums); j++ {
+		pop(&stack, nums[j-k])
+		push(&stack, nums[j])
+		res = append(res, stack[0])
+
+		fmt.Println(stack)
+	}
+
+	return res
+}
