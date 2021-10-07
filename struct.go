@@ -329,7 +329,7 @@ func (root *TreeNode) InOrderByIteration() (valList []int, nodeList []*TreeNode)
 
             cur = stack[0]
             //出栈: 左节点为空，左节点已经出栈
-            if (cur.Left == nil ) || (cur.Left != nil && cur.Left == lastPop) {
+            if (cur.Left == nil ) || (cur.Left != nil && cur.Left == lastPop)  || cur == root{
 
                 valList = append(valList, cur.Val)
                 nodeList = append(nodeList, cur)
@@ -339,13 +339,18 @@ func (root *TreeNode) InOrderByIteration() (valList []int, nodeList []*TreeNode)
                 }else {
                     stack = stack[0:0]
                 }
+                
+                fmt.Println(cur.Val)
+                
             }
-
-            //右节点重新迭代
             if cur.Right != nil{
+                //迭代右节点左子树
                 cur = cur.Right
                 break
 
+            }else{
+                //当前节点没有右节点，继续出栈内元素，不加最后一个元素死循环
+                cur = nil
             }
             
         }
@@ -394,7 +399,8 @@ func (root *TreeNode) NextOrderByIteration() (valList []int, nodeList []*TreeNod
     cur := root
 
     for cur != nil {
-
+        
+        
         for cur != nil {
 
             stack = append([]*TreeNode{cur}, stack...)
@@ -414,6 +420,11 @@ func (root *TreeNode) NextOrderByIteration() (valList []int, nodeList []*TreeNod
                     stack = stack[1:]
                 }else {
                     stack = stack[0:0]
+                }
+                
+                //根节点出：避免死循环
+                if cur == root {
+                    cur = nil
                 }
             }else if cur.Right != nil{
                 //右节点重新迭代
