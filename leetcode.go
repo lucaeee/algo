@@ -1624,3 +1624,56 @@ k 的取值范围是 [1, 数组中不相同的元素的个数]
 
 // 	return res
 // }
+
+
+
+
+/**
+226. 翻转二叉树
+翻转一棵二叉树。
+
+示例：
+
+输入：
+
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+输出：
+
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
+**/
+
+func InvertTree(root *TreeNode) *TreeNode { 
+    
+    var sub func(node *TreeNode)
+
+    
+    sub = func(node *TreeNode) {
+
+        if node != nil {
+
+            node.Left, node.Right = node.Right, node.Left
+
+            if node.Left != nil {
+
+                sub(node.Left)
+            }
+            if node.Right != nil {
+
+                sub(node.Right)
+            }
+        }
+        
+    }
+
+    sub(root)
+
+    return root
+}

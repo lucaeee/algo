@@ -344,3 +344,15 @@ func TestMaxSlidingWindow(t *testing.T) {
 	assert.Equal(t, []int{3, 5, 5, 6, 7}, res)
 
 }
+
+func TestInvertTree (t *testing.T) {
+
+    testSlice := []int{4,2,7, 1,3,6,9}
+
+    root := GeneralTree(testSlice)
+
+    res := InvertTree(root)
+    level,_,_ := res.LevelOrder()
+    assert.Equal(t, []int{4,7,2,9,6,3,1}, level)
+
+}
