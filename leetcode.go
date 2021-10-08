@@ -1902,3 +1902,51 @@ func IsBalanced(root *TreeNode) bool {
     return math.Abs(float64(leftMax-rightMax)) == 1
 }
 
+/*
+257. 二叉树的所有路径
+给你一个二叉树的根节点 root ，按 任意顺序 ，返回所有从根节点到叶子节点的路径。
+
+叶子节点 是指没有子节点的节点。
+*/
+
+func BinaryTreePaths(root *TreeNode) []string {
+
+    var res [][]int
+
+    var sub func(node *TreeNode, path []int, res *[][]int)
+
+    sub = func(node *TreeNode, path []int, res *[][]int) {
+
+        path = append(path, node.Val)
+        
+        //到页子节点
+        if node.Left == nil && node.Right == nil {
+            fmt.Println("ye", path)
+            *res = append(*res, path)
+            fmt.Println("res-in:", *res)
+            return
+        }
+
+        if node.Left != nil {
+            sub(node.Left, path, res)
+            
+        }
+        if node.Right != nil {
+            fmt.Println("right", path)
+            //todo 一定要全量复制，不然会已经插入的数据会被修改成第二次插入的数据
+            newaa := make([]int, len(path))
+
+            copy(newaa, path)
+            sub(node.Right, newaa, res)
+        }
+    }
+
+    sub(root, []int{}, &res)
+
+    fmt.Println("res", res)
+   
+    var st []string
+
+    return st 
+}
+

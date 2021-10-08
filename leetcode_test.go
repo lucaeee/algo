@@ -411,5 +411,13 @@ func TestIsBalance (t *testing.T) {
 	root = GeneralTree(testSlice)
     assert.Equal(t,true, IsBalanced(root)) 
 
+}
+
+func TestBinaryTreePaths(t *testing.T) {
+    
+    testSlice := []int{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
+    //testSlice := []int{1,2,-999,4,5,8,9,10,11}
+	root := GeneralTree(testSlice)
+    _ = BinaryTreePaths(root)
 
 }
