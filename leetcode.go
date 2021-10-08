@@ -1779,4 +1779,65 @@ func MaxDepth(root *TreeNode) int {
     return res
 }
 
+/**
+111. 二叉树的最小深度
+给定一个二叉树，找出其最小深度。
+
+最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+
+说明：叶子节点是指没有子节点的节点。
+
+示例 1：
+
+
+输入：root = [3,9,20,null,null,15,7]
+输出：2
+示例 2：
+
+输入：root = [2,null,3,null,4,null,5,null,6]
+输出：5
+**/
+func MinDepth(root *TreeNode) int {
+
+var sub func(node  *TreeNode, max int)(int)
+    
+    sub = func(node  *TreeNode, max int) int {
+
+        if node == nil {
+
+            return max
+        }else {
+            fmt.Println(node.Val)
+            max++
+
+            //有左右节点取小值
+            if node.Left != nil && node.Right != nil {
+
+                leftDepth := sub(node.Left, max)
+                rightDepth := sub(node.Right, max)
+
+                if leftDepth < rightDepth {
+                    return leftDepth
+                }else {
+                    return rightDepth
+                }
+            }
+            //只有左节点
+            if node.Left != nil && node.Right == nil {
+                return sub(node.Left, max)
+            }
+
+            //只有右节点
+            if node.Right != nil && node.Left == nil {
+                return sub(node.Right, max)
+            }
+            //叶子节点
+            return max
+        }
+    }
+
+    return sub(root, 0)
+    
+}
+
 

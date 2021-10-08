@@ -380,3 +380,14 @@ func TestMaxDepth (t *testing.T) {
     assert.Equal(t, true, root.Left.Left == nil)
     assert.Equal(t, 3, MaxDepth(root))
 }
+
+func TestMinDepth (t *testing.T) {
+
+	testSlice := []int{3,9,20, -999, -999, 15,7}
+	root := GeneralTree(testSlice)
+    assert.Equal(t,2, MinDepth(root)) 
+	
+    testSlice = []int{2, -999, 3, -999, 4, -999, 5, -999, 6}
+	root = GeneralTree(testSlice)
+    assert.Equal(t,5, MinDepth(root)) 
+}
