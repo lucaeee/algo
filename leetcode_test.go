@@ -399,3 +399,17 @@ func TestCountNodes(t *testing.T) {
     assert.Equal(t,6, CountNodes(root)) 
 
 }
+
+
+func TestIsBalance (t *testing.T) {
+
+    testSlice := []int{1,2,2,3,3,4, 4}
+	root := GeneralTree(testSlice)
+    assert.Equal(t,false, IsBalanced(root)) 
+
+    testSlice = []int{3,9,20, -999, -999, 15,17}
+	root = GeneralTree(testSlice)
+    assert.Equal(t,true, IsBalanced(root)) 
+
+
+}

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"math"
 	"sort"
 	"strconv"
 )
@@ -1821,6 +1822,7 @@ var sub func(node  *TreeNode, max int)(int)
                 }else {
                     return rightDepth
                 }
+
             }
             //只有左节点
             if node.Left != nil && node.Right == nil {
@@ -1877,5 +1879,26 @@ func CountNodes(root *TreeNode) int {
     return res
 
     //todo 二分查找 + 位运算
+}
+
+/**
+110. 平衡二叉树
+给定一个二叉树，判断它是否是高度平衡的二叉树。
+
+本题中，一棵高度平衡二叉树定义为：
+
+一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
+**/
+
+func IsBalanced(root *TreeNode) bool {
+
+    if root.Left == nil || root.Right == nil {
+        return false
+    }
+    
+    leftMax := MaxDepth(root.Left)
+    rightMax := MaxDepth(root.Right)
+    
+    return math.Abs(float64(leftMax-rightMax)) == 1
 }
 
