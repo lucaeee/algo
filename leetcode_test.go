@@ -421,3 +421,12 @@ func TestBinaryTreePaths(t *testing.T) {
     _ = BinaryTreePaths(root)
 
 }
+
+func TestSumOfLeftLeaves(t *testing.T) {
+    
+    testSlice := []int{3,9,20,-999,-999,15,7}
+    //testSlice := []int{1,2,-999,4,5,8,9,10,11}
+	root := GeneralTree(testSlice)
+    res := SumOfLeftLeaves(root) 
+    assert.Equal(t, 24, res)
+}

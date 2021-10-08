@@ -1950,3 +1950,44 @@ func BinaryTreePaths(root *TreeNode) []string {
     return st 
 }
 
+/**
+404. 左叶子之和
+计算给定二叉树的所有左叶子之和。
+
+示例：
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+
+在这个二叉树中，有两个左叶子，分别是 9 和 15，所以返回 24
+**/
+func SumOfLeftLeaves(root *TreeNode) int {
+
+    var sub func(node *TreeNode, sum *int, parent *TreeNode)
+
+    res := 0
+    
+    //前序遍历
+    sub = func(node *TreeNode, sum *int, parent *TreeNode) {
+        
+        if parent != nil && parent.Left == node && node.Left ==  nil && node.Right == nil {
+
+            *sum = *sum + node.Val
+            return
+        }
+        parent = node
+        if node.Left != nil {
+            sub(node.Left, sum, parent)
+        }
+        if node.Right != nil {
+            sub(node.Right, sum, parent)
+        }
+        
+    } 
+
+    sub(root, &res, nil)
+    return res
+}
