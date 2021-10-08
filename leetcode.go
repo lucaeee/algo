@@ -1625,9 +1625,6 @@ k 的取值范围是 [1, 数组中不相同的元素的个数]
 // 	return res
 // }
 
-
-
-
 /**
 226. 翻转二叉树
 翻转一棵二叉树。
@@ -1650,30 +1647,85 @@ k 的取值范围是 [1, 数组中不相同的元素的个数]
 9   6 3   1
 **/
 
-func InvertTree(root *TreeNode) *TreeNode { 
-    
-    var sub func(node *TreeNode)
+func InvertTree(root *TreeNode) *TreeNode {
 
-    
-    sub = func(node *TreeNode) {
+	var sub func(node *TreeNode)
 
-        if node != nil {
+	sub = func(node *TreeNode) {
 
-            node.Left, node.Right = node.Right, node.Left
+		if node != nil {
 
-            if node.Left != nil {
+			node.Left, node.Right = node.Right, node.Left
 
-                sub(node.Left)
-            }
-            if node.Right != nil {
+			if node.Left != nil {
 
-                sub(node.Right)
-            }
-        }
-        
-    }
+				sub(node.Left)
+			}
+			if node.Right != nil {
 
-    sub(root)
+				sub(node.Right)
+			}
+		}
 
-    return root
+	}
+
+	sub(root)
+
+	return root
+}
+
+/**
+101. 对称二叉树
+给定一个二叉树，检查它是否是镜像对称的。
+
+
+
+例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+
+
+但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+
+    1
+   / \
+  2   2
+   \   \
+   3    3
+
+
+进阶：
+
+你可以运用递归和迭代两种方法解决这个问题吗？
+**/
+
+func IsSymmetric(root *TreeNode) bool {
+
+	//就是比较两边右-左是否相同
+
+	var sub func(left *TreeNode, right *TreeNode) bool
+
+	sub = func(left, right *TreeNode) bool {
+
+		//继续比较:左右都存在且相等的情况
+		if left != nil && left.Val == right.Val {
+
+			//比较左边的左子树 和右边的右子树
+			return sub(left.Left, right.Right) && sub(left.Right, right.Left)
+		}
+
+		//有一个为空的情况
+		if (left == nil && right != nil) || (left != nil && right == nil) {
+
+			return false
+		}
+		return true 
+	}
+
+	return sub(root.Left, root.Right)
+
 }
