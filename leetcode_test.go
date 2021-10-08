@@ -391,3 +391,11 @@ func TestMinDepth (t *testing.T) {
 	root = GeneralTree(testSlice)
     assert.Equal(t,5, MinDepth(root)) 
 }
+
+func TestCountNodes(t *testing.T) {
+
+    testSlice := []int{1,2,3,4,5,6}
+	root := GeneralTree(testSlice)
+    assert.Equal(t,6, CountNodes(root)) 
+
+}
