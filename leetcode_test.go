@@ -370,7 +370,13 @@ func TestIsSymmetric(t *testing.T) {
     symmetric = IsSymmetric(root)
 
     assert.Equal(t, false, symmetric)
+}
 
+func TestMaxDepth (t *testing.T) {
 
+	testSlice := []int{3, 9, 20, -999, -999, 15, 7}
+	root := GeneralTree(testSlice)
     
+    assert.Equal(t, true, root.Left.Left == nil)
+    assert.Equal(t, 3, MaxDepth(root))
 }
