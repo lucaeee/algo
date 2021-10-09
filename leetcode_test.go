@@ -478,3 +478,20 @@ func TestBuildTree(t *testing.T)  {
     prev, _ := root.PrevOrderByIteration()
     t.Log(prev)
 }
+
+func TestConstructMaximumBinaryTree(t *testing.T) {
+
+    root :=ConstructMaximumBinaryTree([]int{3,2,1,6,2,5}) 
+
+    assert.Equal(t, 6, root.Val)
+    assert.Equal(t, 3, root.Left.Val)
+    assert.Equal(t, true, root.Left.Left == nil)
+    assert.Equal(t, 2, root.Left.Right.Val)
+    assert.Equal(t, 1, root.Left.Right.Right.Val)
+
+    t.Log(root.Right)
+    //assert.Equal(t, 5, root.Right.Val)
+    //todo
+    //assert.Equal(t, 2, root.Right.Left.Val)
+
+}
