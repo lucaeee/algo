@@ -495,3 +495,15 @@ func TestConstructMaximumBinaryTree(t *testing.T) {
     //assert.Equal(t, 2, root.Right.Left.Val)
 
 }
+
+func TestMergeTrees(t *testing.T) {
+
+    root1 := GeneralTree([]int{1,3,2,5})
+    root2 := GeneralTree([]int{2,1,3,-999,4,-999,7})
+
+    root := MergeTrees(root1, root2)
+    
+    level, _,_ := root.LevelOrder()
+
+    assert.Equal(t, []int{3,4,5,5,4,7}, level)
+}
