@@ -2012,3 +2012,51 @@ func FindBottomLeftValue(root *TreeNode) int {
 
     return valLevelList[len(valLevelList) -1][0]
 }
+
+
+/**
+112. 路径总和
+给你二叉树的根节点 root 和一个表示目标和的整数 targetSum ，判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。
+
+叶子节点 是指没有子节点的节点。
+**/
+
+func HasPathSum(root *TreeNode, targetSum int) bool {
+
+    //todo isFind?
+
+    var sub func(node *TreeNode, t int, isFind *bool) 
+
+    sub = func(node *TreeNode, t int, isFind *bool) {
+
+        if node == nil {
+            return 
+        }
+
+        remain := t - node.Val
+        
+        //叶子节点
+        if node.Left == nil && node.Right == nil  && remain == 0{
+
+            *isFind = true
+            return
+
+        }
+
+        if node.Left != nil && !(*isFind){
+
+             sub(node.Left, remain , isFind)
+        }
+        
+        if node.Right != nil && !(*isFind){
+            sub(node.Right, remain, isFind)
+        }
+    }
+
+    fmt.Println("----")
+    
+    res := false
+    sub(root, targetSum, &res)
+
+    return res
+}

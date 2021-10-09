@@ -444,3 +444,20 @@ func TestFindBottomLeftValue(t *testing.T) {
     assert.Equal(t, 7,  res)
 
 }
+
+func TestHasPathSum(t *testing.T)  {
+    
+    testSlice := []int{1,2,3}
+	root := GeneralTree(testSlice)
+    res := HasPathSum(root, 5) 
+    assert.Equal(t, false,  res)
+    
+    testSlice = []int{5,4,8,11,-999,13,4,7,2, -999, -999, -999, 1}
+	root = GeneralTree(testSlice)
+    l,_,_ := root.LevelOrder()
+    t.Log(l)
+    res = HasPathSum(root, 22) 
+    assert.Equal(t, true,  res)
+
+
+}
