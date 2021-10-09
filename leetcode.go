@@ -2060,3 +2060,78 @@ func HasPathSum(root *TreeNode, targetSum int) bool {
 
     return res
 }
+
+
+/**
+106. 从中序与后序遍历序列构造二叉树
+根据一棵树的中序遍历与后序遍历构造二叉树。
+
+注意:
+你可以假设树中没有重复的元素。
+
+例如，给出
+
+中序遍历 inorder = [9,3,15,20,7]
+后序遍历 postorder = [9,15,7,20,3]
+返回如下的二叉树：
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+**/
+func BuildTree(inorder []int, postorder []int) *TreeNode {
+    
+    
+    var sub func(l []int, p []int, i *int) *TreeNode
+
+    sub = func(l, p []int, i *int) *TreeNode {
+
+        if *i < 0 {
+            return nil
+        }
+
+        curVal := p[*i]
+        cur := &TreeNode{Val:curVal}
+        si := 0
+
+        for k , v := range l {
+
+            if v == curVal {
+                si = k
+                break
+            }
+        }
+
+        left := l[0:si]
+        right := l[si+1:]
+        //todo 为啥不会越界
+        //if si <= len(l) -1 {
+
+            //right := l[si+1:]
+        //}else {
+            //right := make([]int, 0)
+        //}
+        
+        if len(right) == len(left) && len(right) == 0 {
+            return cur
+        }
+        if len(right) > 0 {
+            
+            (*i) --
+            cur.Right = sub(right, p, i)
+        }
+        if len(left) > 0 {
+            (*i) --
+            cur.Left = sub(left, p, i)
+        }
+
+       return cur 
+    }
+    
+    res := len(postorder) -1
+
+    return sub(inorder, postorder, &res)
+
+}

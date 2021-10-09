@@ -458,6 +458,23 @@ func TestHasPathSum(t *testing.T)  {
     t.Log(l)
     res = HasPathSum(root, 22) 
     assert.Equal(t, true,  res)
+}
 
+func TestBuildTree(t *testing.T)  {
+    
+    root := BuildTree([]int{9,3,15,20,7}, []int{9,15,7,20,3}) 
 
+    assert.Equal(t, 3, root.Val)
+    assert.Equal(t, 9, root.Left.Val)
+    assert.Equal(t, true, root.Left.Left == nil)
+
+    assert.Equal(t, 20, root.Right.Val)
+    assert.Equal(t, 7, root.Right.Right.Val)
+    assert.Equal(t, true, root.Right.Right.Right == nil)
+
+    assert.Equal(t, 15, root.Right.Left.Val)
+    assert.Equal(t, true, root.Right.Left.Left == nil)
+
+    prev, _ := root.PrevOrderByIteration()
+    t.Log(prev)
 }
