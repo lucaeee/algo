@@ -430,3 +430,17 @@ func TestSumOfLeftLeaves(t *testing.T) {
     res := SumOfLeftLeaves(root) 
     assert.Equal(t, 24, res)
 }
+
+func TestFindBottomLeftValue(t *testing.T) {
+    
+    testSlice := []int{2,1,3}
+	root := GeneralTree(testSlice)
+    res := FindBottomLeftValue(root) 
+    assert.Equal(t, 1,  res)
+    
+    testSlice = []int{1,2,3,4,-999,5,6, -999,-999,7}
+	root = GeneralTree(testSlice)
+    res = FindBottomLeftValue(root) 
+    assert.Equal(t, 7,  res)
+
+}

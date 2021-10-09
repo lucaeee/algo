@@ -1991,3 +1991,24 @@ func SumOfLeftLeaves(root *TreeNode) int {
     sub(root, &res, nil)
     return res
 }
+
+/*
+513. 找树左下角的值
+给定一个二叉树的 根节点 root，请找出该二叉树的 最底层 最左边 节点的值。
+
+假设二叉树中至少有一个节点。
+*/
+
+func FindBottomLeftValue(root *TreeNode) int {
+
+    //层序遍历最后一层的第一个节点
+
+    if root.Left == nil && root.Right == nil {
+
+        return root.Val
+    }
+    
+    _,_, valLevelList := root.LevelOrder()
+
+    return valLevelList[len(valLevelList) -1][0]
+}
