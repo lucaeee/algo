@@ -507,3 +507,20 @@ func TestMergeTrees(t *testing.T) {
 
     assert.Equal(t, []int{3,4,5,5,4,7}, level)
 }
+
+func TestSearchBST(t *testing.T) {
+
+    root := GeneralTree([]int{4,2,7, 1,3})
+
+    res := SearchBST(root, 5) 
+    assert.Equal(t, true, res == nil)
+
+    res = SearchBST(root, 1) 
+    assert.Equal(t, 1, res.Val) 
+    
+    res = SearchBST(root, 2) 
+    assert.Equal(t, 2, res.Val) 
+    assert.Equal(t, 1, res.Left.Val) 
+    assert.Equal(t, 3, res.Right.Val) 
+
+}
