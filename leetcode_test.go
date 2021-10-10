@@ -524,3 +524,14 @@ func TestSearchBST(t *testing.T) {
     assert.Equal(t, 3, res.Right.Val) 
 
 }
+
+func TestIsValidBST (t *testing.T) {
+
+    root := GeneralTree([]int{2,1,3})
+    assert.Equal(t, true, IsValidBST(root))
+    
+
+    root = GeneralTree([]int{5,1,4,-999,-999,3,6})
+    assert.Equal(t, false, IsValidBST(root))
+
+}

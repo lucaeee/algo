@@ -1724,7 +1724,7 @@ func IsSymmetric(root *TreeNode) bool {
 
 			return false
 		}
-		return true 
+		return true
 	}
 
 	return sub(root.Left, root.Right)
@@ -1751,33 +1751,33 @@ qn:104. 二叉树的最大深度
 */
 
 func MaxDepth(root *TreeNode) int {
-    
-    var sub func(root *TreeNode, max int)(int)
-    
-    sub = func(root *TreeNode, max int) int {
 
-        if root == nil {
+	var sub func(root *TreeNode, max int) int
 
-            return max
-        }else {
-            fmt.Println(root.Val)
-            max++
-            //获取左有子树高度
-            leftDepth := sub(root.Left, max)
-            rightDepth := sub(root.Right, max)
-            if leftDepth > rightDepth {
-                return leftDepth
-            }else {
-                return rightDepth
-            }
-        }
+	sub = func(root *TreeNode, max int) int {
 
-    }
+		if root == nil {
 
-    init := 0
-    res := sub(root, init)
-    
-    return res
+			return max
+		} else {
+			fmt.Println(root.Val)
+			max++
+			//获取左有子树高度
+			leftDepth := sub(root.Left, max)
+			rightDepth := sub(root.Right, max)
+			if leftDepth > rightDepth {
+				return leftDepth
+			} else {
+				return rightDepth
+			}
+		}
+
+	}
+
+	init := 0
+	res := sub(root, init)
+
+	return res
 }
 
 /**
@@ -1800,45 +1800,45 @@ func MaxDepth(root *TreeNode) int {
 **/
 func MinDepth(root *TreeNode) int {
 
-var sub func(node  *TreeNode, max int)(int)
-    
-    sub = func(node  *TreeNode, max int) int {
+	var sub func(node *TreeNode, max int) int
 
-        if node == nil {
+	sub = func(node *TreeNode, max int) int {
 
-            return max
-        }else {
-            fmt.Println(node.Val)
-            max++
+		if node == nil {
 
-            //有左右节点取小值
-            if node.Left != nil && node.Right != nil {
+			return max
+		} else {
+			fmt.Println(node.Val)
+			max++
 
-                leftDepth := sub(node.Left, max)
-                rightDepth := sub(node.Right, max)
+			//有左右节点取小值
+			if node.Left != nil && node.Right != nil {
 
-                if leftDepth < rightDepth {
-                    return leftDepth
-                }else {
-                    return rightDepth
-                }
+				leftDepth := sub(node.Left, max)
+				rightDepth := sub(node.Right, max)
 
-            }
-            //只有左节点
-            if node.Left != nil && node.Right == nil {
-                return sub(node.Left, max)
-            }
+				if leftDepth < rightDepth {
+					return leftDepth
+				} else {
+					return rightDepth
+				}
 
-            //只有右节点
-            if node.Right != nil && node.Left == nil {
-                return sub(node.Right, max)
-            }
-            //叶子节点
-            return max
-        }
-    }
+			}
+			//只有左节点
+			if node.Left != nil && node.Right == nil {
+				return sub(node.Left, max)
+			}
 
-    return sub(root, 0)
+			//只有右节点
+			if node.Right != nil && node.Left == nil {
+				return sub(node.Right, max)
+			}
+			//叶子节点
+			return max
+		}
+	}
+
+	return sub(root, 0)
 }
 
 /**
@@ -1857,28 +1857,27 @@ var sub func(node  *TreeNode, max int)(int)
 
 输入：root = [1]
 输出：1
- 
+
 
 提示：
 
 树中节点的数目范围是[0, 5 * 104]
 0 <= Node.val <= 5 * 104
 题目数据保证输入的树是 完全二叉树
- 
+
 
 进阶：遍历树来统计节点是一种时间复杂度为 O(n) 的简单解决方案。你可以设计一个更快的算法吗？
 **/
 func CountNodes(root *TreeNode) int {
-   
-    res := 0;
-    //遍历算
-    valList, _, _ := root.LevelOrder()
-    res = len(valList)
 
+	res := 0
+	//遍历算
+	valList, _, _ := root.LevelOrder()
+	res = len(valList)
 
-    return res
+	return res
 
-    //todo 二分查找 + 位运算
+	//todo 二分查找 + 位运算
 }
 
 /**
@@ -1892,14 +1891,14 @@ func CountNodes(root *TreeNode) int {
 
 func IsBalanced(root *TreeNode) bool {
 
-    if root.Left == nil || root.Right == nil {
-        return false
-    }
-    
-    leftMax := MaxDepth(root.Left)
-    rightMax := MaxDepth(root.Right)
-    
-    return math.Abs(float64(leftMax-rightMax)) == 1
+	if root.Left == nil || root.Right == nil {
+		return false
+	}
+
+	leftMax := MaxDepth(root.Left)
+	rightMax := MaxDepth(root.Right)
+
+	return math.Abs(float64(leftMax-rightMax)) == 1
 }
 
 /*
@@ -1911,43 +1910,43 @@ func IsBalanced(root *TreeNode) bool {
 
 func BinaryTreePaths(root *TreeNode) []string {
 
-    var res [][]int
+	var res [][]int
 
-    var sub func(node *TreeNode, path []int, res *[][]int)
+	var sub func(node *TreeNode, path []int, res *[][]int)
 
-    sub = func(node *TreeNode, path []int, res *[][]int) {
+	sub = func(node *TreeNode, path []int, res *[][]int) {
 
-        path = append(path, node.Val)
-        
-        //到页子节点
-        if node.Left == nil && node.Right == nil {
-            fmt.Println("ye", path)
-            *res = append(*res, path)
-            fmt.Println("res-in:", *res)
-            return
-        }
+		path = append(path, node.Val)
 
-        if node.Left != nil {
-            sub(node.Left, path, res)
-            
-        }
-        if node.Right != nil {
-            fmt.Println("right", path)
-            //todo 一定要全量复制，不然会已经插入的数据会被修改成第二次插入的数据
-            newaa := make([]int, len(path))
+		//到页子节点
+		if node.Left == nil && node.Right == nil {
+			fmt.Println("ye", path)
+			*res = append(*res, path)
+			fmt.Println("res-in:", *res)
+			return
+		}
 
-            copy(newaa, path)
-            sub(node.Right, newaa, res)
-        }
-    }
+		if node.Left != nil {
+			sub(node.Left, path, res)
 
-    sub(root, []int{}, &res)
+		}
+		if node.Right != nil {
+			fmt.Println("right", path)
+			//todo 一定要全量复制，不然会已经插入的数据会被修改成第二次插入的数据
+			newaa := make([]int, len(path))
 
-    fmt.Println("res", res)
-   
-    var st []string
+			copy(newaa, path)
+			sub(node.Right, newaa, res)
+		}
+	}
 
-    return st 
+	sub(root, []int{}, &res)
+
+	fmt.Println("res", res)
+
+	var st []string
+
+	return st
 }
 
 /**
@@ -1966,30 +1965,30 @@ func BinaryTreePaths(root *TreeNode) []string {
 **/
 func SumOfLeftLeaves(root *TreeNode) int {
 
-    var sub func(node *TreeNode, sum *int, parent *TreeNode)
+	var sub func(node *TreeNode, sum *int, parent *TreeNode)
 
-    res := 0
-    
-    //前序遍历
-    sub = func(node *TreeNode, sum *int, parent *TreeNode) {
-        
-        if parent != nil && parent.Left == node && node.Left ==  nil && node.Right == nil {
+	res := 0
 
-            *sum = *sum + node.Val
-            return
-        }
-        parent = node
-        if node.Left != nil {
-            sub(node.Left, sum, parent)
-        }
-        if node.Right != nil {
-            sub(node.Right, sum, parent)
-        }
-        
-    } 
+	//前序遍历
+	sub = func(node *TreeNode, sum *int, parent *TreeNode) {
 
-    sub(root, &res, nil)
-    return res
+		if parent != nil && parent.Left == node && node.Left == nil && node.Right == nil {
+
+			*sum = *sum + node.Val
+			return
+		}
+		parent = node
+		if node.Left != nil {
+			sub(node.Left, sum, parent)
+		}
+		if node.Right != nil {
+			sub(node.Right, sum, parent)
+		}
+
+	}
+
+	sub(root, &res, nil)
+	return res
 }
 
 /*
@@ -2001,18 +2000,17 @@ func SumOfLeftLeaves(root *TreeNode) int {
 
 func FindBottomLeftValue(root *TreeNode) int {
 
-    //层序遍历最后一层的第一个节点
+	//层序遍历最后一层的第一个节点
 
-    if root.Left == nil && root.Right == nil {
+	if root.Left == nil && root.Right == nil {
 
-        return root.Val
-    }
-    
-    _,_, valLevelList := root.LevelOrder()
+		return root.Val
+	}
 
-    return valLevelList[len(valLevelList) -1][0]
+	_, _, valLevelList := root.LevelOrder()
+
+	return valLevelList[len(valLevelList)-1][0]
 }
-
 
 /**
 112. 路径总和
@@ -2023,44 +2021,43 @@ func FindBottomLeftValue(root *TreeNode) int {
 
 func HasPathSum(root *TreeNode, targetSum int) bool {
 
-    //todo isFind?
+	//todo isFind?
 
-    var sub func(node *TreeNode, t int, isFind *bool) 
+	var sub func(node *TreeNode, t int, isFind *bool)
 
-    sub = func(node *TreeNode, t int, isFind *bool) {
+	sub = func(node *TreeNode, t int, isFind *bool) {
 
-        if node == nil {
-            return 
-        }
+		if node == nil {
+			return
+		}
 
-        remain := t - node.Val
-        
-        //叶子节点
-        if node.Left == nil && node.Right == nil  && remain == 0{
+		remain := t - node.Val
 
-            *isFind = true
-            return
+		//叶子节点
+		if node.Left == nil && node.Right == nil && remain == 0 {
 
-        }
+			*isFind = true
+			return
 
-        if node.Left != nil && !(*isFind){
+		}
 
-             sub(node.Left, remain , isFind)
-        }
-        
-        if node.Right != nil && !(*isFind){
-            sub(node.Right, remain, isFind)
-        }
-    }
+		if node.Left != nil && !(*isFind) {
 
-    fmt.Println("----")
-    
-    res := false
-    sub(root, targetSum, &res)
+			sub(node.Left, remain, isFind)
+		}
 
-    return res
+		if node.Right != nil && !(*isFind) {
+			sub(node.Right, remain, isFind)
+		}
+	}
+
+	fmt.Println("----")
+
+	res := false
+	sub(root, targetSum, &res)
+
+	return res
 }
-
 
 /**
 106. 从中序与后序遍历序列构造二叉树
@@ -2082,60 +2079,58 @@ func HasPathSum(root *TreeNode, targetSum int) bool {
    15   7
 **/
 func BuildTree(inorder []int, postorder []int) *TreeNode {
-    
-    
-    var sub func(l []int, p []int, i *int) *TreeNode
 
-    sub = func(l, p []int, i *int) *TreeNode {
+	var sub func(l []int, p []int, i *int) *TreeNode
 
-        if *i < 0 {
-            return nil
-        }
+	sub = func(l, p []int, i *int) *TreeNode {
 
-        curVal := p[*i]
-        cur := &TreeNode{Val:curVal}
-        si := 0
+		if *i < 0 {
+			return nil
+		}
 
-        for k , v := range l {
+		curVal := p[*i]
+		cur := &TreeNode{Val: curVal}
+		si := 0
 
-            if v == curVal {
-                si = k
-                break
-            }
-        }
+		for k, v := range l {
 
-        left := l[0:si]
-        right := l[si+1:]
-        //todo 为啥不会越界
-        //if si <= len(l) -1 {
+			if v == curVal {
+				si = k
+				break
+			}
+		}
 
-            //right := l[si+1:]
-        //}else {
-            //right := make([]int, 0)
-        //}
-        
-        if len(right) == len(left) && len(right) == 0 {
-            return cur
-        }
-        if len(right) > 0 {
-            
-            (*i) --
-            cur.Right = sub(right, p, i)
-        }
-        if len(left) > 0 {
-            (*i) --
-            cur.Left = sub(left, p, i)
-        }
+		left := l[0:si]
+		right := l[si+1:]
+		//todo 为啥不会越界
+		//if si <= len(l) -1 {
 
-       return cur 
-    }
-    
-    res := len(postorder) -1
+		//right := l[si+1:]
+		//}else {
+		//right := make([]int, 0)
+		//}
 
-    return sub(inorder, postorder, &res)
+		if len(right) == len(left) && len(right) == 0 {
+			return cur
+		}
+		if len(right) > 0 {
+
+			(*i)--
+			cur.Right = sub(right, p, i)
+		}
+		if len(left) > 0 {
+			(*i)--
+			cur.Left = sub(left, p, i)
+		}
+
+		return cur
+	}
+
+	res := len(postorder) - 1
+
+	return sub(inorder, postorder, &res)
 
 }
-
 
 /**
 654. 最大二叉树
@@ -2146,7 +2141,7 @@ func BuildTree(inorder []int, postorder []int) *TreeNode {
 右子树是通过数组中 最大值右边部分 递归构造出的最大二叉树。
 返回有给定数组 nums 构建的 最大二叉树 。
 
- 
+
 
 示例 1：
 
@@ -2166,35 +2161,35 @@ func BuildTree(inorder []int, postorder []int) *TreeNode {
 **/
 
 func ConstructMaximumBinaryTree(nums []int) *TreeNode {
-    
-    var sub func(n []int) *TreeNode 
 
-    sub = func(n []int) *TreeNode {
-        
-        if len(n) <= 0 {
-            
-            return nil
-        }
-        maxIndex := 0;
-        maxValue := n[0]
+	var sub func(n []int) *TreeNode
 
-        for i:= 1; i < len(n) -1; i++ {
-            if maxValue < n[i] {
-                
-                maxIndex = i
-                maxValue = n[i]
-            }
-        }
+	sub = func(n []int) *TreeNode {
 
-        curNode := &TreeNode{Val:maxValue}
-        
-        curNode.Left = sub(n[:maxIndex]) 
-        curNode.Right = sub(n[maxIndex+1:]) 
+		if len(n) <= 0 {
 
-        return curNode
-    }
+			return nil
+		}
+		maxIndex := 0
+		maxValue := n[0]
 
-    return sub(nums)
+		for i := 1; i < len(n)-1; i++ {
+			if maxValue < n[i] {
+
+				maxIndex = i
+				maxValue = n[i]
+			}
+		}
+
+		curNode := &TreeNode{Val: maxValue}
+
+		curNode.Left = sub(n[:maxIndex])
+		curNode.Right = sub(n[maxIndex+1:])
+
+		return curNode
+	}
+
+	return sub(nums)
 }
 
 /*
@@ -2205,39 +2200,39 @@ func ConstructMaximumBinaryTree(nums []int) *TreeNode {
 
 示例 1:
 
-输入: 
-	Tree 1                     Tree 2                  
-          1                         2                             
-         / \                       / \                            
-        3   2                     1   3                        
-       /                           \   \                      
-      5                             4   7                  
-输出: 
+输入:
+	Tree 1                     Tree 2
+          1                         2
+         / \                       / \
+        3   2                     1   3
+       /                           \   \
+      5                             4   7
+输出:
 合并后的树:
 	     3
 	    / \
 	   4   5
-	  / \   \ 
+	  / \   \
 	 5   4   7
 注意: 合并必须从两个树的根节点开始。
 */
 func MergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
-   
-    if root1 == nil {
-        return root2
-    }
 
-    if root2 == nil {
+	if root1 == nil {
+		return root2
+	}
 
-        return root1
-    }
+	if root2 == nil {
 
-    root1.Val += root2.Val
+		return root1
+	}
 
-    root1.Left = MergeTrees(root1.Left, root2.Left)
-    root1.Right = MergeTrees(root1.Right, root2.Right)
+	root1.Val += root2.Val
 
-    return root1
+	root1.Left = MergeTrees(root1.Left, root2.Left)
+	root1.Right = MergeTrees(root1.Right, root2.Right)
+
+	return root1
 }
 
 /**
@@ -2257,31 +2252,80 @@ func MergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
 和值: 2
 你应该返回如下子树:
 
-      2     
-     / \   
+      2
+     / \
     1   3
 在上述示例中，如果要找的值是 5，但因为没有节点值为 5，我们应该返回 NULL。
 **/
 func SearchBST(root *TreeNode, val int) *TreeNode {
-    
-    if root == nil {
-        return nil
-    }
 
-    if root.Val == val {
+	if root == nil {
+		return nil
+	}
 
-        return root
-    }
+	if root.Val == val {
 
-    if  val > root.Val {
-       
-        return SearchBST(root.Right, val)
-    }else {
+		return root
+	}
 
-        return SearchBST(root.Left, val)
-    }
+	if val > root.Val {
+
+		return SearchBST(root.Right, val)
+	} else {
+
+		return SearchBST(root.Left, val)
+	}
 }
 
+/**
+98. 验证二叉搜索树
+给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
 
+有效 二叉搜索树定义如下：
 
+节点的左子树只包含 小于 当前节点的数。
+节点的右子树只包含 大于 当前节点的数。
+所有左子树和右子树自身必须也是二叉搜索树。
+**/
+func IsValidBST(root *TreeNode) bool {
 
+	//中序遍历从小到大
+	var sub func(node *TreeNode, last *int, isInit *bool, res *bool)
+
+	sub = func(node *TreeNode, last *int, isInit *bool, res *bool) {
+
+		if node.Left != nil  && *res{
+			sub(node.Left, last, isInit, res)
+		}
+
+        fmt.Println("last", *last, "|cur", node.Val)
+        if *isInit == false {
+            *last = node.Val
+            *isInit = true
+        }else {
+
+            if node.Val < *last {
+
+                *res = false
+                return
+            }else {
+                *last = node.Val
+            }
+        }
+
+        
+		if node.Right != nil  && *res{
+			sub(node.Right, last, isInit, res)
+		}
+
+        return
+	}
+
+	isInit, res := false, true
+	var last int
+	sub(root, &last, &isInit, &res)
+
+    fmt.Println("---")
+
+    return res
+}
