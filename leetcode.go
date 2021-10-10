@@ -2329,3 +2329,27 @@ func IsValidBST(root *TreeNode) bool {
 
     return res
 }
+
+/**
+530. 二叉搜索树的最小绝对差
+给你一棵所有节点为非负值的二叉搜索树，请你计算树中任意两节点的差的绝对值的最小值。
+**/
+func GetMinimumDifference(root *TreeNode) int {
+
+    inOrder,_ := root.InOrderByIteration()
+
+    //占位，懒得判断初始化
+    min := 999 
+    for i:=1; i < len(inOrder); i ++ {
+    
+        abs := math.Abs( float64( inOrder[i] - inOrder[i-1]))
+        
+        if int(abs) < min {
+            min = int(abs)
+        }
+        
+    }
+    
+    return min
+}
+

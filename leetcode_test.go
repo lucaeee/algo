@@ -533,5 +533,11 @@ func TestIsValidBST (t *testing.T) {
 
     root = GeneralTree([]int{5,1,4,-999,-999,3,6})
     assert.Equal(t, false, IsValidBST(root))
+}
 
+func TestGetMinimumDifference (t *testing.T) {
+
+    root := GeneralTree([]int{1, -999, 3,2})
+
+    assert.Equal(t, 1, GetMinimumDifference(root))
 }
