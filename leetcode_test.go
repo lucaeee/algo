@@ -541,3 +541,10 @@ func TestGetMinimumDifference (t *testing.T) {
 
     assert.Equal(t, 1, GetMinimumDifference(root))
 }
+
+func TestFindMode(t *testing.T) {
+
+    root := GeneralTree([]int{1,-999,2,2})
+
+    assert.Equal(t, 2, FindMode(root))
+}

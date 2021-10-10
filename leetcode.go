@@ -2353,3 +2353,68 @@ func GetMinimumDifference(root *TreeNode) int {
     return min
 }
 
+
+/*
+
+501. 二叉搜索树中的众数
+给定一个有相同值的二叉搜索树（BST），找出 BST 中的所有众数（出现频率最高的元素）。
+
+假定 BST 有如下定义：
+
+结点左子树中所含结点的值小于等于当前结点的值
+结点右子树中所含结点的值大于等于当前结点的值
+左子树和右子树都是二叉搜索树
+
+*/
+
+func FindMode(root *TreeNode) int {
+
+    var lastMaxCount, lastMaxValue int
+
+    var sub func(node *TreeNode, parent *int, count *int)
+
+    sub = func(node *TreeNode, parent, count *int) {
+
+        if node.Left != nil {
+
+            sub(node.Left, parent, count)
+        }
+
+        //第一个元素
+        if *count == 0 && *parent == 0 {
+
+            *count++
+            *parent = node.Val
+            lastMaxCount = *count
+            lastMaxValue = node.Val
+
+        }else {
+
+            //当前元素的值等于上一个元素
+            if *parent == node.Val {
+                
+                *count++
+                //上一个元素不等于且个数大于目前最大的
+                if *count > lastMaxCount {
+                    lastMaxCount = *count
+                    lastMaxValue = *parent
+                }
+
+            }else {
+                *count = 1
+                *parent = node.Val
+            }
+        }
+
+        if node.Right != nil {
+
+            sub(node.Right, parent, count)
+        }
+    }
+    
+    parent,count := 0,0
+
+    sub(root, &parent, &count)
+
+    return lastMaxValue
+}
