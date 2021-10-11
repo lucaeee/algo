@@ -548,3 +548,24 @@ func TestFindMode(t *testing.T) {
 
     assert.Equal(t, 2, FindMode(root))
 }
+
+func TestDeleteNode(t *testing.T) {
+
+    root := GeneralTree([]int{5,3,6,2,4,-999,7})
+
+    le,_,_ := root.LevelOrder()
+    assert.Equal(t, []int{5,3,6,2,4,7}, le)
+
+    pr, _  := root.InOrderByRecursive()
+    assert.Equal(t, []int{2,3,4,5,6,7}, pr)
+
+    assert.Equal(t, 4, DeleteNode(root, 5).Val)
+
+
+    root = GeneralTree([]int{5,3,6,2,4,-999,7})
+    assert.Equal(t, true, DeleteNode(root, 4).Left.Right == nil)
+
+    root = GeneralTree([]int{5,3,6,2,4,-999,7})
+    assert.Equal(t, 7, DeleteNode(root, 6).Right.Val)
+
+}
