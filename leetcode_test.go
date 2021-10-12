@@ -569,3 +569,12 @@ func TestDeleteNode(t *testing.T) {
     assert.Equal(t, 7, DeleteNode(root, 6).Right.Val)
 
 }
+
+func TestTrimBst(t *testing.T) {
+
+    root := GeneralTree([]int{6,3,8,1,5,7, 9, 0, 2})
+    newRoot := TrimBST(root, 3, 7) 
+    le,_,_ := newRoot.LevelOrder()
+    assert.Equal(t, []int{6,3,7,5}, le)
+
+}
