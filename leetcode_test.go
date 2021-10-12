@@ -578,3 +578,13 @@ func TestTrimBst(t *testing.T) {
     assert.Equal(t, []int{6,3,7,5}, le)
 
 }
+
+
+func TestConvertBST(t *testing.T) {
+    
+    root := GeneralTree([]int{4,1,6,0,2,5,7,-999,-999,-999,3,-999,-999,-999,8})
+    newRoot := ConvertBST(root)    
+    le, _,_ := newRoot.LevelOrder()
+    assert.Equal(t, []int{30,36,21,36,35,26,15,33,8}, le)
+}
+
