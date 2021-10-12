@@ -588,3 +588,8 @@ func TestConvertBST(t *testing.T) {
     assert.Equal(t, []int{30,36,21,36,35,26,15,33,8}, le)
 }
 
+func TestCombine(t *testing.T) {
+    
+    _ = Combine(5, 3)
+}
+
