@@ -593,3 +593,8 @@ func TestCombine(t *testing.T) {
     _ = Combine(5, 3)
 }
 
+func TestCombinationSum3(t *testing.T) {
+    
+    _ = CombinationSum3(3, 9)
+}
+

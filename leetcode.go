@@ -2738,13 +2738,69 @@ func Combine(n int, k int) [][]int {
 
             path = append(path, x)
             sub(x+1, path)
-            fmt.Println(path)
             //fix 123 剔除3回溯
             path = path[:len(path)-1]
+            fmt.Println("path:", path,"x", x)
         }
     }
 
     sub(1, []int{})
     fmt.Println("res", res)
+    return res
+}
+
+/**
+216. 组合总和 III
+找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
+
+说明：
+
+所有数字都是正整数。
+解集不能包含重复的组合。 
+示例 1:
+
+输入: k = 3, n = 7
+输出: [[1,2,4]]
+示例 2:
+
+输入: k = 3, n = 9
+输出: [[1,2,6], [1,3,5], [2,3,4]]
+**/
+
+func CombinationSum3(k int, n int) [][]int {
+
+    var res [][]int
+
+    var sub func(i int, path []int, sum int)
+
+    sub = func(i int, path []int, sum int){
+
+        length := len(path)
+        if length > k  || sum > n{
+
+            return
+        }
+        
+        if length == k && sum == n {
+
+            tmp := make([]int, length)
+            copy(tmp, path)
+            res = append(res, tmp)
+            return
+        }
+
+        for x:= i;x< 10; x++ {
+
+            path = append(path, x)
+            sub(x+1, path, sum+x)
+            path = path[:len(path)-1]
+            
+        }
+
+    }
+    
+    sub(1, []int{}, 0)
+    
+    fmt.Println(res)
     return res
 }
