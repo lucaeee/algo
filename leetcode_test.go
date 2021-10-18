@@ -361,240 +361,249 @@ func TestIsSymmetric(t *testing.T) {
 
 	testSlice := []int{1, 2, 2, 3, 4, 4, 3}
 	root := GeneralTree(testSlice)
-    symmetric := IsSymmetric(root)
+	symmetric := IsSymmetric(root)
 
-    assert.Equal(t, true, symmetric)
+	assert.Equal(t, true, symmetric)
 
-    testSlice = []int{1, 2, 2, -999, 3, -999, 3}
+	testSlice = []int{1, 2, 2, -999, 3, -999, 3}
 	root = GeneralTree(testSlice)
-    symmetric = IsSymmetric(root)
+	symmetric = IsSymmetric(root)
 
-    assert.Equal(t, false, symmetric)
+	assert.Equal(t, false, symmetric)
 }
 
-func TestMaxDepth (t *testing.T) {
+func TestMaxDepth(t *testing.T) {
 
 	testSlice := []int{3, 9, 20, -999, -999, 15, 7}
 	root := GeneralTree(testSlice)
-    
-    assert.Equal(t, true, root.Left.Left == nil)
-    assert.Equal(t, 3, MaxDepth(root))
+
+	assert.Equal(t, true, root.Left.Left == nil)
+	assert.Equal(t, 3, MaxDepth(root))
 }
 
-func TestMinDepth (t *testing.T) {
+func TestMinDepth(t *testing.T) {
 
-	testSlice := []int{3,9,20, -999, -999, 15,7}
+	testSlice := []int{3, 9, 20, -999, -999, 15, 7}
 	root := GeneralTree(testSlice)
-    assert.Equal(t,2, MinDepth(root)) 
-	
-    testSlice = []int{2, -999, 3, -999, 4, -999, 5, -999, 6}
+	assert.Equal(t, 2, MinDepth(root))
+
+	testSlice = []int{2, -999, 3, -999, 4, -999, 5, -999, 6}
 	root = GeneralTree(testSlice)
-    assert.Equal(t,5, MinDepth(root)) 
+	assert.Equal(t, 5, MinDepth(root))
 }
 
 func TestCountNodes(t *testing.T) {
 
-    testSlice := []int{1,2,3,4,5,6}
+	testSlice := []int{1, 2, 3, 4, 5, 6}
 	root := GeneralTree(testSlice)
-    assert.Equal(t,6, CountNodes(root)) 
+	assert.Equal(t, 6, CountNodes(root))
 
 }
 
+func TestIsBalance(t *testing.T) {
 
-func TestIsBalance (t *testing.T) {
-
-    testSlice := []int{1,2,2,3,3,4, 4}
+	testSlice := []int{1, 2, 2, 3, 3, 4, 4}
 	root := GeneralTree(testSlice)
-    assert.Equal(t,false, IsBalanced(root)) 
+	assert.Equal(t, false, IsBalanced(root))
 
-    testSlice = []int{3,9,20, -999, -999, 15,17}
+	testSlice = []int{3, 9, 20, -999, -999, 15, 17}
 	root = GeneralTree(testSlice)
-    assert.Equal(t,true, IsBalanced(root)) 
+	assert.Equal(t, true, IsBalanced(root))
 
 }
 
 func TestBinaryTreePaths(t *testing.T) {
-    
-    testSlice := []int{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
-    //testSlice := []int{1,2,-999,4,5,8,9,10,11}
+
+	testSlice := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
+	//testSlice := []int{1,2,-999,4,5,8,9,10,11}
 	root := GeneralTree(testSlice)
-    _ = BinaryTreePaths(root)
+	_ = BinaryTreePaths(root)
 
 }
 
 func TestSumOfLeftLeaves(t *testing.T) {
-    
-    testSlice := []int{3,9,20,-999,-999,15,7}
-    //testSlice := []int{1,2,-999,4,5,8,9,10,11}
+
+	testSlice := []int{3, 9, 20, -999, -999, 15, 7}
+	//testSlice := []int{1,2,-999,4,5,8,9,10,11}
 	root := GeneralTree(testSlice)
-    res := SumOfLeftLeaves(root) 
-    assert.Equal(t, 24, res)
+	res := SumOfLeftLeaves(root)
+	assert.Equal(t, 24, res)
 }
 
 func TestFindBottomLeftValue(t *testing.T) {
-    
-    testSlice := []int{2,1,3}
+
+	testSlice := []int{2, 1, 3}
 	root := GeneralTree(testSlice)
-    res := FindBottomLeftValue(root) 
-    assert.Equal(t, 1,  res)
-    
-    testSlice = []int{1,2,3,4,-999,5,6, -999,-999,7}
+	res := FindBottomLeftValue(root)
+	assert.Equal(t, 1, res)
+
+	testSlice = []int{1, 2, 3, 4, -999, 5, 6, -999, -999, 7}
 	root = GeneralTree(testSlice)
-    res = FindBottomLeftValue(root) 
-    assert.Equal(t, 7,  res)
+	res = FindBottomLeftValue(root)
+	assert.Equal(t, 7, res)
 
 }
 
-func TestHasPathSum(t *testing.T)  {
-    
-    testSlice := []int{1,2,3}
+func TestHasPathSum(t *testing.T) {
+
+	testSlice := []int{1, 2, 3}
 	root := GeneralTree(testSlice)
-    res := HasPathSum(root, 5) 
-    assert.Equal(t, false,  res)
-    
-    testSlice = []int{5,4,8,11,-999,13,4,7,2, -999, -999, -999, 1}
+	res := HasPathSum(root, 5)
+	assert.Equal(t, false, res)
+
+	testSlice = []int{5, 4, 8, 11, -999, 13, 4, 7, 2, -999, -999, -999, 1}
 	root = GeneralTree(testSlice)
-    l,_,_ := root.LevelOrder()
-    t.Log(l)
-    res = HasPathSum(root, 22) 
-    assert.Equal(t, true,  res)
+	l, _, _ := root.LevelOrder()
+	t.Log(l)
+	res = HasPathSum(root, 22)
+	assert.Equal(t, true, res)
 }
 
-func TestBuildTree(t *testing.T)  {
-    
-    root := BuildTree([]int{9,3,15,20,7}, []int{9,15,7,20,3}) 
+func TestBuildTree(t *testing.T) {
 
-    assert.Equal(t, 3, root.Val)
-    assert.Equal(t, 9, root.Left.Val)
-    assert.Equal(t, true, root.Left.Left == nil)
+	root := BuildTree([]int{9, 3, 15, 20, 7}, []int{9, 15, 7, 20, 3})
 
-    assert.Equal(t, 20, root.Right.Val)
-    assert.Equal(t, 7, root.Right.Right.Val)
-    assert.Equal(t, true, root.Right.Right.Right == nil)
+	assert.Equal(t, 3, root.Val)
+	assert.Equal(t, 9, root.Left.Val)
+	assert.Equal(t, true, root.Left.Left == nil)
 
-    assert.Equal(t, 15, root.Right.Left.Val)
-    assert.Equal(t, true, root.Right.Left.Left == nil)
+	assert.Equal(t, 20, root.Right.Val)
+	assert.Equal(t, 7, root.Right.Right.Val)
+	assert.Equal(t, true, root.Right.Right.Right == nil)
 
-    prev, _ := root.PrevOrderByIteration()
-    t.Log(prev)
+	assert.Equal(t, 15, root.Right.Left.Val)
+	assert.Equal(t, true, root.Right.Left.Left == nil)
+
+	prev, _ := root.PrevOrderByIteration()
+	t.Log(prev)
 }
 
 func TestConstructMaximumBinaryTree(t *testing.T) {
 
-    root :=ConstructMaximumBinaryTree([]int{3,2,1,6,2,5}) 
+	root := ConstructMaximumBinaryTree([]int{3, 2, 1, 6, 2, 5})
 
-    assert.Equal(t, 6, root.Val)
-    assert.Equal(t, 3, root.Left.Val)
-    assert.Equal(t, true, root.Left.Left == nil)
-    assert.Equal(t, 2, root.Left.Right.Val)
-    assert.Equal(t, 1, root.Left.Right.Right.Val)
+	assert.Equal(t, 6, root.Val)
+	assert.Equal(t, 3, root.Left.Val)
+	assert.Equal(t, true, root.Left.Left == nil)
+	assert.Equal(t, 2, root.Left.Right.Val)
+	assert.Equal(t, 1, root.Left.Right.Right.Val)
 
-    t.Log(root.Right)
-    //assert.Equal(t, 5, root.Right.Val)
-    //todo
-    //assert.Equal(t, 2, root.Right.Left.Val)
+	t.Log(root.Right)
+	//assert.Equal(t, 5, root.Right.Val)
+	//todo
+	//assert.Equal(t, 2, root.Right.Left.Val)
 
 }
 
 func TestMergeTrees(t *testing.T) {
 
-    root1 := GeneralTree([]int{1,3,2,5})
-    root2 := GeneralTree([]int{2,1,3,-999,4,-999,7})
+	root1 := GeneralTree([]int{1, 3, 2, 5})
+	root2 := GeneralTree([]int{2, 1, 3, -999, 4, -999, 7})
 
-    root := MergeTrees(root1, root2)
-    
-    level, _,_ := root.LevelOrder()
+	root := MergeTrees(root1, root2)
 
-    assert.Equal(t, []int{3,4,5,5,4,7}, level)
+	level, _, _ := root.LevelOrder()
+
+	assert.Equal(t, []int{3, 4, 5, 5, 4, 7}, level)
 }
 
 func TestSearchBST(t *testing.T) {
 
-    root := GeneralTree([]int{4,2,7, 1,3})
+	root := GeneralTree([]int{4, 2, 7, 1, 3})
 
-    res := SearchBST(root, 5) 
-    assert.Equal(t, true, res == nil)
+	res := SearchBST(root, 5)
+	assert.Equal(t, true, res == nil)
 
-    res = SearchBST(root, 1) 
-    assert.Equal(t, 1, res.Val) 
-    
-    res = SearchBST(root, 2) 
-    assert.Equal(t, 2, res.Val) 
-    assert.Equal(t, 1, res.Left.Val) 
-    assert.Equal(t, 3, res.Right.Val) 
+	res = SearchBST(root, 1)
+	assert.Equal(t, 1, res.Val)
+
+	res = SearchBST(root, 2)
+	assert.Equal(t, 2, res.Val)
+	assert.Equal(t, 1, res.Left.Val)
+	assert.Equal(t, 3, res.Right.Val)
 
 }
 
-func TestIsValidBST (t *testing.T) {
+func TestIsValidBST(t *testing.T) {
 
-    root := GeneralTree([]int{2,1,3})
-    assert.Equal(t, true, IsValidBST(root))
-    
+	root := GeneralTree([]int{2, 1, 3})
+	assert.Equal(t, true, IsValidBST(root))
 
-    root = GeneralTree([]int{5,1,4,-999,-999,3,6})
-    assert.Equal(t, false, IsValidBST(root))
+	root = GeneralTree([]int{5, 1, 4, -999, -999, 3, 6})
+	assert.Equal(t, false, IsValidBST(root))
 }
 
-func TestGetMinimumDifference (t *testing.T) {
+func TestGetMinimumDifference(t *testing.T) {
 
-    root := GeneralTree([]int{1, -999, 3,2})
+	root := GeneralTree([]int{1, -999, 3, 2})
 
-    assert.Equal(t, 1, GetMinimumDifference(root))
+	assert.Equal(t, 1, GetMinimumDifference(root))
 }
 
 func TestFindMode(t *testing.T) {
 
-    root := GeneralTree([]int{1,-999,2,2})
+	root := GeneralTree([]int{1, -999, 2, 2})
 
-    assert.Equal(t, 2, FindMode(root))
+	assert.Equal(t, 2, FindMode(root))
 }
 
 func TestDeleteNode(t *testing.T) {
 
-    root := GeneralTree([]int{5,3,6,2,4,-999,7})
+	root := GeneralTree([]int{5, 3, 6, 2, 4, -999, 7})
 
-    le,_,_ := root.LevelOrder()
-    assert.Equal(t, []int{5,3,6,2,4,7}, le)
+	le, _, _ := root.LevelOrder()
+	assert.Equal(t, []int{5, 3, 6, 2, 4, 7}, le)
 
-    pr, _  := root.InOrderByRecursive()
-    assert.Equal(t, []int{2,3,4,5,6,7}, pr)
+	pr, _ := root.InOrderByRecursive()
+	assert.Equal(t, []int{2, 3, 4, 5, 6, 7}, pr)
 
-    assert.Equal(t, 4, DeleteNode(root, 5).Val)
+	assert.Equal(t, 4, DeleteNode(root, 5).Val)
 
+	root = GeneralTree([]int{5, 3, 6, 2, 4, -999, 7})
+	assert.Equal(t, true, DeleteNode(root, 4).Left.Right == nil)
 
-    root = GeneralTree([]int{5,3,6,2,4,-999,7})
-    assert.Equal(t, true, DeleteNode(root, 4).Left.Right == nil)
-
-    root = GeneralTree([]int{5,3,6,2,4,-999,7})
-    assert.Equal(t, 7, DeleteNode(root, 6).Right.Val)
+	root = GeneralTree([]int{5, 3, 6, 2, 4, -999, 7})
+	assert.Equal(t, 7, DeleteNode(root, 6).Right.Val)
 
 }
 
 func TestTrimBst(t *testing.T) {
 
-    root := GeneralTree([]int{6,3,8,1,5,7, 9, 0, 2})
-    newRoot := TrimBST(root, 3, 7) 
-    le,_,_ := newRoot.LevelOrder()
-    assert.Equal(t, []int{6,3,7,5}, le)
+	root := GeneralTree([]int{6, 3, 8, 1, 5, 7, 9, 0, 2})
+	newRoot := TrimBST(root, 3, 7)
+	le, _, _ := newRoot.LevelOrder()
+	assert.Equal(t, []int{6, 3, 7, 5}, le)
 
 }
 
-
 func TestConvertBST(t *testing.T) {
-    
-    root := GeneralTree([]int{4,1,6,0,2,5,7,-999,-999,-999,3,-999,-999,-999,8})
-    newRoot := ConvertBST(root)    
-    le, _,_ := newRoot.LevelOrder()
-    assert.Equal(t, []int{30,36,21,36,35,26,15,33,8}, le)
+
+	root := GeneralTree([]int{4, 1, 6, 0, 2, 5, 7, -999, -999, -999, 3, -999, -999, -999, 8})
+	newRoot := ConvertBST(root)
+	le, _, _ := newRoot.LevelOrder()
+	assert.Equal(t, []int{30, 36, 21, 36, 35, 26, 15, 33, 8}, le)
 }
 
 func TestCombine(t *testing.T) {
-    
-    _ = Combine(5, 3)
+
+	_ = Combine(5, 3)
 }
 
 func TestCombinationSum3(t *testing.T) {
-    
-    _ = CombinationSum3(3, 9)
+
+	_ = CombinationSum3(3, 9)
 }
 
+func TestLetterCombinations(t *testing.T) {
+	_ = LetterCombinations("1234")
+}
+
+func TestPermute(t *testing.T) {
+
+	_ = Permute([]int{1, 2, 3})
+}
+
+func TestPermute2(t *testing.T) {
+
+	_ = Permute2([]int{1, 2, 3})
+}

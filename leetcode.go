@@ -2294,40 +2294,39 @@ func IsValidBST(root *TreeNode) bool {
 
 	sub = func(node *TreeNode, last *int, isInit *bool, res *bool) {
 
-		if node.Left != nil  && *res{
+		if node.Left != nil && *res {
 			sub(node.Left, last, isInit, res)
 		}
 
-        fmt.Println("last", *last, "|cur", node.Val)
-        if *isInit == false {
-            *last = node.Val
-            *isInit = true
-        }else {
+		fmt.Println("last", *last, "|cur", node.Val)
+		if *isInit == false {
+			*last = node.Val
+			*isInit = true
+		} else {
 
-            if node.Val < *last {
+			if node.Val < *last {
 
-                *res = false
-                return
-            }else {
-                *last = node.Val
-            }
-        }
+				*res = false
+				return
+			} else {
+				*last = node.Val
+			}
+		}
 
-        
-		if node.Right != nil  && *res{
+		if node.Right != nil && *res {
 			sub(node.Right, last, isInit, res)
 		}
 
-        return
+		return
 	}
 
 	isInit, res := false, true
 	var last int
 	sub(root, &last, &isInit, &res)
 
-    fmt.Println("---")
+	fmt.Println("---")
 
-    return res
+	return res
 }
 
 /**
@@ -2336,23 +2335,22 @@ func IsValidBST(root *TreeNode) bool {
 **/
 func GetMinimumDifference(root *TreeNode) int {
 
-    inOrder,_ := root.InOrderByIteration()
+	inOrder, _ := root.InOrderByIteration()
 
-    //占位，懒得判断初始化
-    min := 999 
-    for i:=1; i < len(inOrder); i ++ {
-    
-        abs := math.Abs( float64( inOrder[i] - inOrder[i-1]))
-        
-        if int(abs) < min {
-            min = int(abs)
-        }
-        
-    }
-    
-    return min
+	//占位，懒得判断初始化
+	min := 999
+	for i := 1; i < len(inOrder); i++ {
+
+		abs := math.Abs(float64(inOrder[i] - inOrder[i-1]))
+
+		if int(abs) < min {
+			min = int(abs)
+		}
+
+	}
+
+	return min
 }
-
 
 /*
 
@@ -2369,54 +2367,54 @@ func GetMinimumDifference(root *TreeNode) int {
 
 func FindMode(root *TreeNode) int {
 
-    var lastMaxCount, lastMaxValue int
+	var lastMaxCount, lastMaxValue int
 
-    var sub func(node *TreeNode, parent *int, count *int)
+	var sub func(node *TreeNode, parent *int, count *int)
 
-    sub = func(node *TreeNode, parent, count *int) {
+	sub = func(node *TreeNode, parent, count *int) {
 
-        if node.Left != nil {
+		if node.Left != nil {
 
-            sub(node.Left, parent, count)
-        }
+			sub(node.Left, parent, count)
+		}
 
-        //第一个元素
-        if *count == 0 && *parent == 0 {
+		//第一个元素
+		if *count == 0 && *parent == 0 {
 
-            *count++
-            *parent = node.Val
-            lastMaxCount = *count
-            lastMaxValue = node.Val
+			*count++
+			*parent = node.Val
+			lastMaxCount = *count
+			lastMaxValue = node.Val
 
-        }else {
+		} else {
 
-            //当前元素的值等于上一个元素
-            if *parent == node.Val {
-                
-                *count++
-                //上一个元素不等于且个数大于目前最大的
-                if *count > lastMaxCount {
-                    lastMaxCount = *count
-                    lastMaxValue = *parent
-                }
+			//当前元素的值等于上一个元素
+			if *parent == node.Val {
 
-            }else {
-                *count = 1
-                *parent = node.Val
-            }
-        }
+				*count++
+				//上一个元素不等于且个数大于目前最大的
+				if *count > lastMaxCount {
+					lastMaxCount = *count
+					lastMaxValue = *parent
+				}
 
-        if node.Right != nil {
+			} else {
+				*count = 1
+				*parent = node.Val
+			}
+		}
 
-            sub(node.Right, parent, count)
-        }
-    }
-    
-    parent,count := 0,0
+		if node.Right != nil {
 
-    sub(root, &parent, &count)
+			sub(node.Right, parent, count)
+		}
+	}
 
-    return lastMaxValue
+	parent, count := 0, 0
+
+	sub(root, &parent, &count)
+
+	return lastMaxValue
 }
 
 /**
@@ -2439,41 +2437,38 @@ func FindMode(root *TreeNode) int {
 
 func LowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 
-    //todo    
-    if root == nil {
-        return root
-    }
-    if p == root || q ==root {
-        return root
-    }
+	//todo
+	if root == nil {
+		return root
+	}
+	if p == root || q == root {
+		return root
+	}
 
-    left := LowestCommonAncestor(root.Left, p, q)
-    right := LowestCommonAncestor(root.Right, p, q)
+	left := LowestCommonAncestor(root.Left, p, q)
+	right := LowestCommonAncestor(root.Right, p, q)
 
-    if left != nil && right != nil {
-        
-        return root
-    }
+	if left != nil && right != nil {
 
-    if left != nil {
-        return left
-    }
+		return root
+	}
 
-    if right != nil {
+	if left != nil {
+		return left
+	}
 
-        return right
-    }
+	if right != nil {
 
-    return nil
+		return right
+	}
+
+	return nil
 }
-
-
 
 /**
 235. 二叉搜索树的最近公共祖先
-todo 
+todo
 **/
-
 
 /**
 701. 二叉搜索树中的插入操作
@@ -2483,21 +2478,21 @@ todo
 **/
 
 func InsertIntoBST(root *TreeNode, val int) *TreeNode {
-    
-    //不调整结构
-    if root == nil {
 
-        return &TreeNode{Val: val}
-    }
+	//不调整结构
+	if root == nil {
 
-    if val > root.Val {
-        root.Right = InsertIntoBST(root.Right, val)
-    }else {
+		return &TreeNode{Val: val}
+	}
 
-        root.Left = InsertIntoBST(root.Left, val)
-    }
+	if val > root.Val {
+		root.Right = InsertIntoBST(root.Right, val)
+	} else {
 
-    return root
+		root.Left = InsertIntoBST(root.Left, val)
+	}
+
+	return root
 }
 
 /**
@@ -2541,50 +2536,49 @@ key = 3
 **/
 func DeleteNode(root *TreeNode, key int) *TreeNode {
 
-    if root == nil {
-        return nil
-    }
+	if root == nil {
+		return nil
+	}
 
-    if key == root.Val {
+	if key == root.Val {
 
-        if root.Left == nil && root.Right == nil {
+		if root.Left == nil && root.Right == nil {
 
-            return nil
-        }
+			return nil
+		}
 
-        if root.Left == nil && root.Right != nil {
-            return root.Right
-        }
+		if root.Left == nil && root.Right != nil {
+			return root.Right
+		}
 
-        if root.Left != nil && root.Right == nil {
-            return root.Left
-        }
+		if root.Left != nil && root.Right == nil {
+			return root.Left
+		}
 
-        if root.Left != nil && root.Right != nil {
+		if root.Left != nil && root.Right != nil {
 
-            tmp := root.Left
+			tmp := root.Left
 
-            cur := root.Right
+			cur := root.Right
 
-            for cur.Left != nil{
+			for cur.Left != nil {
 
-                cur = cur.Left
-            }
-            cur.Left = tmp
+				cur = cur.Left
+			}
+			cur.Left = tmp
 
-            return root.Right
-        }
+			return root.Right
+		}
 
-    }else if key > root.Val {
-        root.Right = DeleteNode(root.Right, key)
-    }else if key < root.Val {
-        root.Left = DeleteNode(root.Left, key)
-    }
+	} else if key > root.Val {
+		root.Right = DeleteNode(root.Right, key)
+	} else if key < root.Val {
+		root.Left = DeleteNode(root.Left, key)
+	}
 
-    return root
-    //2.只用左边或者右边,不考虑两边都有。一样的只是就修改了一边
+	return root
+	//2.只用左边或者右边,不考虑两边都有。一样的只是就修改了一边
 }
-
 
 /**
 669. 修剪二叉搜索树
@@ -2594,26 +2588,26 @@ func DeleteNode(root *TreeNode, key int) *TreeNode {
 **/
 func TrimBST(root *TreeNode, low int, high int) *TreeNode {
 
-    //前序遍历
-    if root == nil {
+	//前序遍历
+	if root == nil {
 
-        return root
-    }
-    
-    if root.Val < low {
-        //todo fix return root.Right
-        return TrimBST(root.Right, low, high)
-    }
+		return root
+	}
 
-    if root.Val > high {
+	if root.Val < low {
+		//todo fix return root.Right
+		return TrimBST(root.Right, low, high)
+	}
 
-        return TrimBST(root.Left, low, high)
-    }
+	if root.Val > high {
 
-    root.Left = TrimBST(root.Left, low, high)
-    root.Right = TrimBST(root.Right, low, high)
+		return TrimBST(root.Left, low, high)
+	}
 
-    return root
+	root.Left = TrimBST(root.Left, low, high)
+	root.Right = TrimBST(root.Right, low, high)
+
+	return root
 }
 
 /**
@@ -2624,30 +2618,28 @@ func TrimBST(root *TreeNode, low int, high int) *TreeNode {
 **/
 func SortedArrayToBST(nums []int) *TreeNode {
 
+	if len(nums) == 0 {
 
-    if len(nums) == 0 {
+		return nil
+	}
 
-        return nil
-    }
+	mid := len(nums) / 2
 
+	left := nums[:mid]
+	right := nums[mid+1:]
 
-    mid :=len(nums)/2
+	cur := &TreeNode{Val: nums[mid]}
 
-    left := nums[:mid]
-    right := nums[mid+1:]
+	if len(left) > 0 {
 
-    cur := &TreeNode{Val: nums[mid]}
+		cur.Left = SortedArrayToBST(left)
+	}
 
-    if len(left) > 0 {
-        
-        cur.Left = SortedArrayToBST(left)
-    }
+	if len(right) > 0 {
 
-    if len(right) > 0 {
-        
-        cur.Right = SortedArrayToBST(right)
-    }
-    return cur
+		cur.Right = SortedArrayToBST(right)
+	}
+	return cur
 }
 
 /**
@@ -2668,32 +2660,30 @@ func SortedArrayToBST(nums []int) *TreeNode {
 **/
 
 func ConvertBST(root *TreeNode) *TreeNode {
-    
-    //右根左 倒叙
-   
-    var sub func(node *TreeNode, sum *int)
 
-    sub = func (node *TreeNode, sum *int) {
-        if node == nil {
-            return 
-        }
+	//右根左 倒叙
 
-        sub(node.Right, sum)
-        
-        node.Val += *sum 
-        *sum = node.Val
+	var sub func(node *TreeNode, sum *int)
 
+	sub = func(node *TreeNode, sum *int) {
+		if node == nil {
+			return
+		}
 
-        sub(node.Left, sum)
+		sub(node.Right, sum)
 
-        return 
-    }
-    
-    s :=0
-    sub(root, &s)
-    return root
+		node.Val += *sum
+		*sum = node.Val
+
+		sub(node.Left, sum)
+
+		return
+	}
+
+	s := 0
+	sub(root, &s)
+	return root
 }
-
 
 /**
 77. 组合
@@ -2702,7 +2692,7 @@ func ConvertBST(root *TreeNode) *TreeNode {
 你可以按 任何顺序 返回答案。
 
 1 <= n <= 20
-1 <= k <= n 
+1 <= k <= n
 
 示例 1：
 
@@ -2719,34 +2709,34 @@ func ConvertBST(root *TreeNode) *TreeNode {
 **/
 
 func Combine(n int, k int) [][]int {
-   
-    var res [][]int
-    
-    var sub func(i int, path []int)
 
-    sub = func(i int, path []int) {
+	var res [][]int
 
-        if len(path) == k {
-            
-            tmp:= make([]int, k)
-            copy(tmp, path)
-            res = append(res, tmp)
-            return
-        }
+	var sub func(i int, path []int)
 
-        for x:= i; x<= n; x++ {
+	sub = func(i int, path []int) {
 
-            path = append(path, x)
-            sub(x+1, path)
-            //fix 123 剔除3回溯
-            path = path[:len(path)-1]
-            fmt.Println("path:", path,"x", x)
-        }
-    }
+		if len(path) == k {
 
-    sub(1, []int{})
-    fmt.Println("res", res)
-    return res
+			tmp := make([]int, k)
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+
+		for x := i; x <= n; x++ {
+
+			path = append(path, x)
+			sub(x+1, path)
+			//fix 123 剔除3回溯
+			path = path[:len(path)-1]
+			fmt.Println("path:", path, "x", x)
+		}
+	}
+
+	sub(1, []int{})
+	fmt.Println("res", res)
+	return res
 }
 
 /**
@@ -2756,7 +2746,7 @@ func Combine(n int, k int) [][]int {
 说明：
 
 所有数字都是正整数。
-解集不能包含重复的组合。 
+解集不能包含重复的组合。
 示例 1:
 
 输入: k = 3, n = 7
@@ -2769,38 +2759,202 @@ func Combine(n int, k int) [][]int {
 
 func CombinationSum3(k int, n int) [][]int {
 
-    var res [][]int
+	var res [][]int
 
-    var sub func(i int, path []int, sum int)
+	var sub func(i int, path []int, sum int)
 
-    sub = func(i int, path []int, sum int){
+	sub = func(i int, path []int, sum int) {
 
-        length := len(path)
-        if length > k  || sum > n{
+		length := len(path)
+		if length > k || sum > n {
 
-            return
-        }
-        
-        if length == k && sum == n {
+			return
+		}
 
-            tmp := make([]int, length)
-            copy(tmp, path)
-            res = append(res, tmp)
-            return
-        }
+		if length == k && sum == n {
 
-        for x:= i;x< 10; x++ {
+			tmp := make([]int, length)
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
 
-            path = append(path, x)
-            sub(x+1, path, sum+x)
-            path = path[:len(path)-1]
-            
-        }
+		for x := i; x < 10; x++ {
 
-    }
-    
-    sub(1, []int{}, 0)
-    
-    fmt.Println(res)
-    return res
+			path = append(path, x)
+			sub(x+1, path, sum+x)
+			path = path[:len(path)-1]
+
+		}
+
+	}
+
+	sub(1, []int{}, 0)
+
+	fmt.Println(res)
+	return res
+}
+
+/**
+17. 电话号码的字母组合
+给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+
+示例 1：
+
+输入：digits = "23"
+输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
+**/
+
+/**
+**/
+func LetterCombinations(digits string) []string {
+
+	var res []string
+
+	digArr := [10]string{
+		"",
+		"",
+		"abc",
+		"def",
+		"ghi",
+		"jkl",
+		"mno",
+		"pqrs",
+		"tuv",
+		"wxyz",
+	}
+
+	//组合=集合
+	fmt.Println(digArr)
+	return res
+	//todo
+}
+
+/**
+46. 全排列
+给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
+
+输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+**/
+
+func Permute(nums []int) [][]int {
+
+	var res [][]int
+	var aa func(n []int, i int, path []int)
+
+	aa = func(n []int, i int, path []int) {
+
+		fmt.Printf("i= %v", i)
+		fmt.Println("----")
+		//	结束条件
+		if len(n) == 0 {
+			tmp := make([]int, len(path))
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+
+		j := 0
+		//各个分支
+		for j = 0; j < len(n); j++ {
+			fmt.Println("一次循环")
+			cur := n[j]
+			path = append(path, cur)
+			n = append(n[:j], n[j+1:]...)
+			fmt.Printf("j=%v i=%v cur=%v n=%v p=%v", j, i, cur, n, path)
+			fmt.Println("---")
+			aa(n, 0, path)
+			fmt.Println("一次回溯")
+			//fix//回溯的时候切片也要复原，元素位置不能变
+			n = append(n[:j], append([]int{cur}, n[j:]...)...)
+			path = path[:len(path)-1]
+			fmt.Printf("j=%v i=%v cur=%v n=%v p=%v", j, i, cur, n, path)
+
+			fmt.Println("   ")
+		}
+
+		fmt.Println("    ")
+		fmt.Printf("j = %v", j)
+		fmt.Println("    ")
+	}
+	aa(nums, 0, []int{})
+	fmt.Println(res)
+	return res
+}
+
+func Permute2(nums []int) [][]int {
+	var res [][]int
+
+	var dfs func(n []int, length int, s int, path []int)
+
+	dfs = func(n []int, length, s int, path []int) {
+		
+
+		fmt.Println("    ")
+		fmt.Printf("s= %v", s)
+		fmt.Println("")
+
+		if len(path) == length {
+			tmp := make([]int, length)
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+
+		for i:= s; i< length; i++ {
+			
+			fmt.Println("一次循环")
+			n[s], n[i] = n[i], n[s]
+			path = append(path, n[s])
+			fmt.Printf("n: %v, i: %v, s: %v, p: %v", n, i, s, path)
+			dfs(n, length, s+1, path)
+			
+			fmt.Println("一次回溯")
+		    n[s], n[i] = n[i], n[s]
+			path = path[:len(path)-1]
+
+			fmt.Printf("n: %v, i: %v, s: %v, p: %v", n, i, s, path)
+
+			fmt.Println("     ")
+		}
+
+	}
+
+	dfs(nums, len(nums), 0, []int{})
+	
+	fmt.Println(res)
+	return res
+}
+
+/**
+39. 组合总和
+给定一个无重复元素的正整数数组 candidates 和一个正整数 target ，找出 candidates 中所有可以使数字和为目标数 target 的唯一组合。
+
+candidates 中的数字可以无限制重复被选取。如果至少一个所选数字数量不同，则两种组合是唯一的。
+
+对于给定的输入，保证和为 target 的唯一组合数少于 150 个。
+
+输入: candidates = [2,3,6,7], target = 7
+输出: [[7],[2,2,3]]
+
+输入: candidates = [2,3,5], target = 8
+输出: [[2,2,2,2],[2,3,3],[3,5]]
+
+输入: candidates = [2], target = 1
+输出: []
+
+输入: candidates = [1], target = 1
+输出: [[1]]
+
+输入: candidates = [1], target = 2
+输出: [[1,1]]
+**/
+func CombinationSum(candidates []int, target int) [][]int {
+
+	var res [][]int
+
+	return res
 }
