@@ -2951,10 +2951,44 @@ candidates 中的数字可以无限制重复被选取。如果至少一个所选
 
 输入: candidates = [1], target = 2
 输出: [[1,1]]
+提示：
+
+1 <= candidates.length <= 30
+1 <= candidates[i] <= 200
+candidate 中的每个元素都是独一无二的。
+1 <= target <= 500
+
 **/
 func CombinationSum(candidates []int, target int) [][]int {
 
 	var res [][]int
+	var dfs func(num []int, s int, max int, p []int, target int, sum int)
 
+	dfs = func(num []int, s, max int, p []int, target int, sum int) {
+
+		if sum > target {
+			return
+		}
+
+		if sum == target {
+			tmp := make([]int, len(p))
+			copy(tmp, p)
+			res = append(res, tmp)
+			return
+		}
+
+		for j:= s; j < max; j++ {
+			p = append(p, num[j])
+			sum += num[j]
+			dfs(num, j, max, p, target, sum)
+			//fix: 如果我返回了说明找到了一个比目标值大的或者等于的所以当前p得退一个栈
+			sum -= p[len(p)-1]
+			p = p[:len(p) -1]
+		}
+	}
+
+	dfs(candidates, 0, len(candidates), []int{}, target, 0)
+	
+	fmt.Println(res)
 	return res
 }

@@ -607,3 +607,8 @@ func TestPermute2(t *testing.T) {
 
 	_ = Permute2([]int{1, 2, 3})
 }
+
+func TestCombinationSum(t *testing.T) {
+
+	_ = CombinationSum([]int{2, 3, 5}, 8)
+}
