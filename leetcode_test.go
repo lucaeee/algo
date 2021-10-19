@@ -612,3 +612,8 @@ func TestCombinationSum(t *testing.T) {
 
 	_ = CombinationSum([]int{2, 3, 5}, 8)
 }
+
+func TestCombinationSum2(t *testing.T) {
+
+	_ = CombinationSum2([]int{10,1,2,7,6,1,5}, 8)
+}

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"reflect"
 	"sort"
 	"strconv"
 )
@@ -2990,5 +2991,93 @@ func CombinationSum(candidates []int, target int) [][]int {
 	dfs(candidates, 0, len(candidates), []int{}, target, 0)
 	
 	fmt.Println(res)
+	return res
+}
+
+/*
+
+qn: 40. 组合总和 II
+给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的每个数字在每个组合中只能使用一次。
+
+注意：解集不能包含重复的组合。 
+
+ 
+
+示例 1:
+
+输入: candidates = [10,1,2,7,6,1,5], target = 8,
+输出:
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+示例 2:
+
+输入: candidates = [2,5,2,1,2], target = 5,
+输出:
+[
+[1,2,2],
+[5]
+]
+ 
+
+提示:
+
+1 <= candidates.length <= 100
+1 <= candidates[i] <= 50
+1 <= target <= 30
+*/
+func CombinationSum2(candidates []int, target int) [][]int {
+
+	var res [][]int
+	
+	nums :=  candidates
+	
+	//先排序好去重
+	sort.Ints(nums)
+
+	var dfs func( sum int, path []int, start int)
+	
+	dfs = func(sum int, path []int, start int) {
+
+		if sum == target {
+			
+			for _, v := range res {
+
+				if reflect.DeepEqual(v, path) {
+					return
+				}
+			}
+			tmp := make([]int, len(path))
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+		if sum > target {
+			return
+		}
+
+		for j:= start; j < len(nums); j++ {
+
+			//if j > 0 && nums[j] == nums[j-1] {
+				//continue
+			//}
+			path = append(path, nums[j])
+			sum += nums[j]
+			dfs(sum, path, j+1)
+
+			sum -= nums[j]
+			path = path[:len(path)-1]
+		}
+	}
+	
+	dfs( 0, []int{}, 0)
+	fmt.Println("CombinationSum2", res)
+
+	//2. 递归树横向不能有相同的
 	return res
 }
