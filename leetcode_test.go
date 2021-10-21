@@ -627,3 +627,8 @@ func TestRestoreIpAddresses(t *testing.T) {
 
 	_ = RestoreIpAddresses("101023")
 }
+
+func TestSubsets(t *testing.T) {
+
+	_ = Subsets([]int{1, 2, 3, 4})
+}
