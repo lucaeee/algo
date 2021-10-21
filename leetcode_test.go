@@ -615,5 +615,10 @@ func TestCombinationSum(t *testing.T) {
 
 func TestCombinationSum2(t *testing.T) {
 
-	_ = CombinationSum2([]int{10,1,2,7,6,1,5}, 8)
+	_ = CombinationSum2([]int{10, 1, 2, 7, 6, 1, 5}, 8)
+}
+
+func TestPartition(t *testing.T) {
+
+	_ = Partition("aabaa")
 }

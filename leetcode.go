@@ -8,6 +8,7 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 /**
@@ -2892,7 +2893,6 @@ func Permute2(nums []int) [][]int {
 	var dfs func(n []int, length int, s int, path []int)
 
 	dfs = func(n []int, length, s int, path []int) {
-		
 
 		fmt.Println("    ")
 		fmt.Printf("s= %v", s)
@@ -2905,16 +2905,16 @@ func Permute2(nums []int) [][]int {
 			return
 		}
 
-		for i:= s; i< length; i++ {
-			
+		for i := s; i < length; i++ {
+
 			fmt.Println("一次循环")
 			n[s], n[i] = n[i], n[s]
 			path = append(path, n[s])
 			fmt.Printf("n: %v, i: %v, s: %v, p: %v", n, i, s, path)
 			dfs(n, length, s+1, path)
-			
+
 			fmt.Println("一次回溯")
-		    n[s], n[i] = n[i], n[s]
+			n[s], n[i] = n[i], n[s]
 			path = path[:len(path)-1]
 
 			fmt.Printf("n: %v, i: %v, s: %v, p: %v", n, i, s, path)
@@ -2925,7 +2925,7 @@ func Permute2(nums []int) [][]int {
 	}
 
 	dfs(nums, len(nums), 0, []int{})
-	
+
 	fmt.Println(res)
 	return res
 }
@@ -2978,18 +2978,18 @@ func CombinationSum(candidates []int, target int) [][]int {
 			return
 		}
 
-		for j:= s; j < max; j++ {
+		for j := s; j < max; j++ {
 			p = append(p, num[j])
 			sum += num[j]
 			dfs(num, j, max, p, target, sum)
 			//fix: 如果我返回了说明找到了一个比目标值大的或者等于的所以当前p得退一个栈
 			sum -= p[len(p)-1]
-			p = p[:len(p) -1]
+			p = p[:len(p)-1]
 		}
 	}
 
 	dfs(candidates, 0, len(candidates), []int{}, target, 0)
-	
+
 	fmt.Println(res)
 	return res
 }
@@ -3001,9 +3001,9 @@ qn: 40. 组合总和 II
 
 candidates 中的每个数字在每个组合中只能使用一次。
 
-注意：解集不能包含重复的组合。 
+注意：解集不能包含重复的组合。
 
- 
+
 
 示例 1:
 
@@ -3023,7 +3023,7 @@ candidates 中的每个数字在每个组合中只能使用一次。
 [1,2,2],
 [5]
 ]
- 
+
 
 提示:
 
@@ -3034,18 +3034,18 @@ candidates 中的每个数字在每个组合中只能使用一次。
 func CombinationSum2(candidates []int, target int) [][]int {
 
 	var res [][]int
-	
-	nums :=  candidates
-	
+
+	nums := candidates
+
 	//先排序好去重
 	sort.Ints(nums)
 
-	var dfs func( sum int, path []int, start int)
-	
+	var dfs func(sum int, path []int, start int)
+
 	dfs = func(sum int, path []int, start int) {
 
 		if sum == target {
-			
+
 			for _, v := range res {
 
 				if reflect.DeepEqual(v, path) {
@@ -3061,10 +3061,10 @@ func CombinationSum2(candidates []int, target int) [][]int {
 			return
 		}
 
-		for j:= start; j < len(nums); j++ {
+		for j := start; j < len(nums); j++ {
 
 			//if j > 0 && nums[j] == nums[j-1] {
-				//continue
+			//continue
 			//}
 			path = append(path, nums[j])
 			sum += nums[j]
@@ -3074,10 +3074,95 @@ func CombinationSum2(candidates []int, target int) [][]int {
 			path = path[:len(path)-1]
 		}
 	}
-	
-	dfs( 0, []int{}, 0)
+
+	dfs(0, []int{}, 0)
 	fmt.Println("CombinationSum2", res)
 
 	//2. 递归树横向不能有相同的
+	return res
+}
+
+/**
+131. 分割回文串
+给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。
+
+回文串 是正着读和反着读都一样的字符串。
+
+
+
+示例 1：
+
+输入：s = "aab"
+输出：[["a","a","b"],["aa","b"]]
+示例 2：
+
+输入：s = "a"
+输出：[["a"]]
+提示：
+1 <= s.length <= 16
+s 仅由小写英文字母组成
+**/
+func Partition(s string) [][]string {
+	var res [][]string
+
+	var sStrings []string
+
+	for _, v := range s {
+		sStrings = append(sStrings, string(v))
+	}
+	length := len(sStrings)
+
+	fmt.Println(sStrings)
+
+	isPar := func(num []string, start, end int) bool {
+		res := true
+		left, right := start, end
+
+		for left <= right {
+			if num[left] != num[right] {
+				res = false
+				break
+			}
+			left++
+			right--
+		}
+
+		return res
+	}
+
+	var dfs func(start int, path []string)
+
+	dfs = func(start int, path []string) {
+
+		if start >= length {
+
+			tmp := make([]string, len(path))
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+		i := start
+		for i = start; i < length; i++ {
+
+			//fix 重star开始
+			isP := isPar(sStrings, start, i)
+			if !isP {
+				continue
+			}
+
+			part := strings.Join(sStrings[start:i+1], "")
+			path = append(path, part)
+			fmt.Println("1:path=", path, "start", start, "i=", i)
+			dfs(i+1, path)
+			path = path[:len(path)-1]
+
+			fmt.Println("2:path=", path, "start", start, "i=", i)
+		}
+		fmt.Println("3:path=", path, "start", start, "i=", i, "循环结束")
+	}
+
+	dfs(0, []string{})
+
+	fmt.Println(res)
 	return res
 }
