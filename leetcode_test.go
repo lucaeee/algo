@@ -622,3 +622,8 @@ func TestPartition(t *testing.T) {
 
 	_ = Partition("aabaa")
 }
+
+func TestRestoreIpAddresses(t *testing.T) {
+
+	_ = RestoreIpAddresses("101023")
+}
