@@ -3299,3 +3299,63 @@ func SubsetsWithDup(nums []int) [][]int {
 	fmt.Println("res:", res)
 	return res
 }
+
+/**
+491. 递增子序列
+给你一个整数数组 nums ，找出并返回所有该数组中不同的递增子序列，递增子序列中 至少有两个元素 。你可以按 任意顺序 返回答案。
+
+数组中可能含有重复元素，如出现两个整数相等，也可以视作递增序列的一种特殊情况。
+
+输入：nums = [4,6,7,7]
+输出：[[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]
+
+输入：nums = [4,4,3,2,1]
+输出：[[4,4]]
+
+1 <= nums.length <= 15
+-100 <= nums[i] <= 100
+**/
+func FindSubsequences(nums []int) [][]int {
+    var res [][]int
+
+    length := len(nums)
+
+    var dfs func(start int, path []int)
+    dfs = func(start int, path []int){
+
+        if start == length {
+
+            return
+        }
+        
+        //记录当前层出现的记录
+        history := make(map[int]bool)
+        //每次递归都是找一个比当前大的元素
+        for i := start; i < length; i++ {
+           
+            current := nums[i]
+            //当前元素小于最后一个元素
+            if len(path) > 0 && path[len(path)-1] > current{
+               continue 
+            }
+            //TODO 当前元素已经在本层出现过
+            if history[current] == true {
+                continue 
+            }
+
+            path = append(path, current)
+            history[current] = true
+            if len(path) > 1{
+
+                tmp := make([]int, len(path))
+                copy(tmp, path)
+                res = append(res, tmp)
+            }
+            dfs(i+1, path)
+            path = path[:len(path) -1]
+        }
+    }
+    dfs(0, []int{})
+    fmt.Println(res)
+    return res
+}

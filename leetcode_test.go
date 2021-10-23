@@ -637,3 +637,8 @@ func TestSubsetsWithDup(t *testing.T) {
 
 	_ = SubsetsWithDup([]int{1, 2, 2})
 }
+
+func TestFindSubsequences(t *testing.T) {
+
+    _ = FindSubsequences([]int{4, 6, 7, 7})
+}
