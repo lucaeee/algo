@@ -3359,3 +3359,53 @@ func FindSubsequences(nums []int) [][]int {
     fmt.Println(res)
     return res
 }
+
+/**
+47. 全排列 II
+给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
+
+输入：nums = [1,1,2]
+[[1,1,2],
+ [1,2,1],
+ [2,1,1]]
+
+输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+ 
+提示：
+
+1 <= nums.length <= 8
+-10 <= nums[i] <= 10
+**/
+func PermuteUnique(nums []int) [][]int {
+    var res [][]int
+
+    var dfs func(n []int,  path []int)
+    dfs = func(n []int,  path []int) {
+
+        if len(n) == 0 {
+
+            tmp := make([]int, len(path))
+            copy(tmp, path)
+            res = append(res, tmp)
+            return
+        }
+        
+        history := make(map[int]bool)
+        for i:= 0; i< len(n); i++ {
+            cur := n[i]
+            if history[cur]  == true{
+                continue
+            }
+            history[cur] = true
+            path = append(path,cur)
+            n = append(n[:i],n[i+1:]...)
+            dfs(n, path)
+            n = append(n[:i],append([]int{cur}, n[i:]...)...)
+            path = path[:len(path)-1]
+        }
+    }
+    dfs(nums, []int{})
+    fmt.Println(res)
+    return res
+}

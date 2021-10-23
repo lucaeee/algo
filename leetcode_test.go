@@ -642,3 +642,9 @@ func TestFindSubsequences(t *testing.T) {
 
     _ = FindSubsequences([]int{4, 6, 7, 7})
 }
+
+
+func TestPermuteUnique(t *testing.T) {
+
+    _ = PermuteUnique([]int{1, 1, 2})
+}
