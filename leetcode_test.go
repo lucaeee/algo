@@ -648,3 +648,8 @@ func TestPermuteUnique(t *testing.T) {
 
     _ = PermuteUnique([]int{1, 1, 2})
 }
+
+func TestSolveNQueens(t *testing.T) {
+    _ = SolveNQueens(5)
+
+}

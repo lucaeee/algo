@@ -3231,7 +3231,7 @@ func Subsets(nums []int) [][]int {
 	var dfs func(start int, path []int)
 
 	dfs = func(start int, path []int) {
-		
+
 		if start >= length {
 			return
 		}
@@ -3243,7 +3243,7 @@ func Subsets(nums []int) [][]int {
 			copy(tmp, path)
 			res = append(res, tmp)
 			dfs(i+1, path)
-			path = path[:len(path) -1]
+			path = path[:len(path)-1]
 			fmt.Println("back", "path:", path, "i=:", i)
 		}
 	}
@@ -3258,7 +3258,7 @@ func Subsets(nums []int) [][]int {
 
 解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。
 
- 
+
 
 示例 1：
 
@@ -3270,7 +3270,7 @@ func Subsets(nums []int) [][]int {
 输出：[[],[0]]
 */
 func SubsetsWithDup(nums []int) [][]int {
-	
+
 	var res [][]int
 	res = append(res, []int{})
 	length := len(nums)
@@ -3278,10 +3278,9 @@ func SubsetsWithDup(nums []int) [][]int {
 	var dfs func(start int, path []int)
 
 	dfs = func(start int, path []int) {
-		
 
 		for i := start; i < length; i++ {
-			
+
 			//fix这个就很吊了
 			if i > start && nums[i] == nums[i-1] {
 				continue
@@ -3291,7 +3290,7 @@ func SubsetsWithDup(nums []int) [][]int {
 			copy(tmp, path)
 			res = append(res, tmp)
 			dfs(i+1, path)
-			path = path[:len(path) -1]
+			path = path[:len(path)-1]
 			fmt.Println("back", "i=:", i, "path=", path)
 		}
 	}
@@ -3316,48 +3315,48 @@ func SubsetsWithDup(nums []int) [][]int {
 -100 <= nums[i] <= 100
 **/
 func FindSubsequences(nums []int) [][]int {
-    var res [][]int
+	var res [][]int
 
-    length := len(nums)
+	length := len(nums)
 
-    var dfs func(start int, path []int)
-    dfs = func(start int, path []int){
+	var dfs func(start int, path []int)
+	dfs = func(start int, path []int) {
 
-        if start == length {
+		if start == length {
 
-            return
-        }
-        
-        //记录当前层出现的记录
-        history := make(map[int]bool)
-        //每次递归都是找一个比当前大的元素
-        for i := start; i < length; i++ {
-           
-            current := nums[i]
-            //当前元素小于最后一个元素
-            if len(path) > 0 && path[len(path)-1] > current{
-               continue 
-            }
-            //TODO 当前元素已经在本层出现过
-            if history[current] == true {
-                continue 
-            }
+			return
+		}
 
-            path = append(path, current)
-            history[current] = true
-            if len(path) > 1{
+		//记录当前层出现的记录
+		history := make(map[int]bool)
+		//每次递归都是找一个比当前大的元素
+		for i := start; i < length; i++ {
 
-                tmp := make([]int, len(path))
-                copy(tmp, path)
-                res = append(res, tmp)
-            }
-            dfs(i+1, path)
-            path = path[:len(path) -1]
-        }
-    }
-    dfs(0, []int{})
-    fmt.Println(res)
-    return res
+			current := nums[i]
+			//当前元素小于最后一个元素
+			if len(path) > 0 && path[len(path)-1] > current {
+				continue
+			}
+			//TODO 当前元素已经在本层出现过
+			if history[current] == true {
+				continue
+			}
+
+			path = append(path, current)
+			history[current] = true
+			if len(path) > 1 {
+
+				tmp := make([]int, len(path))
+				copy(tmp, path)
+				res = append(res, tmp)
+			}
+			dfs(i+1, path)
+			path = path[:len(path)-1]
+		}
+	}
+	dfs(0, []int{})
+	fmt.Println(res)
+	return res
 }
 
 /**
@@ -3371,43 +3370,43 @@ func FindSubsequences(nums []int) [][]int {
 
 输入：nums = [1,2,3]
 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
- 
+
 提示：
 
 1 <= nums.length <= 8
 -10 <= nums[i] <= 10
 **/
 func PermuteUnique(nums []int) [][]int {
-    var res [][]int
+	var res [][]int
 
-    var dfs func(n []int,  path []int)
-    dfs = func(n []int,  path []int) {
+	var dfs func(n []int, path []int)
+	dfs = func(n []int, path []int) {
 
-        if len(n) == 0 {
+		if len(n) == 0 {
 
-            tmp := make([]int, len(path))
-            copy(tmp, path)
-            res = append(res, tmp)
-            return
-        }
-        
-        history := make(map[int]bool)
-        for i:= 0; i< len(n); i++ {
-            cur := n[i]
-            if history[cur]  == true{
-                continue
-            }
-            history[cur] = true
-            path = append(path,cur)
-            n = append(n[:i],n[i+1:]...)
-            dfs(n, path)
-            n = append(n[:i],append([]int{cur}, n[i:]...)...)
-            path = path[:len(path)-1]
-        }
-    }
-    dfs(nums, []int{})
-    fmt.Println(res)
-    return res
+			tmp := make([]int, len(path))
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+
+		history := make(map[int]bool)
+		for i := 0; i < len(n); i++ {
+			cur := n[i]
+			if history[cur] == true {
+				continue
+			}
+			history[cur] = true
+			path = append(path, cur)
+			n = append(n[:i], n[i+1:]...)
+			dfs(n, path)
+			n = append(n[:i], append([]int{cur}, n[i:]...)...)
+			path = path[:len(path)-1]
+		}
+	}
+	dfs(nums, []int{})
+	fmt.Println(res)
+	return res
 }
 
 /**
@@ -3428,7 +3427,107 @@ func PermuteUnique(nums []int) [][]int {
 解释：另一种有效的行程是 ["JFK","SFO","ATL","JFK","ATL","SFO"] ，但是它字典排序更大更靠后。
 **/
 func FindItinerary(tickets [][]string) []string {
-    var res []string
-    //TODO
-    return res
+	var res []string
+	//TODO
+	return res
+}
+
+/**
+51. N 皇后
+n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
+
+给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。
+
+每一种解法包含一个不同的 n 皇后问题 的棋子放置方案，该方案中 'Q' 和 '.' 分别代表了皇后和空位。
+
+输入：n = 4
+输出：[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+解释：如上图所示，4 皇后问题存在两个不同的解法。
+**/
+func SolveNQueens(n int) [][]string {
+	var res [][]string
+
+	//init
+	var resSlice [][]string
+	for i := 0; i < n; i++ {
+		var tmp []string
+		for j := 0; j < n; j++ {
+
+			tmp = append(tmp, ".")
+		}
+		resSlice = append(resSlice, tmp)
+	}
+
+	canPlace := func(x int, y int, r [][]string) bool {
+
+		//同一x 上是否有元素
+		for t := 0; t < x; t++ {
+
+			if (r)[t][y] == "Q" {
+				return false
+			}
+		}
+
+		//左上角是否有元素
+		tx := x - 1
+		ty := y - 1
+
+		for tx >= 0 && ty >= 0 {
+
+			if (r)[tx][ty] == "Q" {
+				return false
+			}
+
+			tx--
+			ty--
+		}
+
+		//右上角是否有元素
+		tx = x - 1
+		ty = y + 1
+		for tx >= 0 && ty < n {
+
+			if (r)[tx][ty] == "Q" {
+				return false
+			}
+
+			tx--
+			ty++
+		}
+
+		return true
+	}
+	//TODO 左下角 x+y互斥 右下角x-y互斥  但是有互斥的结果并不代表不能插入
+
+	var dfs func(x int, r [][]string)
+
+	dfs = func(x int, r [][]string) {
+
+		if x == n {
+
+			tmp := make([]string, n)
+			for k := 0; k < n; k++ {
+				tmp[k] = strings.Join(r[k], "")
+			}
+
+			res = append(res, tmp)
+			return
+		}
+
+		for y := 0; y < n; y++ {
+
+			if canPlace(x, y, r) == false {
+				continue
+			}
+
+			resSlice[x][y] = "Q"
+
+			dfs(x+1, r)
+
+			resSlice[x][y] = "."
+		}
+	}
+	dfs(0, resSlice)
+	fmt.Println(res)
+	return res
 }
