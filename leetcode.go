@@ -3549,7 +3549,9 @@ func SolveNQueens(n int) [][]string {
 
 func SolveSudoku(board [][]byte)  {
 
-
+    //当找到第n个未填充数字的格子，此时尝试在里面填写1可以保证当前行不冲突，列不冲突，小方块不冲突，那么就在第n个格子里面填写1，
+    //然后查看第n+1个格子，如果第n+1个格子发现填写1-9都冲突，
+    //说明第n个格子填写1的情况下无法找到解，此时我们需要回到第n个格子，填写另外一个不冲突的数字。一直到能填充到第81个格子为止。
     canPlace := func (board [][]byte, x int, y int, target byte) bool{
        
 
@@ -3595,13 +3597,12 @@ func SolveSudoku(board [][]byte)  {
 
             for y:=0; y<9; y++ {
 
-                fmt.Println(board[x][y])
-                if string(board[x][y]) != "." {
+                if board[x][y] != '.' {
                     continue
                 }
 
-                //填充
-                for j := 1; j<10; j++ {
+                //填充：fix j数据类型为byte
+                for j := '1'; j<='9'; j++ {
 
                     if canPlace(board, x, y, byte(j)) == false {
                         continue
@@ -3628,4 +3629,5 @@ func SolveSudoku(board [][]byte)  {
     dfs(board)
 
     fmt.Println(board)
+    fmt.Printf("%c", board)
 }
