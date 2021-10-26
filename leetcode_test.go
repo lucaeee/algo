@@ -678,3 +678,9 @@ func TestFindContentChildren(t *testing.T) {
     assert.Equal(t, 2, res)
     
 }
+
+func TestWiggleMaxLength( t *testing.T ) {
+    
+    res := WiggleMaxLength([]int{1,17,5,10,13,15,10,5,16,8})
+    assert.Equal(t,7, res)
+}
