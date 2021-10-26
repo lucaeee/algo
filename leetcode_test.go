@@ -671,3 +671,10 @@ func TestSolveSudoku(t *testing.T) {
    SolveSudoku(board)
 
 }
+
+func TestFindContentChildren(t *testing.T) {
+
+    res := FindContentChildren([]int{1,2}, []int{1,2,3})
+    assert.Equal(t, 2, res)
+    
+}

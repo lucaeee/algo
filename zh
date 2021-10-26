@@ -3648,27 +3648,5 @@ func SolveSudoku(board [][]byte)  {
 虽然你有两块小饼干，由于他们的尺寸都是1，你只能让胃口值是1的孩子满足。
 所以你应该输出1。
 **/
-func FindContentChildren(g []int, s []int) int {
-    //s 是饼干 g是小孩
-
-    res := 0
-    
-    sort.Ints(g)
-    sort.Ints(s)
-    
-    gk, sk := 0, 0
-
-    for gk < len(g) && sk < len(s){
-
-        if s[sk] >= g[gk] {
-            gk++
-            sk++
-            res++
-        }else{
-
-            sk++
-        }
-    }
-
-    return res
+func findContentChildren(g []int, s []int) int {
 }
