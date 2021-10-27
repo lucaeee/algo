@@ -3733,19 +3733,49 @@ func WiggleMaxLength(nums []int) int {
 **/
 func MaxSubArray(nums []int) int {
 
-    res := nums[0] 
-    max := nums[0]
+    res := 0
 
-    for i:=1; i < len(nums); i++ {
+    //暴力破解
+    for i:= 0; i< len(nums); i++ {
+       
+        sum := 0
 
-        if max + nums[i] < 0 {
-            max = 0
-            continue
+        for j := i; j< len(nums); j++ {
+
+            sum += nums[j]
+            fmt.Println("sum", sum)
+            if sum > res {
+                res = sum
+            }
         }
+        fmt.Println("---res", res)
     }
-    //TODO
 
 
+    fmt.Println(res)
     return res
 }
-//TODO 
+
+func MaxSubArray2(nums []int) int {
+
+    res := 0
+
+    //如果前和再加上当前的数小于0那么子序列结束
+    max := 0
+    for i:=0;i<len(nums); i++ {
+
+        if max+nums[i] <= 0 {
+            max = 0
+            continue
+        }else {
+
+            max += nums[i]
+            if max > res {
+                res = max
+            }
+        }
+    }
+
+    fmt.Println(res)
+    return res
+}

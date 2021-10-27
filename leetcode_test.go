@@ -684,3 +684,19 @@ func TestWiggleMaxLength( t *testing.T ) {
     res := WiggleMaxLength([]int{1,17,5,10,13,15,10,5,16,8})
     assert.Equal(t,7, res)
 }
+
+func TestMaxSubArray (t *testing.T){
+
+    res := MaxSubArray([]int{-2,1,-3,4,-1,2,1,-5,4})
+    assert.Equal(t,6, res)
+}
+
+func TestMaxSubArray2 (t *testing.T){
+
+    res := MaxSubArray2([]int{-2,1,-3,4,-1,2,1,-5,4})
+    assert.Equal(t,6, res)
+   
+    res = MaxSubArray2([]int{-7,-2,-3,-1,0,-10})
+    assert.Equal(t,0, res)
+
+}
