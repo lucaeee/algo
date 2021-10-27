@@ -700,3 +700,11 @@ func TestMaxSubArray2 (t *testing.T){
     assert.Equal(t,0, res)
 
 }
+
+
+func TestMaxProfit(t *testing.T){
+
+    res := MaxProfit([]int{7,1,5,3,6,4})
+    assert.Equal(t,7, res)
+
+}
