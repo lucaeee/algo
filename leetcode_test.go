@@ -708,3 +708,16 @@ func TestMaxProfit(t *testing.T){
     assert.Equal(t,7, res)
 
 }
+
+
+func TestCanJump(t *testing.T){
+
+    res := CanJump([]int{2,3,1,1,4})
+    assert.Equal(t,true, res)
+    
+    res = CanJump([]int{3,2,1,0,4})
+    assert.Equal(t,false, res)
+
+    res = CanJump([]int{3,2,1,4,0})
+    assert.Equal(t,true, res)
+}
