@@ -732,3 +732,11 @@ func TestJump(t *testing.T){
     assert.Equal(t,4, res)
 
 }
+
+
+func TestLargestSumAfterKNegations(t *testing.T){
+
+    res := LargestSumAfterKNegations([]int{2,-3,-1,5,-4}, 2)
+    assert.Equal(t,13, res)
+    
+}
