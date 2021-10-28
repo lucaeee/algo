@@ -721,3 +721,14 @@ func TestCanJump(t *testing.T){
     res = CanJump([]int{3,2,1,4,0})
     assert.Equal(t,true, res)
 }
+
+
+func TestJump(t *testing.T){
+
+    res := Jump([]int{4,2,7,3,1, 1,3, 1, 1, 1})
+    assert.Equal(t,2, res)
+    
+    res = Jump([]int{4,2,7,3,1, 1,3, 1, 1, 1, 6, 6, 3, 5})
+    assert.Equal(t,4, res)
+
+}

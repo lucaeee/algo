@@ -3853,3 +3853,79 @@ func CanJump(nums []int) bool {
 
     return true 
 }
+
+
+/**
+45. 跳跃游戏 II
+给你一个非负整数数组 nums ，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+假设你总是可以到达数组的最后一个位置。
+
+输入: nums = [2,3,1,1,4]
+输出: 2
+解释: 跳到最后一个位置的最小跳跃数是 2。
+     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+示例 2:
+
+输入: nums = [2,3,0,1,4]
+输出: 2
+
+1 <= nums.length <= 104
+0 <= nums[i] <= 1000
+
+
+TODO 在不得不跳的时候再跳
+
+cur_max表示跳i步能达到最远的坐标
+next_max表示在cur_max之前的位置跳一步能达到下一个最远的位置
+例如：
+[4,2,7,3,1,1,3,1,1,1]
+第一步从4开始，最远跳到数字1的位置，cur_max = 0+4=4
+那跳两步最远的位置为max(1+2, 2+7, 3+3, 4+1)中的一个，
+其中的加法操作是i+nums[i]。不难得出next_max=2+7=9
+
+遍历数组，当i==cur_max，step+1，
+因为上一次跳跃最远能到cur_max，要超过cur_max必须再跳一次，而再跳一次能达到的最远距离为next_max
+**/
+func Jump(nums []int) int {
+   
+
+    fmt.Println("---")
+
+    res := 0
+
+    for i:= 0 ; i< len(nums); {
+       
+        //每次进来走一步
+        res ++
+
+        max := i+nums[i]
+
+        nextMax := 0
+        for j:= i+1; j <= max; j++ {
+
+            if j+nums[j] > nextMax {
+                nextMax = j+ nums[j]
+            }
+        }
+
+        res ++
+
+        fmt.Println("nextMax: ", nextMax, "max", max)
+
+        if nextMax >= len(nums) -1 {
+            return res
+        }
+
+
+        //步进跳到nextMax
+        i = nextMax
+
+    }
+
+    return res
+}
