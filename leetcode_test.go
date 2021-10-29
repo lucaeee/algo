@@ -740,3 +740,21 @@ func TestLargestSumAfterKNegations(t *testing.T){
     assert.Equal(t,13, res)
     
 }
+
+func TestLemonadeChange(t *testing.T) {
+    res := LemonadeChange([]int{5,5,5,10,20})
+    assert.Equal(t,true, res)
+
+
+    res = LemonadeChange([]int{5,5,10,10,20})
+    assert.Equal(t,false, res)
+
+
+    res = LemonadeChange([]int{5,5,10})
+    assert.Equal(t,true, res)
+    
+
+    res = LemonadeChange([]int{10,10})
+    assert.Equal(t,false, res)
+
+}

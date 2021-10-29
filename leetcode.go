@@ -3547,89 +3547,87 @@ func SolveNQueens(n int) [][]string {
 输出：[["5","3","4","6","7","8","9","1","2"],["6","7","2","1","9","5","3","4","8"],["1","9","8","3","4","2","5","6","7"],["8","5","9","7","6","1","4","2","3"],["4","2","6","8","5","3","7","9","1"],["7","1","3","9","2","4","8","5","6"],["9","6","1","5","3","7","2","8","4"],["2","8","7","4","1","9","6","3","5"],["3","4","5","2","8","6","1","7","9"]]
 **/
 
-func SolveSudoku(board [][]byte)  {
+func SolveSudoku(board [][]byte) {
 
-    //当找到第n个未填充数字的格子，此时尝试在里面填写1可以保证当前行不冲突，列不冲突，小方块不冲突，那么就在第n个格子里面填写1，
-    //然后查看第n+1个格子，如果第n+1个格子发现填写1-9都冲突，
-    //说明第n个格子填写1的情况下无法找到解，此时我们需要回到第n个格子，填写另外一个不冲突的数字。一直到能填充到第81个格子为止。
-    canPlace := func (board [][]byte, x int, y int, target byte) bool{
-       
+	//当找到第n个未填充数字的格子，此时尝试在里面填写1可以保证当前行不冲突，列不冲突，小方块不冲突，那么就在第n个格子里面填写1，
+	//然后查看第n+1个格子，如果第n+1个格子发现填写1-9都冲突，
+	//说明第n个格子填写1的情况下无法找到解，此时我们需要回到第n个格子，填写另外一个不冲突的数字。一直到能填充到第81个格子为止。
+	canPlace := func(board [][]byte, x int, y int, target byte) bool {
 
-        //竖方向是否有形同
-        for j := 0; j< 9; j++ {
-            
-            if board[j][y] == target {
-                
-                return false
-            }
-        } 
+		//竖方向是否有形同
+		for j := 0; j < 9; j++ {
 
+			if board[j][y] == target {
 
-        //横方向是否有相同
-        for j:= 0; j<9; j++ {
-            
-            if board[x][j] == target {
+				return false
+			}
+		}
 
-                return false
-            }
-        } 
+		//横方向是否有相同
+		for j := 0; j < 9; j++ {
 
-        //九宫格是否有相同
-        for ix := (x/3)*3; ix <= (x/3)*3 +2; ix ++ {
+			if board[x][j] == target {
 
-            for iy := (y/3)*3; iy <= (y/3)*3 +2; iy ++ {
+				return false
+			}
+		}
 
-                if board[ix][iy] == target {
-                    return false
-                }
-            }
+		//九宫格是否有相同
+		for ix := (x / 3) * 3; ix <= (x/3)*3+2; ix++ {
 
-        }
+			for iy := (y / 3) * 3; iy <= (y/3)*3+2; iy++ {
 
-        return true
-    }
+				if board[ix][iy] == target {
+					return false
+				}
+			}
 
-    var dfs func(board [][]byte) bool
+		}
 
-    dfs = func(board [][]byte) bool {
+		return true
+	}
 
-        for x:= 0; x< 9; x++ {
+	var dfs func(board [][]byte) bool
 
-            for y:=0; y<9; y++ {
+	dfs = func(board [][]byte) bool {
 
-                if board[x][y] != '.' {
-                    continue
-                }
+		for x := 0; x < 9; x++ {
 
-                //填充：fix j数据类型为byte
-                for j := '1'; j<='9'; j++ {
+			for y := 0; y < 9; y++ {
 
-                    if canPlace(board, x, y, byte(j)) == false {
-                        continue
-                    }
+				if board[x][y] != '.' {
+					continue
+				}
 
-                    //找到一个可以填充的元素
-                    board[x][y] = byte(j)
-                    res := dfs(board)
-                    if res == true {
-                        return true
-                    }
+				//填充：fix j数据类型为byte
+				for j := '1'; j <= '9'; j++ {
 
-                    board[x][y] = '.' 
-                }
+					if canPlace(board, x, y, byte(j)) == false {
+						continue
+					}
 
-                return false
+					//找到一个可以填充的元素
+					board[x][y] = byte(j)
+					res := dfs(board)
+					if res == true {
+						return true
+					}
 
-            }
-        }
+					board[x][y] = '.'
+				}
 
-        return true
-    }
-        
-    dfs(board)
+				return false
 
-    fmt.Println(board)
-    fmt.Printf("%c", board)
+			}
+		}
+
+		return true
+	}
+
+	dfs(board)
+
+	fmt.Println(board)
+	fmt.Printf("%c", board)
 }
 
 /**
@@ -3638,39 +3636,39 @@ func SolveSudoku(board [][]byte)  {
 
 对每个孩子 i，都有一个胃口值 g[i]，这是能让孩子们满足胃口的饼干的最小尺寸；并且每块饼干 j，都有一个尺寸 s[j] 。如果 s[j] >= g[i]，我们可以将这个饼干 j 分配给孩子 i ，这个孩子会得到满足。你的目标是尽可能满足越多数量的孩子，并输出这个最大数值。
 
- 
+
 示例 1:
 
 输入: g = [1,2,3], s = [1,1]
 输出: 1
-解释: 
+解释:
 你有三个孩子和两块小饼干，3个孩子的胃口值分别是：1,2,3。
 虽然你有两块小饼干，由于他们的尺寸都是1，你只能让胃口值是1的孩子满足。
 所以你应该输出1。
 **/
 func FindContentChildren(g []int, s []int) int {
-    //s 是饼干 g是小孩
+	//s 是饼干 g是小孩
 
-    res := 0
-    
-    sort.Ints(g)
-    sort.Ints(s)
-    
-    gk, sk := 0, 0
+	res := 0
 
-    for gk < len(g) && sk < len(s){
+	sort.Ints(g)
+	sort.Ints(s)
 
-        if s[sk] >= g[gk] {
-            gk++
-            sk++
-            res++
-        }else{
+	gk, sk := 0, 0
 
-            sk++
-        }
-    }
+	for gk < len(g) && sk < len(s) {
 
-    return res
+		if s[sk] >= g[gk] {
+			gk++
+			sk++
+			res++
+		} else {
+
+			sk++
+		}
+	}
+
+	return res
 }
 
 /**
@@ -3698,29 +3696,29 @@ func FindContentChildren(g []int, s []int) int {
 输出：2
 **/
 func WiggleMaxLength(nums []int) int {
-   
-    res := 1
-   
-    pre := 0
-    var sub []int
-    
-   //只到倒数第二个元素 
-    for i:= 0; i < len(nums) -1; i++ {
 
-        //当前结果
-        cur := nums[i+1] - nums[i]
+	res := 1
 
-        if (cur > 0 && pre <= 0)  || (cur < 0 && pre >= 0){
-            res ++
-            sub = append(sub, nums[i])
-            pre = cur
-        }
-    }
+	pre := 0
+	var sub []int
 
-    //fix 最后一个先算进去了。。。。最后一个元素得加上去
-    sub = append(sub,nums[len(nums)-1])
-    fmt.Println(sub)
-    return res
+	//只到倒数第二个元素
+	for i := 0; i < len(nums)-1; i++ {
+
+		//当前结果
+		cur := nums[i+1] - nums[i]
+
+		if (cur > 0 && pre <= 0) || (cur < 0 && pre >= 0) {
+			res++
+			sub = append(sub, nums[i])
+			pre = cur
+		}
+	}
+
+	//fix 最后一个先算进去了。。。。最后一个元素得加上去
+	sub = append(sub, nums[len(nums)-1])
+	fmt.Println(sub)
+	return res
 }
 
 /**
@@ -3733,53 +3731,52 @@ func WiggleMaxLength(nums []int) int {
 **/
 func MaxSubArray(nums []int) int {
 
-    res := 0
+	res := 0
 
-    //暴力破解
-    for i:= 0; i< len(nums); i++ {
-       
-        sum := 0
+	//暴力破解
+	for i := 0; i < len(nums); i++ {
 
-        for j := i; j< len(nums); j++ {
+		sum := 0
 
-            sum += nums[j]
-            fmt.Println("sum", sum)
-            if sum > res {
-                res = sum
-            }
-        }
-        fmt.Println("---res", res)
-    }
+		for j := i; j < len(nums); j++ {
 
+			sum += nums[j]
+			fmt.Println("sum", sum)
+			if sum > res {
+				res = sum
+			}
+		}
+		fmt.Println("---res", res)
+	}
 
-    fmt.Println(res)
-    return res
+	fmt.Println(res)
+	return res
 }
 
 func MaxSubArray2(nums []int) int {
 
-    res := 0
+	res := 0
 
-    //如果前和再加上当前的数小于0那么子序列结束
-    max := 0
-    for i:=0;i<len(nums); i++ {
+	//如果前和再加上当前的数小于0那么子序列结束
+	max := 0
+	for i := 0; i < len(nums); i++ {
 
-        if max+nums[i] <= 0 {
-            max = 0
-            continue
-        }else {
+		if max+nums[i] <= 0 {
+			max = 0
+			continue
+		} else {
 
-            max += nums[i]
-            if max > res {
-                res = max
-            }
-        }
-    }
-    //test中文
-    //架空了极乐空间了空降
+			max += nums[i]
+			if max > res {
+				res = max
+			}
+		}
+	}
+	//test中文
+	//架空了极乐空间了空降
 
-    fmt.Println(res)
-    return res
+	fmt.Println(res)
+	return res
 }
 
 /*
@@ -3790,7 +3787,7 @@ func MaxSubArray2(nums []int) int {
 
 注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
 
- 
+
 
 示例 1:
 
@@ -3800,21 +3797,21 @@ func MaxSubArray2(nums []int) int {
      随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
 */
 func MaxProfit(prices []int) int {
-    
-    //误区. 同一天可以先卖再买所以可以先求差再取整:所以暴力没意义啊
 
-    res := 0
-    
-    for i := 1; i< len(prices); i++ {
+	//误区. 同一天可以先卖再买所以可以先求差再取整:所以暴力没意义啊
 
-        cur := prices[i] - prices[i-1]
+	res := 0
 
-        if cur > 0 {
-            res += cur
-        }
-    }
+	for i := 1; i < len(prices); i++ {
 
-    return res
+		cur := prices[i] - prices[i-1]
+
+		if cur > 0 {
+			res += cur
+		}
+	}
+
+	return res
 }
 
 /*
@@ -3834,26 +3831,25 @@ func MaxProfit(prices []int) int {
 解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
 */
 func CanJump(nums []int) bool {
-    
-    max := 0
 
-    for i:= 0 ;i<len(nums);i++ {
+	max := 0
 
-        //找到一个点等于0，且前面点能跳的最大的都不超过这个点则到不了最后一个
-        if nums[i] == 0 && max <= i {
-            return false
-        }
+	for i := 0; i < len(nums); i++ {
 
-        tMax := i+nums[i]
+		//找到一个点等于0，且前面点能跳的最大的都不超过这个点则到不了最后一个
+		if nums[i] == 0 && max <= i {
+			return false
+		}
 
-        if tMax >= max {
-            max = tMax
-        }
-    }
+		tMax := i + nums[i]
 
-    return true 
+		if tMax >= max {
+			max = tMax
+		}
+	}
+
+	return true
 }
-
 
 /**
 45. 跳跃游戏 II
@@ -3892,44 +3888,41 @@ next_max表示在cur_max之前的位置跳一步能达到下一个最远的位�
 因为上一次跳跃最远能到cur_max，要超过cur_max必须再跳一次，而再跳一次能达到的最远距离为next_max
 **/
 func Jump(nums []int) int {
-   
 
-    fmt.Println("---")
+	fmt.Println("---")
 
-    res := 0
+	res := 0
 
-    for i:= 0 ; i< len(nums); {
-       
-        //每次进来走一步
-        res ++
+	for i := 0; i < len(nums); {
 
-        max := i+nums[i]
+		//每次进来走一步
+		res++
 
-        nextMax := 0
-        for j:= i+1; j <= max; j++ {
+		max := i + nums[i]
 
-            if j+nums[j] > nextMax {
-                nextMax = j+ nums[j]
-            }
-        }
+		nextMax := 0
+		for j := i + 1; j <= max; j++ {
 
-        res ++
+			if j+nums[j] > nextMax {
+				nextMax = j + nums[j]
+			}
+		}
 
-        fmt.Println("nextMax: ", nextMax, "max", max)
+		res++
 
-        if nextMax >= len(nums) -1 {
-            return res
-        }
+		fmt.Println("nextMax: ", nextMax, "max", max)
 
+		if nextMax >= len(nums)-1 {
+			return res
+		}
 
-        //步进跳到nextMax
-        i = nextMax
+		//步进跳到nextMax
+		i = nextMax
 
-    }
+	}
 
-    return res
+	return res
 }
-
 
 /**
 1005. K 次取反后最大化的数组和
@@ -3937,7 +3930,7 @@ func Jump(nums []int) int {
 
 以这种方式修改数组后，返回数组可能的最大和。
 
- 
+
 
 示例 1：
 
@@ -3954,7 +3947,7 @@ func Jump(nums []int) int {
 输入：A = [2,-3,-1,5,-4], K = 2
 输出：13
 解释：选择索引 (1, 4) ，然后 A 变为 [2,3,-1,5,4]。
- 
+
 
 提示：
 
@@ -3965,35 +3958,35 @@ func Jump(nums []int) int {
 
 func LargestSumAfterKNegations(nums []int, k int) int {
 
-    //TODO  如果先排序那么替换以后顺序就不是有序的了，还得重排序才能是有序的所以。按照绝对值排序
-    sort.Slice(nums, func(i, j int) bool {
-        return math.Abs(float64(nums[i])) > math.Abs(float64(nums[j]))
-    })
+	//TODO  如果先排序那么替换以后顺序就不是有序的了，还得重排序才能是有序的所以。按照绝对值排序
+	sort.Slice(nums, func(i, j int) bool {
+		return math.Abs(float64(nums[i])) > math.Abs(float64(nums[j]))
+	})
 
-    sum := 0
+	sum := 0
 
-    //遍历如遇到负数转正数
-    for i:= 0; i < len(nums); i++ {
+	//遍历如遇到负数转正数
+	for i := 0; i < len(nums); i++ {
 
-        if k > 0 && nums[i] < 0 {
+		if k > 0 && nums[i] < 0 {
 
-            nums[i] *= -1
-            k--
-        }
-        sum += nums[i]
-    }
+			nums[i] *= -1
+			k--
+		}
+		sum += nums[i]
+	}
 
-    if k == 0 {
-        return sum
-    }
+	if k == 0 {
+		return sum
+	}
 
-    //将最后一个数一直转且k是奇数
-    if k > 0  && k%2 != 0{
+	//将最后一个数一直转且k是奇数
+	if k > 0 && k%2 != 0 {
 
-        sum = sum - nums[len(nums)-1] + nums[len(nums)-1] * -1
-    }
-    fmt.Println(nums)
-    return sum
+		sum = sum - nums[len(nums)-1] + nums[len(nums)-1]*-1
+	}
+	fmt.Println(nums)
+	return sum
 }
 
 /**
@@ -4004,14 +3997,14 @@ func LargestSumAfterKNegations(nums []int, k int) int {
 
 如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。
 
-说明: 
+说明:
 
 如果题目有解，该答案即为唯一答案。
 输入数组均为非空数组，且长度相同。
 输入数组中的元素均为非负数。
 示例 1:
 
-输入: 
+输入:
 gas  = [1,2,3,4,5]
 cost = [3,4,5,1,2]
 
@@ -4027,7 +4020,7 @@ cost = [3,4,5,1,2]
 因此，3 可为起始索引。
 示例 2:
 
-输入: 
+输入:
 gas  = [2,3,4]
 cost = [3,4,3]
 
@@ -4053,28 +4046,27 @@ cost = [3,4,5,1,2]
 
 func CanCompleteCircuit(gas []int, cost []int) int {
 
+	//如果总和小于0则走不出去
 
-    //如果总和小于0则走不出去
+	remain := 0
+	cur := 0
+	start := 0
+	for i := 0; i < len(gas); i++ {
 
-    remain := 0
-    cur := 0
-    start := 0
-    for i:= 0; i< len(gas); i++ {
+		remain += gas[i] - cost[i]
+		cur += gas[i] - cost[i]
 
-        remain += gas[i]- cost[i]
-        cur += gas[i]-cost[i]
+		if cur < 0 {
+			start = i + 1
+			cur = 0
+		}
+	}
 
-        if cur < 0 {
-            start = i+1
-            cur = 0
-        }
-    }
+	if remain < 0 {
+		return -1
+	}
 
-    if remain < 0 {
-        return -1
-    }
-    
-    return start
+	return start
 
 }
 
@@ -4088,7 +4080,7 @@ func CanCompleteCircuit(gas []int, cost []int) int {
 评分更高的孩子必须比他两侧的邻位孩子获得更多的糖果。
 那么这样下来，老师至少需要准备多少颗糖果呢？
 
- 
+
 
 示例 1：
 
@@ -4103,33 +4095,107 @@ func CanCompleteCircuit(gas []int, cost []int) int {
      第三个孩子只得到 1 颗糖果，这已满足上述两个条件。
 **/
 func Candy(ratings []int) int {
-    
-    res := make([]int, len(ratings))
 
-    for i:= 0;i< len(ratings);i++ {
-        
-        res[i] = 1
-    }
-    
-    for i:= 1; i < len(ratings); i++ {
-        
-        if ratings[i] > ratings[i -1] {
-            res[i] = res[i-1]+1
-        }
-    }
-    for i:= len(ratings)-2; i >= 0; i-- {
-        if ratings[i] > ratings[i+1] {
-            res[i] = res[i+1] +1
-        }
-    }
+	res := make([]int, len(ratings))
 
-    sum := 0
-    for i:= 0; i< len(res); i++ {
-        sum += res[i]
-    }
-    
-    fmt.Println(res)
-    return sum
+	for i := 0; i < len(ratings); i++ {
+
+		res[i] = 1
+	}
+
+	for i := 1; i < len(ratings); i++ {
+
+		if ratings[i] > ratings[i-1] {
+			res[i] = res[i-1] + 1
+		}
+	}
+	for i := len(ratings) - 2; i >= 0; i-- {
+		if ratings[i] > ratings[i+1] {
+			res[i] = res[i+1] + 1
+		}
+	}
+
+	sum := 0
+	for i := 0; i < len(res); i++ {
+		sum += res[i]
+	}
+
+	fmt.Println(res)
+	return sum
 }
 
+/**
+860. 柠檬水找零
+在柠檬水摊上，每一杯柠檬水的售价为 5 美元。顾客排队购买你的产品，（按账单 bills 支付的顺序）一次购买一杯。
 
+每位顾客只买一杯柠檬水，然后向你付 5 美元、10 美元或 20 美元。你必须给每个顾客正确找零，也就是说净交易是每位顾客向你支付 5 美元。
+
+注意，一开始你手头没有任何零钱。
+
+给你一个整数数组 bills ，其中 bills[i] 是第 i 位顾客付的账。如果你能给每位顾客正确找零，返回 true ，否则返回 false 。
+
+输入：bills = [5,5,5,10,20]
+输出：true
+解释：
+前 3 位顾客那里，我们按顺序收取 3 张 5 美元的钞票。
+第 4 位顾客那里，我们收取一张 10 美元的钞票，并返还 5 美元。
+第 5 位顾客那里，我们找还一张 10 美元的钞票和一张 5 美元的钞票。
+由于所有客户都得到了正确的找零，所以我们输出 true。
+示例 2：
+
+输入：bills = [5,5,10,10,20]
+输出：false
+解释：
+前 2 位顾客那里，我们按顺序收取 2 张 5 美元的钞票。
+对于接下来的 2 位顾客，我们收取一张 10 美元的钞票，然后返还 5 美元。
+对于最后一位顾客，我们无法退回 15 美元，因为我们现在只有两张 10 美元的钞票。
+由于不是每位顾客都得到了正确的找零，所以答案是 false。
+
+输入：bills = [5,5,10]
+输出：true
+
+输入：bills = [10,10]
+输出：false
+
+1 <= bills.length <= 105
+bills[i] 不是 5 就是 10 或是 20
+**/
+func LemonadeChange(bills []int) bool {
+    
+    exists := make(map[int]int)
+    exists[5] = 0
+    exists[10] = 0
+    exists[20] = 0
+    
+    for i:= 0; i< len(bills); i++ {
+
+        if bills[i] == 5 {
+            exists[5] = exists[5]+1
+        }else if bills[i] == 10 {
+            if exists[5] == 0 {
+                return false
+            }else {
+                exists[5] = exists[5]-1
+                exists[10] = exists[10]+1
+            }
+        }else{
+
+            if exists[10] > 0 && exists[5] > 0 {
+
+                exists[5] = exists[5]-1
+                exists[10] = exists[10]-1
+                continue
+            }
+
+            if exists[5] >= 3 {
+
+                exists[5] = exists[5]-3
+                continue
+            }
+
+            return false
+        }
+    }
+    
+	return true
+}
