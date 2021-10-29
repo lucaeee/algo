@@ -758,3 +758,17 @@ func TestLemonadeChange(t *testing.T) {
     assert.Equal(t,false, res)
 
 }
+
+func TestFindMinArrowShots(t *testing.T) {
+
+    res := FindMinArrowShots([][]int{{10,16},{2,8},{1,6},{7,12}})
+    assert.Equal(t,2, res)
+
+
+    res = FindMinArrowShots([][]int{{1,2},{3,4},{5,6},{7,8}})
+    assert.Equal(t,4, res)
+
+
+    res = FindMinArrowShots([][]int{{1,2},{2,3},{3,4},{4,5}})
+    assert.Equal(t,2, res)
+}
