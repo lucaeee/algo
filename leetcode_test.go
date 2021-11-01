@@ -776,3 +776,9 @@ func TestPartitionLabels(t *testing.T) {
 	res := PartitionLabels("ababcbacadefegdehijhklij")
 	t.Log(res)
 }
+
+func TestMerge(t *testing.T) {
+
+	res := Merge([][]int{{1, 3}, {2, 6}, {8, 10}, {15, 18}})
+	t.Log(res)
+}
