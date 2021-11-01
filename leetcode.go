@@ -4545,3 +4545,54 @@ func MonotoneIncreasingDigits(n int) int {
 	res, _ := strconv.Atoi(string(sByte))
 	return res
 }
+
+/**
+714. 买卖股票的最佳时机含手续费
+给定一个整数数组 prices，其中第 i 个元素代表了第 i 天的股票价格 ；整数 fee 代表了交易股票的手续费用。
+
+你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。
+
+返回获得利润的最大值。
+
+注意：这里的一笔交易指买入持有并卖出股票的整个过程，每笔交易你只需要为支付一次手续费。
+输入：prices = [1, 3, 2, 8, 4, 9], fee = 2
+输出：8
+解释：能够达到的最大利润:
+在此处买入 prices[0] = 1
+在此处卖出 prices[3] = 8
+在此处买入 prices[4] = 4
+在此处卖出 prices[5] = 9
+总利润: ((8 - 1) - 2) + ((9 - 4) - 2) = 8
+示例 2：
+
+输入：prices = [1,3,7,5,10,3], fee = 3
+输出：6
+**/
+func MaxProfit2(prices []int, fee int) int {
+	res := 0
+	//假设买入
+	buy := prices[0] + fee
+	/**
+		𝑏𝑢𝑦表示在利益最大的前提下，最低的买入价格+交易费用；初始情况buy = precise[0] + fee，在向后遍历的过程中可能遇到这几种情况：
+
+	buy > precise[i]+fee：即找到了更低的买入价格，使用precise[i]+fee替换buy；
+	buy < precise[i]：即以当前价格卖出，即使加上手续费仍能盈利，应果断卖出。但是后续可能出现更高的股价，这时可以将buy置为precise[i]，若后续出现更高的价格，比如下一天出现更高的价格，则profit += precise[i+1] - precise[i];
+	precise[i] + fee > buy > precise[i]：这种情况既不能卖出，也不能以更低的价格买入，不做操作。
+		**/
+	for i := 1; i < len(prices); i++ {
+
+		//找到比买入价更低的买入价
+		if prices[i] < buy-fee {
+			buy = prices[i] + fee
+		} else if buy < prices[i] {
+			//可以盈利
+			res += prices[i] - buy
+
+			//假设买入
+			buy = prices[i] + fee
+		}
+	}
+
+	return res
+
+}

@@ -788,3 +788,8 @@ func TestMonotoneIncreasingDigits(t *testing.T) {
 	t.Log(res)
 	assert.Equal(t, 299, res)
 }
+
+func TestMaxProfit2(t *testing.T) {
+	res := MaxProfit2([]int{1, 3, 2, 8, 4, 9}, 2)
+	assert.Equal(t, 8, res)
+}
