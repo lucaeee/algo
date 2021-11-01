@@ -770,3 +770,9 @@ func TestEraseOverlapIntervals(t *testing.T) {
 	res = EraseOverlapIntervals([][]int{{1, 2}, {1, 2}, {1, 2}})
 	assert.Equal(t, 2, res)
 }
+
+func TestPartitionLabels(t *testing.T) {
+
+	res := PartitionLabels("ababcbacadefegdehijhklij")
+	t.Log(res)
+}
