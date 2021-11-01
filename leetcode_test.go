@@ -782,3 +782,9 @@ func TestMerge(t *testing.T) {
 	res := Merge([][]int{{1, 3}, {2, 6}, {8, 10}, {15, 18}})
 	t.Log(res)
 }
+
+func TestMonotoneIncreasingDigits(t *testing.T) {
+	res := MonotoneIncreasingDigits(332)
+	t.Log(res)
+	assert.Equal(t, 299, res)
+}
