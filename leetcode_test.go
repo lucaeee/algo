@@ -640,135 +640,133 @@ func TestSubsetsWithDup(t *testing.T) {
 
 func TestFindSubsequences(t *testing.T) {
 
-    _ = FindSubsequences([]int{4, 6, 7, 7})
+	_ = FindSubsequences([]int{4, 6, 7, 7})
 }
-
 
 func TestPermuteUnique(t *testing.T) {
 
-    _ = PermuteUnique([]int{1, 1, 2})
+	_ = PermuteUnique([]int{1, 1, 2})
 }
 
 func TestSolveNQueens(t *testing.T) {
-    _ = SolveNQueens(5)
+	_ = SolveNQueens(5)
 
 }
 
-
 func TestSolveSudoku(t *testing.T) {
-   
-    var board = [][]byte{
-   {'5','3','.','.','7','.','.','.','.'},
-   {'6','.','.','1','9','5','.','.','.'},
-   {'.','9','8','.','.','.','.','6','.'},
-   {'8','.','.','.','6','.','.','.','3'},
-   {'4','.','.','8','.','3','.','.','1'},
-   {'7','.','.','.','2','.','.','.','6'},
-   {'.','6','.','.','.','.','2','8','.'},
-   {'.','.','.','4','1','9','.','.','5'},
-   {'.','.','.','.','8','.','.','7','9'}}
 
-   SolveSudoku(board)
+	var board = [][]byte{
+		{'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+		{'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+		{'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+		{'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+		{'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+		{'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+		{'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+		{'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+		{'.', '.', '.', '.', '8', '.', '.', '7', '9'}}
+
+	SolveSudoku(board)
 
 }
 
 func TestFindContentChildren(t *testing.T) {
 
-    res := FindContentChildren([]int{1,2}, []int{1,2,3})
-    assert.Equal(t, 2, res)
-    
-}
-
-func TestWiggleMaxLength( t *testing.T ) {
-    
-    res := WiggleMaxLength([]int{1,17,5,10,13,15,10,5,16,8})
-    assert.Equal(t,7, res)
-}
-
-func TestMaxSubArray (t *testing.T){
-
-    res := MaxSubArray([]int{-2,1,-3,4,-1,2,1,-5,4})
-    assert.Equal(t,6, res)
-}
-
-func TestMaxSubArray2 (t *testing.T){
-
-    res := MaxSubArray2([]int{-2,1,-3,4,-1,2,1,-5,4})
-    assert.Equal(t,6, res)
-   
-    res = MaxSubArray2([]int{-7,-2,-3,-1,0,-10})
-    assert.Equal(t,0, res)
+	res := FindContentChildren([]int{1, 2}, []int{1, 2, 3})
+	assert.Equal(t, 2, res)
 
 }
 
+func TestWiggleMaxLength(t *testing.T) {
 
-func TestMaxProfit(t *testing.T){
+	res := WiggleMaxLength([]int{1, 17, 5, 10, 13, 15, 10, 5, 16, 8})
+	assert.Equal(t, 7, res)
+}
 
-    res := MaxProfit([]int{7,1,5,3,6,4})
-    assert.Equal(t,7, res)
+func TestMaxSubArray(t *testing.T) {
+
+	res := MaxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4})
+	assert.Equal(t, 6, res)
+}
+
+func TestMaxSubArray2(t *testing.T) {
+
+	res := MaxSubArray2([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4})
+	assert.Equal(t, 6, res)
+
+	res = MaxSubArray2([]int{-7, -2, -3, -1, 0, -10})
+	assert.Equal(t, 0, res)
 
 }
 
+func TestMaxProfit(t *testing.T) {
 
-func TestCanJump(t *testing.T){
-
-    res := CanJump([]int{2,3,1,1,4})
-    assert.Equal(t,true, res)
-    
-    res = CanJump([]int{3,2,1,0,4})
-    assert.Equal(t,false, res)
-
-    res = CanJump([]int{3,2,1,4,0})
-    assert.Equal(t,true, res)
-}
-
-
-func TestJump(t *testing.T){
-
-    res := Jump([]int{4,2,7,3,1, 1,3, 1, 1, 1})
-    assert.Equal(t,2, res)
-    
-    res = Jump([]int{4,2,7,3,1, 1,3, 1, 1, 1, 6, 6, 3, 5})
-    assert.Equal(t,4, res)
+	res := MaxProfit([]int{7, 1, 5, 3, 6, 4})
+	assert.Equal(t, 7, res)
 
 }
 
+func TestCanJump(t *testing.T) {
 
-func TestLargestSumAfterKNegations(t *testing.T){
+	res := CanJump([]int{2, 3, 1, 1, 4})
+	assert.Equal(t, true, res)
 
-    res := LargestSumAfterKNegations([]int{2,-3,-1,5,-4}, 2)
-    assert.Equal(t,13, res)
-    
+	res = CanJump([]int{3, 2, 1, 0, 4})
+	assert.Equal(t, false, res)
+
+	res = CanJump([]int{3, 2, 1, 4, 0})
+	assert.Equal(t, true, res)
+}
+
+func TestJump(t *testing.T) {
+
+	res := Jump([]int{4, 2, 7, 3, 1, 1, 3, 1, 1, 1})
+	assert.Equal(t, 2, res)
+
+	res = Jump([]int{4, 2, 7, 3, 1, 1, 3, 1, 1, 1, 6, 6, 3, 5})
+	assert.Equal(t, 4, res)
+
+}
+
+func TestLargestSumAfterKNegations(t *testing.T) {
+
+	res := LargestSumAfterKNegations([]int{2, -3, -1, 5, -4}, 2)
+	assert.Equal(t, 13, res)
+
 }
 
 func TestLemonadeChange(t *testing.T) {
-    res := LemonadeChange([]int{5,5,5,10,20})
-    assert.Equal(t,true, res)
+	res := LemonadeChange([]int{5, 5, 5, 10, 20})
+	assert.Equal(t, true, res)
 
+	res = LemonadeChange([]int{5, 5, 10, 10, 20})
+	assert.Equal(t, false, res)
 
-    res = LemonadeChange([]int{5,5,10,10,20})
-    assert.Equal(t,false, res)
+	res = LemonadeChange([]int{5, 5, 10})
+	assert.Equal(t, true, res)
 
-
-    res = LemonadeChange([]int{5,5,10})
-    assert.Equal(t,true, res)
-    
-
-    res = LemonadeChange([]int{10,10})
-    assert.Equal(t,false, res)
+	res = LemonadeChange([]int{10, 10})
+	assert.Equal(t, false, res)
 
 }
 
 func TestFindMinArrowShots(t *testing.T) {
 
-    res := FindMinArrowShots([][]int{{10,16},{2,8},{1,6},{7,12}})
-    assert.Equal(t,2, res)
+	res := FindMinArrowShots([][]int{{10, 16}, {2, 8}, {1, 6}, {7, 12}})
+	assert.Equal(t, 2, res)
 
+	res = FindMinArrowShots([][]int{{1, 2}, {3, 4}, {5, 6}, {7, 8}})
+	assert.Equal(t, 4, res)
 
-    res = FindMinArrowShots([][]int{{1,2},{3,4},{5,6},{7,8}})
-    assert.Equal(t,4, res)
+	res = FindMinArrowShots([][]int{{1, 2}, {2, 3}, {3, 4}, {4, 5}})
+	assert.Equal(t, 2, res)
+}
 
+func TestEraseOverlapIntervals(t *testing.T) {
 
-    res = FindMinArrowShots([][]int{{1,2},{2,3},{3,4},{4,5}})
-    assert.Equal(t,2, res)
+	res := EraseOverlapIntervals([][]int{{1, 2}, {2, 3}, {3, 4}, {1, 3}})
+	assert.Equal(t, 1, res)
+
+	res = EraseOverlapIntervals([][]int{{1, 2}, {1, 2}, {1, 2}})
+	assert.Equal(t, 2, res)
 }

@@ -4161,42 +4161,42 @@ func Candy(ratings []int) int {
 bills[i] 不是 5 就是 10 或是 20
 **/
 func LemonadeChange(bills []int) bool {
-    
-    exists := make(map[int]int)
-    exists[5] = 0
-    exists[10] = 0
-    exists[20] = 0
-    
-    for i:= 0; i< len(bills); i++ {
 
-        if bills[i] == 5 {
-            exists[5] = exists[5]+1
-        }else if bills[i] == 10 {
-            if exists[5] == 0 {
-                return false
-            }else {
-                exists[5] = exists[5]-1
-                exists[10] = exists[10]+1
-            }
-        }else{
+	exists := make(map[int]int)
+	exists[5] = 0
+	exists[10] = 0
+	exists[20] = 0
 
-            if exists[10] > 0 && exists[5] > 0 {
+	for i := 0; i < len(bills); i++ {
 
-                exists[5] = exists[5]-1
-                exists[10] = exists[10]-1
-                continue
-            }
+		if bills[i] == 5 {
+			exists[5] = exists[5] + 1
+		} else if bills[i] == 10 {
+			if exists[5] == 0 {
+				return false
+			} else {
+				exists[5] = exists[5] - 1
+				exists[10] = exists[10] + 1
+			}
+		} else {
 
-            if exists[5] >= 3 {
+			if exists[10] > 0 && exists[5] > 0 {
 
-                exists[5] = exists[5]-3
-                continue
-            }
+				exists[5] = exists[5] - 1
+				exists[10] = exists[10] - 1
+				continue
+			}
 
-            return false
-        }
-    }
-    
+			if exists[5] >= 3 {
+
+				exists[5] = exists[5] - 3
+				continue
+			}
+
+			return false
+		}
+	}
+
 	return true
 }
 
@@ -4206,7 +4206,7 @@ func LemonadeChange(bills []int) bool {
 
 请你重新构造并返回输入数组 people 所表示的队列。返回的队列应该格式化为数组 queue ，其中 queue[j] = [hj, kj] 是队列中第 j 个人的属性（queue[0] 是排在队列前面的人）。
 
- 
+
 
 示例 1：
 
@@ -4224,7 +4224,7 @@ func LemonadeChange(bills []int) bool {
 
 输入：people = [[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]]
 输出：[[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
- 
+
 
 提示：
 
@@ -4234,9 +4234,9 @@ func LemonadeChange(bills []int) bool {
 题目数据确保队列可以被重建
 **/
 func ReconstructQueue(people [][]int) [][]int {
-    //TODO
-    var res [][]int
-    return res
+	//TODO
+	var res [][]int
+	return res
 }
 
 /**
@@ -4264,33 +4264,112 @@ func ReconstructQueue(people [][]int) [][]int {
 输出：1
 **/
 func FindMinArrowShots(points [][]int) int {
-    
-    sort.Slice(points, func(i, j int ) bool {
-        if points[i][0] < points[j][0] {
-            return true
-        }
-        return false
 
-    })
+	sort.Slice(points, func(i, j int) bool {
+		if points[i][0] < points[j][0] {
+			return true
+		}
+		return false
 
-    fmt.Println("points", points)
+	})
 
-    i := 0
-    res := 0
-    p := 0
+	fmt.Println("points", points)
 
-    for  i< len(points) {
+	i := 0
+	res := 0
+	p := 0
 
-        //上一次发出的命中当前
-        if p> 0 && (p >= points[i][0] && p <= points[i][1]) {
-            i++
-            continue
-        }else {
-            p = points[i][1]
-            res++
-            i++
-        }
-    }
+	for i < len(points) {
 
-    return res 
+		//上一次发出的命中当前
+		if p > 0 && (p >= points[i][0] && p <= points[i][1]) {
+			i++
+			continue
+		} else {
+			p = points[i][1]
+			res++
+			i++
+		}
+	}
+
+	return res
+}
+
+/**
+435. 无重叠区间
+给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
+
+注意:
+
+可以认为区间的终点总是大于它的起点。
+区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。
+示例 1:
+
+输入: [ [1,2], [2,3], [3,4], [1,3] ]
+
+输出: 1
+
+解释: 移除 [1,3] 后，剩下的区间没有重叠。
+示例 2:
+
+输入: [ [1,2], [1,2], [1,2] ]
+
+输出: 2
+
+解释: 你需要移除两个 [1,2] 来使剩下的区间没有重叠。
+示例 3:
+
+输入: [ [1,2], [2,3] ]
+
+输出: 0
+
+解释: 你不需要移除任何区间，因为它们已经是无重叠的了。
+**/
+func EraseOverlapIntervals(intervals [][]int) int {
+
+	fmt.Println("------")
+	res := 0
+	var remove []int
+
+	sort.Slice(intervals, func(i, j int) bool {
+
+		return intervals[i][0] < intervals[j][0]
+	})
+
+	fmt.Println("intervals", intervals)
+
+	i := 0
+	next := 1
+
+	for next < len(intervals) {
+
+		//开始区间不相同且不重合
+		if intervals[i][1] <= intervals[next][0] {
+			i++
+			next++
+			continue
+		}
+		//处理开始区间相同的元素
+		if intervals[i][0] == intervals[next][0] || intervals[i][1] > intervals[next][0] {
+			//丢弃比较大的一个
+			left := intervals[i][1] - intervals[i][0]
+			right := intervals[next][1] - intervals[next][0]
+			if left >= right {
+				fmt.Println("left >= right")
+				remove = append(remove, i)
+				res++
+				i++
+				next = i + 1
+			} else {
+				fmt.Println("left < right")
+				remove = append(remove, next)
+				next = i + 2
+			}
+			fmt.Println("i=", i, "next=", next)
+			continue
+		}
+
+	}
+	fmt.Println("remove", remove)
+	return len(remove)
 }
