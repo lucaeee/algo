@@ -4596,3 +4596,52 @@ func MaxProfit2(prices []int, fee int) int {
 	return res
 
 }
+
+/**
+968. 监控二叉树
+给定一个二叉树，我们在树的节点上安装摄像头。
+
+节点上的每个摄影头都可以监视其父对象、自身及其直接子对象。
+
+计算监控树的所有节点所需的最小摄像头数量。
+**/
+func MinCameraCover(root *TreeNode) int {
+	res := 0
+
+	//0. 覆盖不到 1. 有摄像头 2.被覆盖到
+	//后续遍历，叶子节点不放
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+
+		//假设叶子节点的左右都有摄像头
+		if node == nil {
+			return 2
+		}
+		left := dfs(node.Left)
+		right := dfs(node.Right)
+
+		//左右节点倍覆盖当前节点就覆盖不到了
+		if left == 2 && right == 2 {
+			return 0
+		}
+		//左右节点有一个无覆盖到的情况放摄像头
+		if left == 0 || right == 0 {
+			res++
+			return 1
+		}
+
+		//左边或者右边有摄像头当前倍覆盖
+		if left == 1 || right == 1 {
+			return 2
+		}
+		return -1
+	}
+
+	//头节点无覆盖
+	if dfs(root) == 0 {
+
+		res++
+	}
+
+	return res
+}
