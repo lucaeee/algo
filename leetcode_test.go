@@ -793,3 +793,9 @@ func TestMaxProfit2(t *testing.T) {
 	res := MaxProfit2([]int{1, 3, 2, 8, 4, 9}, 2)
 	assert.Equal(t, 8, res)
 }
+
+func TestFib(t *testing.T) {
+
+	res := Fib(4)
+	assert.Equal(t, 3, res)
+}

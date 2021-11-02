@@ -4645,3 +4645,37 @@ func MinCameraCover(root *TreeNode) int {
 
 	return res
 }
+
+/**
+509. 斐波那契数
+斐波那契数，通常用 F(n) 表示，形成的序列称为 斐波那契数列 。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：
+
+F(0) = 0，F(1) = 1
+F(n) = F(n - 1) + F(n - 2)，其中 n > 1
+**/
+func Fib(n int) int {
+
+	dpt := make(map[int]int)
+
+	var dpf func(n int) int
+	dpf = func(n int) int {
+
+		if n == 0 {
+			dpt[0] = 0
+			return 0
+		}
+		if n == 1 {
+			dpt[1] = 1
+			return 1
+		}
+		if dpt[n] > 0 {
+			return dpt[n]
+		}
+
+		r := dpf(n-1) + dpf(n-2)
+		dpt[n] = r
+		return r
+	}
+
+	return dpf(n)
+}
