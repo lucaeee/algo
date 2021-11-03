@@ -4802,3 +4802,54 @@ func UniquePaths(m int, n int) int {
 
 	return dpTable[m-1][n-1]
 }
+
+/**
+63. 不同路径 II
+一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+
+机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+
+现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
+
+网格中的障碍物和空位置分别用 1 和 0 来表示。
+**/
+func UniquePathsWithObstacles(obstacleGrid [][]int) int {
+	//有障碍的不计算
+	m := len(obstacleGrid)
+	n := len(obstacleGrid[0])
+
+	var dpTable [][]int
+	for i := 0; i < m; i++ {
+		tmp := make([]int, n)
+		dpTable = append(dpTable, tmp)
+	}
+
+	//初始化0行列
+	v := 1
+	for i := 0; i < m; i++ {
+
+		if obstacleGrid[i][0] == 1 {
+			v = 0
+		}
+		dpTable[i][0] = v
+	}
+	v = 1
+	for i := 0; i < n; i++ {
+		if obstacleGrid[0][i] == 1 {
+			v = 0
+		}
+		dpTable[0][i] = v
+	}
+
+	for i := 1; i < m; i++ {
+
+		for j := 1; j < n; j++ {
+			if obstacleGrid[i][j] == 1 {
+				continue
+			}
+			dpTable[i][j] = dpTable[i-1][j] + dpTable[i][j-1]
+		}
+	}
+
+	return dpTable[m-1][n-1]
+}
