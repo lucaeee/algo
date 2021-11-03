@@ -810,3 +810,7 @@ func TestUniquePaths(t *testing.T) {
 
 	UniquePaths(5, 3)
 }
+
+func TestIntegerBreak(t *testing.T) {
+	IntegerBreak(20)
+}
