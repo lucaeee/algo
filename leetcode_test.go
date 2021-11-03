@@ -805,3 +805,8 @@ func TestMinCostClimbingStairs(t *testing.T) {
 	res := MinCostClimbingStairs([]int{1, 100, 1, 1, 1, 100, 1, 1, 100, 1})
 	assert.Equal(t, 6, res)
 }
+
+func TestUniquePaths(t *testing.T) {
+
+	UniquePaths(5, 3)
+}
