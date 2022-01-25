@@ -1,8 +1,11 @@
 package algo
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
-type Node23 struct {
+type Ç struct {
 
 
 	Values []int
@@ -37,6 +40,9 @@ func (root *Node23) Insert (val int) *Node23 {
 	//插入元素到空树
 	if root.Total == 0 {
 		root.Values = []int{val}
+		root.Total = len(root.Values)
+
+		return res
 	}
 
 	//插入
@@ -45,15 +51,15 @@ func (root *Node23) Insert (val int) *Node23 {
 	waitInsertNode.Total = len(waitInsertNode.Values)
 
 	//待插入的位置是一个2节点:直接插入且排序
-	if waitInsertNode.Total == 1 {
-
-		waitInsertNode.Total = 2
+	if waitInsertNode.Total == 2 {
 
 		return res
 	}
+	fmt.Printf("wait insert %v", waitInsertNode)
+	fmt.Println("--",)
 
 	//插入根节点为3的树
-	if waitInsertNode == root && waitInsertNode.Total == 2 {
+	if waitInsertNode == root && waitInsertNode.Total == 3 {
 
 		left := &Node23{Total: 1, Values: []int{waitInsertNode.Values[0]}, Parent: waitInsertNode}
 		right := &Node23{Total: 1, Values: []int{waitInsertNode.Values[2]}, Parent: waitInsertNode}
@@ -94,12 +100,16 @@ func (root *Node23) Insert (val int) *Node23 {
 	cur := waitInsertNode
 	curParent := parent
 	for cur != root && cur.Total >= 3 {
+		fmt.Printf("cur %v", cur)
+		fmt.Printf("parnent %v", curParent)
+		fmt.Println()
 
 		//提取当前节点的中键到父节点
 		curParent.Values = append(curParent.Values, cur.Values[1])
 		curParent.Total = len(curParent.Values)
 		sort.Ints(curParent.Values)
 		cur.Total = 2
+		cur.Values = []int{cur.Values[0], cur.Values[2]}
 
 
 		//拆分当前节点为
@@ -110,23 +120,34 @@ func (root *Node23) Insert (val int) *Node23 {
 			//构建新的有序子节点
 			var tmpChildren []*Node23
 			child = &Node23{Total: 1, Values: cur.Values[:1], Parent: curParent}
+			cur.Values = []int{cur.Values[1]}
+			fmt.Printf("child %v", child)
 			for _,v := range curParent.Children {
 				if v == cur {
+					fmt.Printf("v-child-- %v", child)
 					tmpChildren = append(tmpChildren, child)
 				}
 				tmpChildren = append(tmpChildren, v)
+				fmt.Printf("v--- %v", v)
 			}
 			curParent.Children = tmpChildren
-			cur.Total = 1
+			cur.Total = len(cur.Values)
+			fmt.Printf("curParent.Children %v", curParent.Children)
 
 		}else {
 
 			//3节点拆成俩二节点
 			left  := &Node23{Total: 1, Values: cur.Values[:1], Parent: curParent}
 			left.Children = []*Node23{cur.Children[0], cur.Children[1]}
-			cur.Children = cur.Children[2:]
+			cur.Children = []*Node23{cur.Children[2], cur.Children[3]}
+			cur.Values = cur.Values[1:]
 			curParent.Children = append([]*Node23{left}, curParent.Children...)
+			fmt.Printf("left %v", left)
+			fmt.Printf("right %v", cur)
+			fmt.Printf("curParent.Children %v", curParent.Children)
 		}
+		cur.Total = len(cur.Values)
+		cur.Parent.Total = len(cur.Parent.Values)
 
 		cur = cur.Parent
 		curParent = cur.Parent
@@ -142,10 +163,10 @@ func (root *Node23) Insert (val int) *Node23 {
 	newRoot := &Node23{Total: 1, Values: []int{cur.Values[1]}}
 	left := &Node23{Total: 1, Values: []int{cur.Values[0]}, Parent: newRoot}
 	left.Children = cur.Children[:2]
-	right := &Node23{Total: 1, Values: []int{cur.Values[0]}, Parent: newRoot}
+	right := &Node23{Total: 1, Values: []int{cur.Values[2]}, Parent: newRoot}
 	right.Children = cur.Children[2:]
 	newRoot.Children = []*Node23{left, right}
-	res = root
+	res = newRoot
 
 	return  res
 }
@@ -207,6 +228,133 @@ func (node *Node23)Find(val int) (res bool, cur *Node23, parent *Node23) {
 	}
 
 	return false, node, node.Parent
+}
+
+func (node Node23) delete(val int) bool {
+
+	//值不存在
+	hasVal, res, parent := node.Find(val)
+	if !hasVal {
+		return false
+	}
+
+	//删3类型叶子节点：直接删除
+	if len(res.Children) == 0 && len(res.Values) == 2 {
+		if val == res.Values[0] {
+			res.Values = res.Values[1:]
+		}else {
+			res.Values = res.Values[:1]
+		}
+		return true
+	}
+	//删2类型叶子节点
+	if len(res.Children) == 0 && len(res.Values) == 1 {
+
+		//父节点为3节点的情况:删除元素用剩下的元素构建树 删除后可能有的元素个数4-5-6
+		if len(parent.Values) == 2 {
+			var tmpValues []int
+			tmpValues = append(tmpValues, parent.Children[0].Values...)
+			tmpValues = append(tmpValues, parent.Children[1].Values...)
+			tmpValues = append(tmpValues, parent.Children[2].Values...)
+			var index int
+			for k, v := range tmpValues {
+				if v == val {
+					index = k
+					break
+				}
+			}
+			tmpValues = append(tmpValues[:index], tmpValues[index+1:]...)
+			sort.Ints(tmpValues)
+			var p, l,m, r *Node23
+			switch len(tmpValues) {
+			case 4:
+
+				p = &Node23{Values: []int{tmpValues[2]}, Parent: parent}
+				p.Total = len(p.Values)
+
+				l = &Node23{Values: []int{tmpValues[0], tmpValues[1]}, Parent: p}
+				l.Total = len(l.Values)
+
+				r = &Node23{Values: []int{tmpValues[3]}, Parent: p}
+				r.Total = len(r.Values)
+				p.Children = []*Node23{l,r}
+
+			case 5:
+
+				p = &Node23{Values: []int{tmpValues[1], tmpValues[3]}, Parent: parent}
+				p.Total = len(p.Values)
+
+				l = &Node23{Values: []int{tmpValues[0]}, Parent: p}
+				l.Total = len(l.Values)
+
+				m = &Node23{Values: []int{tmpValues[2]}, Parent: p}
+				m.Total = len(m.Values)
+
+				r = &Node23{Values: []int{tmpValues[4]}, Parent: p}
+				r.Total = len(r.Values)
+				p.Children = []*Node23{l,m,r}
+
+			case 6:
+
+				p = &Node23{Values: []int{tmpValues[2], tmpValues[4]}, Parent: parent}
+				p.Total = len(p.Values)
+
+				l = &Node23{Values: []int{tmpValues[0], tmpValues[1]}, Parent: p}
+				l.Total = len(l.Values)
+
+				m = &Node23{Values: []int{tmpValues[3]}, Parent: p}
+				m.Total = len(m.Values)
+
+				r = &Node23{Values: []int{tmpValues[5]}, Parent: p}
+				r.Total = len(r.Values)
+				p.Children = []*Node23{l,m,r}
+			}
+
+			res = p
+			return true
+		}
+
+		//父节点为2：兄弟节点为3 删除后用剩余的3节点构建树
+		if  len(parent.Values) == 1{
+
+			var tmpValues []int
+			tmpValues = append(tmpValues, parent.Children[0].Values...)
+			tmpValues = append(tmpValues, parent.Children[1].Values...)
+			tmpValues = append(tmpValues, parent.Children[2].Values...)
+
+			//兄弟节点为3的情况
+			if len(tmpValues) == 4 {
+
+				var index int
+				for k, v := range tmpValues {
+					if v == val {
+						index = k
+						break
+					}
+				}
+				tmpValues = append(tmpValues[:index], tmpValues[index+1:]...)
+				sort.Ints(tmpValues)
+				p := &Node23{Total: 1, Values: []int{tmpValues[1]}, Parent: parent}
+				l := &Node23{Total: 1, Values: []int{tmpValues[0]}, Parent: p}
+				r := &Node23{Total: 1, Values: []int{tmpValues[2]}, Parent: p}
+				p.Children = []*Node23{l,r}
+				res = p
+
+				return true
+			}else {
+				//TODO 父节点为2，兄弟节点也为2
+			}
+
+
+		}
+		//删非叶子节点
+
+		//满二叉树
+
+
+	}
+
+	return  false
 }
 
 
