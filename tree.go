@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-type Ç struct {
+type Node23 struct {
 
 
 	Values []int
