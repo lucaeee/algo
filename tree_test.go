@@ -172,3 +172,29 @@ func TestInsertNode23(t *testing.T) {
 	assert.Equal(t, []int{78}, newRoot6.Children[1].Children[1].Children[0].Values)
 	assert.Equal(t, []int{91}, newRoot6.Children[1].Children[1].Children[1].Values)
 }
+
+func TestInOrder(t *testing.T) {
+
+	root := &Node23{Values: []int{30,60}, Total: 2}
+
+	level21 := &Node23{Total: 2, Values: []int{10,20}, Parent: root}
+	level22 := &Node23{Total: 1, Values: []int{40}, Parent: root}
+	level23 := &Node23{Total: 1, Values: []int{80}, Parent: root}
+	root.Children = []*Node23{level21,level22, level23}
+
+	level31 := &Node23{Total: 1, Values: []int{8}, Parent: level21}
+	level32 := &Node23{Total: 2, Values: []int{15,16}, Parent: level21}
+	level33 := &Node23{Total: 1, Values: []int{25}, Parent: level21}
+	level21.Children = []*Node23{level31,level32, level33}
+
+	level34 := &Node23{Total: 1, Values: []int{35}, Parent: level22}
+	level35 := &Node23{Total: 1, Values: []int{50}, Parent: level22}
+	level22.Children = []*Node23{level34,level35}
+
+	level36 := &Node23{Total: 1, Values: []int{78}, Parent: level23}
+	level37 := &Node23{Total: 1, Values: []int{91}, Parent: level23}
+	level23.Children = []*Node23{level36,level37}
+
+	in := root.inOrder()
+	t.Log(in)
+}
