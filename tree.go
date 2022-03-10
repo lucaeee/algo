@@ -1,5 +1,7 @@
 package algo
 
+import "fmt"
+
 type BTNode struct {
 	Left  *BTNode
 	Right *BTNode
@@ -52,6 +54,8 @@ type BTIterator interface {
 
 	PostOrderByRecursive() (nodeList []*BTNode, values []int)
 	PostOrder() (nodeList []*BTNode, values []int)
+
+	LevelOrder() (nodeList []*BTNode, values []int)
 }
 
 func (node *BTNode) PreOrderByRecursive() (nodeList []*BTNode, values []int) {
@@ -191,5 +195,36 @@ func (node *BTNode) PostOrder() (nodeList []*BTNode, values []int) {
 		}
 
 	}
+	return nodeList, values
+}
+
+func (node *BTNode) LevelOrder() (nodeList []*BTNode, values []int) {
+
+	//bfs
+	var curList []*BTNode
+	curList = append(curList, node)
+
+	for len(curList) > 0 {
+
+		//定义在外面指针就乱了
+		var nextList []*BTNode
+
+		for _, v := range curList {
+			nodeList = append(nodeList, v)
+			values = append(values, v.Value)
+			fmt.Println("v:", v)
+
+			if v.Left != nil {
+				nextList = append(nextList, v.Left)
+			}
+			if v.Right != nil {
+				nextList = append(nextList, v.Right)
+			}
+		}
+		// copy(curList, nextList)
+		curList = nextList
+
+	}
+
 	return nodeList, values
 }

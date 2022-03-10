@@ -72,3 +72,11 @@ func TestPostOrder(t *testing.T) {
 	assert.Equal(t, res, res2, "TestPostOrder---success")
 	t.Logf("res : %v", res)
 }
+func TestLevelOrder(t *testing.T) {
+
+	values := []int{60, 40, 80, 35, 50, 0, 91, 0, 0, 45}
+	root := CreateBT(values)
+	_, res := root.LevelOrder()
+	assert.Equal(t, []int{60, 40, 80, 35, 50, 91, 45}, res, "TestPostOrderByRecursive---success")
+	t.Logf("res : %v", res)
+}
